@@ -35,3 +35,11 @@ create table if not exists Domicilios (
     idcliente int(5),
     foreign key (idcliente) references Clientes(idCliente)
 );
+
+create table if not exists RetiroSinTarjeta(
+    folio int primary key not null, 
+    contraseña varchar(8) not null, 
+    estado varchar(10) CHECK (estado in ("Activo", "Cancelado")),
+    idcliente int,
+    foreign key (idcliente) references Clientes(idCliente)
+);
