@@ -1,3 +1,15 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Entidades;
+
+import java.util.Objects;
+
+/**
+ *
+ * @author lv1821
+ */
 public class Clientes {
     int id, edad;
     String nombre, apellidoPaterno, apellidoMaterno, fehcadenacimiento, domicilio;
@@ -129,6 +141,9 @@ public class Clientes {
     @Override
     public String toString() {
         return "Clientes{" + "id=" + id + ", edad=" + edad + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", fehcadenacimiento=" + fehcadenacimiento + ", domicilio=" + domicilio + '}';
-    }    
+    }
+    
+    
+    
+    
 }
-

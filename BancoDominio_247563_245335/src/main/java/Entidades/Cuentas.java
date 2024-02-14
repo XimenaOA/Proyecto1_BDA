@@ -1,3 +1,15 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Entidades;
+
+import java.util.Objects;
+
+/**
+ *
+ * @author lv1821
+ */
 public class Cuentas {
     int numeroDeCuenta;
     String fechaApertura;
@@ -69,5 +81,7 @@ public class Cuentas {
     @Override
     public String toString() {
         return "Cuentas{" + "numeroDeCuenta=" + numeroDeCuenta + ", fechaApertura=" + fechaApertura + ", saldo=" + saldo + '}';
-    } 
+    }
+    
+    
 }

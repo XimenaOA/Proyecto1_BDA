@@ -1,3 +1,15 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Entidades;
+
+import java.util.Objects;
+
+/**
+ *
+ * @author lv1821
+ */
 public class Domicilio {
     int idDomicilio, numero, idCliente;
     String calle, codigoPostal;
@@ -94,5 +106,7 @@ public class Domicilio {
     @Override
     public String toString() {
         return "Domicilio{" + "idDomicilio=" + idDomicilio + ", numero=" + numero + ", idCliente=" + idCliente + ", calle=" + calle + ", codigoPostal=" + codigoPostal + '}';
-    }    
+    }
+    
+    
 }
