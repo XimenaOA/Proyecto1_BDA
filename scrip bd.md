@@ -12,7 +12,7 @@ create table  Clientes (
 create table Movimientos (
 	idMovimiento varchar(10) primary key unique,
     tipoMovimiento varchar(20) check( tipoMovimiento in("Transferencia","Retiro")),
-    saldo int(10),
+    saldo double,
     fecha varchar(10),
     idcliente int(5),
     foreign key (idcliente) references Clientes(idCliente)
@@ -21,7 +21,7 @@ create table Movimientos (
 create table Cuentas (
     idCuenta varchar(10) primary key unique,
     fechaApertura varchar(10),
-    saldo decimal(50),
+    saldo double,
     idcliente int(5),
     foreign key (idcliente) references Clientes(idCliente)
 );
