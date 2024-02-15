@@ -61,5 +61,68 @@ public class Clientes {
         this.fehcadenacimiento = fehcadenacimiento;
     }
 
+    public String getUsr() {
+        return usr;
+    }
+
+    public void setUsr(String usr) {
+        this.usr = usr;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + this.id;
+        hash = 29 * hash + Objects.hashCode(this.nombre);
+        hash = 29 * hash + Objects.hashCode(this.apellidoPaterno);
+        hash = 29 * hash + Objects.hashCode(this.apellidoMaterno);
+        hash = 29 * hash + Objects.hashCode(this.fehcadenacimiento);
+        hash = 29 * hash + Objects.hashCode(this.usr);
+        hash = 29 * hash + Objects.hashCode(this.contrasena);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Clientes other = (Clientes) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.apellidoPaterno, other.apellidoPaterno)) {
+            return false;
+        }
+        if (!Objects.equals(this.apellidoMaterno, other.apellidoMaterno)) {
+            return false;
+        }
+        if (!Objects.equals(this.fehcadenacimiento, other.fehcadenacimiento)) {
+            return false;
+        }
+        if (!Objects.equals(this.usr, other.usr)) {
+            return false;
+        }
+        return Objects.equals(this.contrasena, other.contrasena);
+    }
+
+    
     
 }
