@@ -41,69 +41,33 @@ public class ClienteDao implements iCliente {
 
     @Override
     public String Retiro(Movimientos mov) throws PersistenciaExcepcion {
-        String sentenciaSQL = "select * from Movimientos where idMovimiento= ?";
-
-        String sentenciaSQL2 = "select * from Cuentas where idCuenta= ?";
-
-        try (Connection conexion = this.con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL); PreparedStatement comandoSQL2 = conexion.prepareStatement(sentenciaSQL2);) {
-
-            comandoSQL.setInt(01, mov.getIdMovimiento());
-
-            ResultSet res = comandoSQL.executeQuery(sentenciaSQL);
-
-            res.next();
-
-            comandoSQL2.setInt(01, res.getInt("idCuenta"));
-
-            ResultSet res2 = comandoSQL2.executeQuery(sentenciaSQL2);
-
-//            double SaldoARestar = res.getDouble("saldo");
-//            double SaldoCuenta = res2.getInt("saldo");
-//            
-//            SaldoCuenta-=SaldoARestar;
-            return null;
-
-        } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "No se puede consultar el activista", e);
-            throw new PersistenciaExcepcion("No se puede consultar el activista", e);
-        }
-    }
-
-    /**
-     * Metodo que funciona como timer o cronometro no se como se diga de 10
-     * minutos
-     */
-    public boolean ejecutarTimer(Connection conexion, int idC, double saldo) {
-        //creo un hilo
-        new Thread(new Runnable() {
-            //hago un metodo en el hilo qye va a ser donde empieze el timer
-            @Override
-            public void run() {
-                //declaro la variable como long por lo larga de la info
-                //otra, estoy llamando al sistema para que me de los milisegundos exactos
-                long empieza = System.currentTimeMillis();
-                /**
-                 * en este ciclo pasan un par de cosas, primero revisamos los
-                 * milisegundos actuales y le los restamos nuestra variable
-                 * long, cuando empieze es obio que de 0, pero con forme se
-                 * repita el ciclo la cantidad que nos de el sistema va ir
-                 * aumentando y esto va a ocurrir hasta que la resta sea mayor o
-                 * igual a 600000 mili segundos que son 600 segundos y 600
-                 * segundos son 10 minutos :D
-                 */
-                while (System.currentTimeMillis() - empieza <= 600000) {
-                    try {
-                        //dormimos el hilo 1 segundo para que no el tiempo pase y el ciclo siga su rumbo
-                        Thread.sleep(1000);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            //ya aquí solo empezamos el hilo
-        }).start();
-
-        return true;
+//        String sentenciaSQL = "select * from Movimientos where idMovimiento= ?";
+//
+//        String sentenciaSQL2 = "select * from Cuentas where idCuenta= ?";
+//
+//        try (Connection conexion = this.con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL); PreparedStatement comandoSQL2 = conexion.prepareStatement(sentenciaSQL2);) {
+//
+//            comandoSQL.setInt(01, mov.getIdMovimiento());
+//
+//            ResultSet res = comandoSQL.executeQuery(sentenciaSQL);
+//
+//            res.next();
+//
+//            comandoSQL2.setInt(01, res.getInt("idCuenta"));
+//
+//            ResultSet res2 = comandoSQL2.executeQuery(sentenciaSQL2);
+//
+////            double SaldoARestar = res.getDouble("saldo");
+////            double SaldoCuenta = res2.getInt("saldo");
+////            
+////            SaldoCuenta-=SaldoARestar;
+//            return null;
+//
+//        } catch (SQLException e) {
+//            LOG.log(Level.SEVERE, "No se puede consultar el activista", e);
+//            throw new PersistenciaExcepcion("No se puede consultar el activista", e);
+//        }
+    return null;
     }
 
     @Override
@@ -112,24 +76,24 @@ public class ClienteDao implements iCliente {
         LocalDate fechaNacimiento = LocalDate.parse(cliente.getFehcadenacimiento(), formatoFecha);
         LocalDate hoy = LocalDate.now();
         Period periodo = Period.between(fechaNacimiento, hoy);
-        String edad= String.valueOf(periodo.getYears());
-        String colonia = dom.getColonia();
-        
+        String edad = String.valueOf(periodo.getYears());
+
         String sentenciaSQL = "call agregaC(?,?,?,?,?,?,?,?,?,?)";
-        
+
         try (Connection conexion = this.con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
-            comandoSQL.setString(01, cliente.getNombre());
-            comandoSQL.setString(02, cliente.getApellidoPaterno());
-            comandoSQL.setString(03, cliente.getApellidoMaterno());
-            comandoSQL.setString(04, cliente.getFehcadenacimiento());
-            comandoSQL.setString(05, edad);
-            comandoSQL.setString(06, cliente.getUsr());
-            comandoSQL.setString(07, cliente.getContrasena());
-            comandoSQL.setString(08,colonia);
-            comandoSQL.setString(09, dom.getCalle());
-            comandoSQL.setInt(10, dom.getNumero());
-            
+            comandoSQL.setString(1, cliente.getNombre());
+            comandoSQL.setString(2, cliente.getApellidoPaterno());
+            comandoSQL.setString(3, cliente.getApellidoMaterno());
+            comandoSQL.setString(4, cliente.getFehcadenacimiento());
+            comandoSQL.setString(5, edad); 
+            comandoSQL.setString(6, cliente.getUsr());
+            comandoSQL.setString(7, cliente.getContrasena());
+            comandoSQL.setInt(10, dom.getNumero()); 
+            comandoSQL.setString(8, dom.getColonia());
+            comandoSQL.setString(9, dom.getCalle());
+
             int res = comandoSQL.executeUpdate();
+            
             LOG.log(Level.INFO, "Se ha registrado el usuario", res);
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "No se pudo registrar", e);
