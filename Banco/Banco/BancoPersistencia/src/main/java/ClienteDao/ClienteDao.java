@@ -127,12 +127,13 @@ public class ClienteDao implements iCliente {
             comandoSQL.setString(2, contrasenia);
             ResultSet res = comandoSQL.executeQuery();
             if (res.next()) {
-                
-            } 
+
+            }
 
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "No se pudo iniciar sesión", e);
             return false;
         }
-
+        return false;
     }
+}
