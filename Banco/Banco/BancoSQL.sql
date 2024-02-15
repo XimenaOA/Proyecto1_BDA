@@ -21,15 +21,6 @@ idcliente int(5),
 foreign key (idcliente) references Clientes(idCliente)
 );
 
-create table Movimientos(
-idMovimiento int(10) primary key unique, 
-estado varchar(20) check(estado in("Activo", "Espera", "Cancelado")) not null, 
-tipoMovimiento varchar(20) check( tipoMovimiento in("Transferencia","Retiro")), 
-monto double, 
-fecha varchar(10), 
-idcuenta int(10), 
-foreign key (idcuenta) references Cuentas(idCuenta) );
-
 create table Domicilios(
 idDomicilio int(5) not null auto_increment primary key unique, 
 colonia varchar(100), calle varchar(100), 
