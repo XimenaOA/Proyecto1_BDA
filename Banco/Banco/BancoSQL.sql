@@ -8,7 +8,7 @@ nombre varchar(20),
 apellidopaterno varchar(50), 
 apellidomaterno varchar(50),
 edad varchar(2),
-fechaDeNacimiento varchar(8),
+fechaDeNacimiento varchar(10),
 usr varchar(10),
 contrasena varchar(20)
 );
@@ -35,7 +35,7 @@ Folio int(10) unique key,
 estado varchar(20) check(estado in("Activo", "Espera", "Cancelado")),
 contrasena varchar(8),
 monto double,
-fecha varchar(8),
+fecha varchar(10),
 idCuenta int(10),
 foreign key (idCuenta) references Cuentas(idCuenta)
 );
@@ -43,7 +43,7 @@ foreign key (idCuenta) references Cuentas(idCuenta)
 create table transferencias(
 concepto varchar(50),
 destinatario varchar(20),
-fechaDeTrasferencia varchar(8),
+fechaDeTrasferencia varchar(10),
 idCuenta int(10),
 foreign key(idCuenta) references Cuentas(idCuenta)
 );
