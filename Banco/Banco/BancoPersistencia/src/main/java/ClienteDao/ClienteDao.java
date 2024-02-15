@@ -5,8 +5,10 @@
 package ClienteDao;
 
 import ClienteDto.ClienteDto;
+import ClienteDto.DomicilioDto;
 import Conexion.IConexion;
 import Dominio.Clientes;
+import Dominio.Domicilio;
 import Dominio.Movimientos;
 import Excepciones.PersistenciaExcepcion;
 import java.sql.Connection;
@@ -14,6 +16,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -102,16 +107,25 @@ public class ClienteDao implements iCliente {
     }
 
     @Override
-    public void registrarUsuario(Clientes cliente) throws PersistenciaExcepcion {
-        String sentenciaSQL = "insert into clientes(id, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, usr, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?))";
+    public void registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion {
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fechaNacimiento = LocalDate.parse(cliente.getFehcadenacimiento(), formatoFecha);
+        LocalDate hoy = LocalDate.now();
+        Period periodo = Period.between(fechaNacimiento, hoy);
+        String edad= String.valueOf(periodo.getYears());
+        
+        String sentenciaSQL = "call agregaC(?,?,?,?,?,?,?,?,?,?)";
+        
         try (Connection conexion = this.con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
-            comandoSQL.setString(1, cliente.getUsr());
-            comandoSQL.setString(2, cliente.getContrasena());
-            comandoSQL.setString(3, cliente.getNombre());
-            comandoSQL.setString(4, cliente.getApellidoPaterno());
-            comandoSQL.setString(5, cliente.getApellidoMaterno());
-            comandoSQL.setString(6, cliente.getFehcadenacimiento());
-
+            comandoSQL.setString(01, cliente.getNombre());
+            comandoSQL.setString(02, cliente.getApellidoPaterno());
+            comandoSQL.setString(03, cliente.getApellidoMaterno());
+            comandoSQL.setString(04, cliente.getFehcadenacimiento());
+            comandoSQL.setString(05, edad);
+            comandoSQL.setString(06, cliente.getUsr());
+            comandoSQL.setString(07, cliente.getContrasena());
+            
+            
             int res = comandoSQL.executeUpdate();
             LOG.log(Level.INFO, "Se ha registrado el usuario", res);
         } catch (SQLException e) {
