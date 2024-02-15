@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -101,9 +102,17 @@ public class ClienteDao implements iCliente {
     }
 
     @Override
-    public void registrarUsuario(String usr, String contrasenia) throws PersistenciaExcepcion {
-      
-        
+    public void registrarUsuario(Clientes cliente) throws PersistenciaExcepcion {
+       String query = "insert into clientes(id, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, usr, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?))";
+        try (Connection conexion = this.con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);){
+            comandoSQL.setString(1, cliente.getNombre());
+            comandoSQL.setString(2, cliente.getApellidoPaterno());
+            comandoSQL.setString(3, cliente.getApellidoMaterno());
+            comandoSQL.setString(4, cliente.getFehcadenacimiento());
+            
+            
+        } catch (Exception e) {
+        }
 
     }
 

@@ -5,6 +5,7 @@
 package ClienteDao;
 
 import ClienteDto.ClienteDto;
+import Dominio.Clientes;
 import Dominio.Movimientos;
 import Excepciones.PersistenciaExcepcion;
 
@@ -14,6 +15,6 @@ import Excepciones.PersistenciaExcepcion;
  */
 public interface iCliente {
     public String Retiro(Movimientos mov) throws PersistenciaExcepcion;
-    public void registrarUsuario(String usr, String contrasenia) throws PersistenciaExcepcion;
+    public void registrarUsuario(Clientes cliente) throws PersistenciaExcepcion;
     public boolean login(String usr, String contrasenia) throws PersistenciaExcepcion;
 }
