@@ -4,8 +4,16 @@
  */
 package interfaz.Usuario;
 
+import ClienteDao.ClienteDao;
+import ClienteDao.iCliente;
+import ClienteDto.ClienteDto;
+import Conexion.Conexion;
+import Conexion.IConexion;
+import Dominio.Movimientos;
+import Excepciones.PersistenciaExcepcion;
 import java.sql.Connection;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,13 +41,7 @@ public class Historial extends javax.swing.JFrame {
         initComponents();
         this.llenarT();
     }
-    /**
-     * Creates new form Historia
-     */
-    public Historial() {
-        initComponents();
-    }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,7 +55,7 @@ public class Historial extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtH = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
@@ -68,9 +70,9 @@ public class Historial extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Detalles");
 
-        jTable1.setBackground(new java.awt.Color(255, 255, 255));
-        jTable1.setForeground(new java.awt.Color(0, 0, 0));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtH.setBackground(new java.awt.Color(255, 255, 255));
+        jtH.setForeground(new java.awt.Color(0, 0, 0));
+        jtH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -89,9 +91,10 @@ public class Historial extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
-        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setViewportView(jTable1);
+        jtH.setGridColor(new java.awt.Color(10, 80, 186));
+        jtH.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        jtH.setSelectionForeground(new java.awt.Color(10, 80, 186));
+        jScrollPane1.setViewportView(jtH);
 
         jButton1.setBackground(new java.awt.Color(10, 80, 186));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -109,7 +112,7 @@ public class Historial extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
+                        .addGap(148, 148, 148)
                         .addComponent(jButton1)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -127,7 +130,7 @@ public class Historial extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("TeX Gyre Adventor", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Histarial");
+        jLabel3.setText("Historial");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -213,7 +216,11 @@ public class Historial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Historial().setVisible(true);
+                try {
+                    new Historial().setVisible(true);
+                } catch (PersistenciaExcepcion ex) {
+                    Logger.getLogger(Historial.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -225,6 +232,6 @@ public class Historial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtH;
     // End of variables declaration//GEN-END:variables
 }
