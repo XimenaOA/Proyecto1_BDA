@@ -12,45 +12,27 @@ import java.util.Objects;
  */
 public class Movimientos {
 
-    private int idMovimiento;
-    private String tipoMovimiento;
-    private double saldo;
+    private String tipo;
     private String fecha;
-    private int idCliente;
+    private double saldo;
+    private int idcuenta;
 
     public Movimientos() {
     }
 
-    public Movimientos(int idMovimiento, String tipoMovimiento, double saldo, String fecha, int idCliente) {
-        this.idMovimiento = idMovimiento;
-        this.tipoMovimiento = tipoMovimiento;
-        this.saldo = saldo;
+    public Movimientos(String tipo, String fecha, double saldo, int idcuenta) {
+        this.tipo = tipo;
         this.fecha = fecha;
-        this.idCliente = idCliente;
-    }
-
-    public int getIdMovimiento() {
-        return idMovimiento;
-    }
-
-    public void setIdMovimiento(int idMovimiento) {
-        this.idMovimiento = idMovimiento;
-    }
-
-    public String getTipoMovimiento() {
-        return tipoMovimiento;
-    }
-
-    public void setTipoMovimiento(String tipoMovimiento) {
-        this.tipoMovimiento = tipoMovimiento;
-    }
-
-    public double getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(double saldo) {
         this.saldo = saldo;
+        this.idcuenta = idcuenta;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getFecha() {
@@ -61,22 +43,29 @@ public class Movimientos {
         this.fecha = fecha;
     }
 
-    public int getIdCliente() {
-        return idCliente;
+    public double getSaldo() {
+        return saldo;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public int getIdcuenta() {
+        return idcuenta;
+    }
+
+    public void setIdcuenta(int idcuenta) {
+        this.idcuenta = idcuenta;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 37 * hash + this.idMovimiento;
-        hash = 37 * hash + Objects.hashCode(this.tipoMovimiento);
-        hash = 37 * hash + (int) (Double.doubleToLongBits(this.saldo) ^ (Double.doubleToLongBits(this.saldo) >>> 32));
-        hash = 37 * hash + Objects.hashCode(this.fecha);
-        hash = 37 * hash + this.idCliente;
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.tipo);
+        hash = 97 * hash + Objects.hashCode(this.fecha);
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.saldo) ^ (Double.doubleToLongBits(this.saldo) >>> 32));
+        hash = 97 * hash + this.idcuenta;
         return hash;
     }
 
@@ -92,20 +81,16 @@ public class Movimientos {
             return false;
         }
         final Movimientos other = (Movimientos) obj;
-        if (this.idMovimiento != other.idMovimiento) {
-            return false;
-        }
         if (Double.doubleToLongBits(this.saldo) != Double.doubleToLongBits(other.saldo)) {
             return false;
         }
-        if (this.idCliente != other.idCliente) {
+        if (this.idcuenta != other.idcuenta) {
             return false;
         }
-        if (!Objects.equals(this.tipoMovimiento, other.tipoMovimiento)) {
+        if (!Objects.equals(this.tipo, other.tipo)) {
             return false;
         }
         return Objects.equals(this.fecha, other.fecha);
     }
-
-    
+        
 }
