@@ -4,12 +4,35 @@
  */
 package interfaz.Usuario;
 
+import java.sql.Connection;
+import java.util.List;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author jesus
  */
 public class Historial extends javax.swing.JFrame {
 
+    private static final Logger LOG = Logger.getLogger(Connection.class.getName());
+    String url = "jdbc:mysql://localhost:3306/banco";
+    String usuario = "root";
+    String contraseña = "18931Mor";
+
+    IConexion con = new Conexion(url, usuario, contraseña);
+
+    private iCliente cli = new ClienteDao(con);
+
+    private ClienteDto cl = new ClienteDto(1);
+
+    /**
+     * Creates new form Historia
+     */
+    public Historial() throws PersistenciaExcepcion {
+        initComponents();
+        this.llenarT();
+    }
     /**
      * Creates new form Historia
      */
@@ -140,6 +163,25 @@ public class Historial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void llenarT() throws PersistenciaExcepcion {
+        List<Movimientos> listaHist = cli.historial(cl);
+
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.jtH.getModel();
+
+        modeloTabla.setRowCount(0);
+
+        listaHist.forEach(Movimientos -> {
+            Object[] filas = new Object[4];
+            filas[0] = Movimientos.getTipo();
+            filas[1] = Movimientos.getIdcuenta();
+            filas[2] = Movimientos.getFecha();
+            filas[3] = Movimientos.getSaldo();
+            modeloTabla.addRow(filas);
+        });
+    }
+
+    
     /**
      * @param args the command line arguments
      */

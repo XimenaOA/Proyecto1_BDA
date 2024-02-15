@@ -4,12 +4,31 @@
  */
 package Control;
 
+import ClienteDto.ClienteDto;
+import Dominio.Clientes;
 import Dominio.Movimientos;
+import Excepciones.PersistenciaExcepcion;
+import java.util.List;
 
 /**
  *
  * @author jesus
  */
 public interface iControl {
-    public void Retiro(Movimientos mov, String contra);
+    public void registrarUsuario(Clientes cliente) throws PersistenciaExcepcion;
+    
+    public boolean login(String usr, String contrasenia) throws PersistenciaExcepcion;
+    
+//    public Clientes retiro(ClienteDto cli) throws PersistenciaExcepcion;
+//    
+//    public Clientes transeferencia(ClienteDto cli) throws PersistenciaExcepcion;
+    
+    public List<Movimientos> historial(ClienteDto cli) throws PersistenciaExcepcion;
+    
+//    public Clientes modificar(ClienteDto cli) throws PersistenciaExcepcion;
+//    
+//    public Clientes agregarCuenta(ClienteDto cli) throws PersistenciaExcepcion;
+//    
+//    public Clientes eliminarCuenta(ClienteDto cli) throws PersistenciaExcepcion;
+    
 }
