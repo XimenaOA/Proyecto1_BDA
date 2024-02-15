@@ -105,15 +105,18 @@ public class ClienteDao implements iCliente {
     public void registrarUsuario(Clientes cliente) throws PersistenciaExcepcion {
        String query = "insert into clientes(id, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, usr, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?))";
         try (Connection conexion = this.con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);){
-            comandoSQL.setString(1, cliente.getNombre());
-            comandoSQL.setString(2, cliente.getApellidoPaterno());
-            comandoSQL.setString(3, cliente.getApellidoMaterno());
-            comandoSQL.setString(4, cliente.getFehcadenacimiento());
+            comandoSQL.setString(1, cliente.getUsr());
+            comandoSQL.setString(2, cliente.getContrasena());
+            comandoSQL.setString(3, cliente.getNombre());
+            comandoSQL.setString(4, cliente.getApellidoPaterno());
+            comandoSQL.setString(5, cliente.getApellidoMaterno());
+            comandoSQL.setString(6, cliente.getFehcadenacimiento());
             
-            
-        } catch (Exception e) {
+            int res = comandoSQL.executeUpdate();
+            LOG.log(Level.INFO, "Se ha registrado el usuario", res);        
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se pudo registrar", e);
         }
-
     }
 
     @Override
