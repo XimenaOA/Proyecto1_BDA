@@ -45,7 +45,7 @@ public class InicioUsuario extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(10, 80, 186));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/jesus/NetBeansProjects/BancoInterfaz/src/main/resource/usuario32.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("/home/jesus/Documentos/GitHub/Proyecto1_BDA/Banco/Banco/BancoInterfaz/src/main/resource/usuario32.png")); // NOI18N
 
         txtNomUsu.setEditable(false);
         txtNomUsu.setBackground(new java.awt.Color(10, 80, 186));
