@@ -8,7 +8,9 @@ nombre varchar(20),
 apellidopaterno varchar(50), 
 apellidomaterno varchar(50),
 edad varchar(2),
-fechaDeNacimiento varchar(8)
+fechaDeNacimiento varchar(8),
+usr varchar(10),
+contrasena varchar(20)
 );
 
 create table Cuentas( 
