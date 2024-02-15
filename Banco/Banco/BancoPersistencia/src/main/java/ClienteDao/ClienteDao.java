@@ -113,6 +113,7 @@ public class ClienteDao implements iCliente {
         LocalDate hoy = LocalDate.now();
         Period periodo = Period.between(fechaNacimiento, hoy);
         String edad= String.valueOf(periodo.getYears());
+        String colonia = dom.getColonia();
         
         String sentenciaSQL = "call agregaC(?,?,?,?,?,?,?,?,?,?)";
         
@@ -124,7 +125,9 @@ public class ClienteDao implements iCliente {
             comandoSQL.setString(05, edad);
             comandoSQL.setString(06, cliente.getUsr());
             comandoSQL.setString(07, cliente.getContrasena());
-            
+            comandoSQL.setString(08,colonia);
+            comandoSQL.setString(09, dom.getCalle());
+            comandoSQL.setInt(10, dom.getNumero());
             
             int res = comandoSQL.executeUpdate();
             LOG.log(Level.INFO, "Se ha registrado el usuario", res);
