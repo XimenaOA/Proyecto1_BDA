@@ -339,6 +339,9 @@ public class Registro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField8ActionPerformed
 
+    
+    
+    
     /**
      * @param args the command line arguments
      */
