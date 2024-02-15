@@ -33,6 +33,7 @@ Folio int(10) unique key,
 estado varchar(20) check(estado in("Activo", "Espera", "Cancelado")),
 contrasena varchar(8),
 monto double,
+fecha varchar(8),
 idCuenta int(10),
 foreign key (idCuenta) references Cuentas(idCuenta)
 );
