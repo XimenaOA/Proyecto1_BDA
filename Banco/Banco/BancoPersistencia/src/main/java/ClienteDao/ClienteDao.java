@@ -119,20 +119,4 @@ public class ClienteDao implements iCliente {
         }
     }
 
-    @Override
-    public boolean login(String usr, String contrasenia) throws PersistenciaExcepcion {
-        String sentenciaSQL = "SELECT usr, contrasena  FROM Clientes WHERE usr = ? AND contrasena = ?";
-        try (Connection conexion = this.con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
-            comandoSQL.setString(1, usr);
-            comandoSQL.setString(2, contrasenia);
-            ResultSet res = comandoSQL.executeQuery();
-            if (res.next()) {
-                
-            } 
-
-        } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "No se pudo iniciar sesión", e);
-            return false;
-        }
-
-    }
+   
