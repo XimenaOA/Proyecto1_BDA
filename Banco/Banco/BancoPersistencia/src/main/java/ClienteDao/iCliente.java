@@ -5,7 +5,9 @@
 package ClienteDao;
 
 import ClienteDto.ClienteDto;
+import ClienteDto.DomicilioDto;
 import Dominio.Clientes;
+import Dominio.Domicilio;
 import Dominio.Movimientos;
 import Excepciones.PersistenciaExcepcion;
 import java.util.List;
@@ -15,9 +17,14 @@ import java.util.List;
  * @author jesus
  */
 public interface iCliente {
+
     
     public void registrarUsuario(Clientes cliente) throws PersistenciaExcepcion;
     
+    public String Retiro(Movimientos mov) throws PersistenciaExcepcion;
+    
+    public void registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion;
+
     public boolean login(String usr, String contrasenia) throws PersistenciaExcepcion;
     
 //    public Clientes retiro(ClienteDto cli) throws PersistenciaExcepcion;

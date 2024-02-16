@@ -5,8 +5,10 @@
 package ClienteDao;
 
 import ClienteDto.ClienteDto;
+import ClienteDto.DomicilioDto;
 import Conexion.IConexion;
 import Dominio.Clientes;
+import Dominio.Domicilio;
 import Dominio.Movimientos;
 import Excepciones.PersistenciaExcepcion;
 import java.sql.Connection;
@@ -14,6 +16,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -57,20 +62,62 @@ public class ClienteDao implements iCliente {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
         return null;
+    
+    }     
+public String Retiro(Movimientos mov) throws PersistenciaExcepcion {
+//        String sentenciaSQL = "select * from Movimientos where idMovimiento= ?";
+//
+//        String sentenciaSQL2 = "select * from Cuentas where idCuenta= ?";
+//
+//        try (Connection conexion = this.con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL); PreparedStatement comandoSQL2 = conexion.prepareStatement(sentenciaSQL2);) {
+//
+//            comandoSQL.setInt(01, mov.getIdMovimiento());
+//
+//            ResultSet res = comandoSQL.executeQuery(sentenciaSQL);
+//
+//            res.next();
+//
+//            comandoSQL2.setInt(01, res.getInt("idCuenta"));
+//
+//            ResultSet res2 = comandoSQL2.executeQuery(sentenciaSQL2);
+//
+////            double SaldoARestar = res.getDouble("saldo");
+////            double SaldoCuenta = res2.getInt("saldo");
+////            
+////            SaldoCuenta-=SaldoARestar;
+//            return null;
+//
+//        } catch (SQLException e) {
+//            LOG.log(Level.SEVERE, "No se puede consultar el activista", e);
+//            throw new PersistenciaExcepcion("No se puede consultar el activista", e);
+//        }
+    return null;
     }
 
     @Override
-    public void registrarUsuario(Clientes cliente) throws PersistenciaExcepcion {
-        String sentenciaSQL = "insert into clientes(id, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, usr, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?))";
+    public void registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion {
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fechaNacimiento = LocalDate.parse(cliente.getFehcadenacimiento(), formatoFecha);
+        LocalDate hoy = LocalDate.now();
+        Period periodo = Period.between(fechaNacimiento, hoy);
+        String edad = String.valueOf(periodo.getYears());
+
+        String sentenciaSQL = "call agregaC(?,?,?,?,?,?,?,?,?,?)";
+
         try (Connection conexion = this.con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
-            comandoSQL.setString(1, cliente.getUsr());
-            comandoSQL.setString(2, cliente.getContrasena());
-            comandoSQL.setString(3, cliente.getNombre());
-            comandoSQL.setString(4, cliente.getApellidoPaterno());
-            comandoSQL.setString(5, cliente.getApellidoMaterno());
-            comandoSQL.setString(6, cliente.getFehcadenacimiento());
+            comandoSQL.setString(1, cliente.getNombre());
+            comandoSQL.setString(2, cliente.getApellidoPaterno());
+            comandoSQL.setString(3, cliente.getApellidoMaterno());
+            comandoSQL.setString(4, cliente.getFehcadenacimiento());
+            comandoSQL.setString(5, edad); 
+            comandoSQL.setString(6, cliente.getUsr());
+            comandoSQL.setString(7, cliente.getContrasena());
+            comandoSQL.setInt(10, dom.getNumero()); 
+            comandoSQL.setString(8, dom.getColonia());
+            comandoSQL.setString(9, dom.getCalle());
 
             int res = comandoSQL.executeUpdate();
+            
             LOG.log(Level.INFO, "Se ha registrado el usuario", res);
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "No se pudo registrar", e);
@@ -94,4 +141,10 @@ public class ClienteDao implements iCliente {
         }
         return false;
     }
+
+    @Override
+    public void registrarUsuario(Clientes cliente) throws PersistenciaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
+
