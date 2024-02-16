@@ -118,5 +118,6 @@ public class ClienteDao implements iCliente {
             LOG.log(Level.SEVERE, "No se pudo registrar", e);
         }
     }
+}
 
    
