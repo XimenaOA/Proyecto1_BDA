@@ -24,12 +24,12 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>BancoNegocio</artifactId>
+            <artifactId>BancoPersistencia</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>BancoPersistencia</artifactId>
+            <artifactId>BancoNegocio</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
