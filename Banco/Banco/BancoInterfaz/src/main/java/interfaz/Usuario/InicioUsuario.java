@@ -91,7 +91,7 @@ public class InicioUsuario extends javax.swing.JFrame {
         jtCuentas.setAutoCreateRowSorter(true);
         jtCuentas.setBackground(new java.awt.Color(204, 204, 204));
         jtCuentas.setFont(new java.awt.Font("TeX Gyre Adventor", 0, 12)); // NOI18N
-        jtCuentas.setForeground(new java.awt.Color(255, 255, 255));
+        jtCuentas.setForeground(new java.awt.Color(10, 80, 186));
         jtCuentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -291,6 +291,7 @@ public class InicioUsuario extends javax.swing.JFrame {
         } catch (PersistenciaExcepcion ex) {
             Logger.getLogger(InicioUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

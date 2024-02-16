@@ -23,9 +23,9 @@ import javax.swing.JOptionPane;
  */
 public class Inicio extends javax.swing.JFrame {
 
-    String url = "jdbc:mysql://localhost:3306/banco";
+    String url = "jdbc:mysql://localhost:3306/Banco";
     String usuario = "root";
-    String contraseña = "18931Mor";
+    String contraseña = "18931_Mor";
 
     IConexion con = new Conexion(url, usuario, contraseña);
 
@@ -68,6 +68,8 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setIcon(new javax.swing.ImageIcon("/home/jesus/Documentos/GitHub/Proyecto1_BDA/Banco/Banco/BancoInterfaz/src/main/resource/usuario128.png")); // NOI18N
+
         jLabel2.setFont(new java.awt.Font("TeX Gyre Adventor", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(10, 80, 186));
         jLabel2.setText("¡Bienvenido!");
@@ -97,8 +99,9 @@ public class Inicio extends javax.swing.JFrame {
         retiro.setBackground(new java.awt.Color(255, 255, 255));
         retiro.setForeground(new java.awt.Color(10, 80, 186));
         retiro.setText("Retiro sin tarjeta");
-        retiro.setBorder(null);
+        retiro.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
         retiro.setBorderPainted(false);
+        retiro.setContentAreaFilled(false);
         retiro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 retiroActionPerformed(evt);
@@ -108,8 +111,9 @@ public class Inicio extends javax.swing.JFrame {
         retiro1.setBackground(new java.awt.Color(255, 255, 255));
         retiro1.setForeground(new java.awt.Color(0, 0, 0));
         retiro1.setText("Registro");
-        retiro1.setBorder(null);
+        retiro1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
         retiro1.setBorderPainted(false);
+        retiro1.setContentAreaFilled(false);
         retiro1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 retiro1ActionPerformed(evt);
@@ -124,9 +128,6 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(72, 72, 72))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3))
@@ -139,13 +140,16 @@ public class Inicio extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(86, 86, 86))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(retiro)
-                        .addGap(93, 93, 93))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(retiro1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Continuar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(95, 95, 95))))
+                        .addGap(95, 95, 95))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(78, 78, 78))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(retiro, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(74, 74, 74))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,9 +170,9 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(Continuar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(retiro1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(retiro)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -206,7 +210,7 @@ public class Inicio extends javax.swing.JFrame {
                     LOG.log(Level.SEVERE, "No se inicio sesión");
                 } else {
                     LOG.log(Level.INFO, "se inicio sesión");
-                    InicioUsuario inicioUsuario = new InicioUsuario(cli);
+                    InicioUsuario inicioUsuario = new InicioUsuario(control, cli);
                     inicioUsuario.setVisible(true);
                     this.setVisible(false);
                 }
@@ -214,11 +218,16 @@ public class Inicio extends javax.swing.JFrame {
                 LOG.log(Level.SEVERE, "No se inicio sesión", e);
             }
 
+        }else{
+        JOptionPane.showConfirmDialog(this, "Usuario o contraseña incorrectos");
+        this.txtContrasena.setText("");
+        this.txtUsr.setText("");
+        
         }
     }//GEN-LAST:event_ContinuarActionPerformed
 
     private void retiro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retiro1ActionPerformed
-        Registro regi = new Registro();
+        Registro regi = new Registro(cliente);
         this.setVisible(false);
         regi.setVisible(true);
     }//GEN-LAST:event_retiro1ActionPerformed
