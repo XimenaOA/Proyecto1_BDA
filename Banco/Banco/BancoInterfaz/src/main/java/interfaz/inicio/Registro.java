@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  * @author jesus
  */
 public class Registro extends javax.swing.JFrame {
-
+ 
     private static final Logger LOG = Logger.getLogger(Connection.class.getName());
     String url = "jdbc:mysql://localhost:3306/banco";
     String usuario = "root";
