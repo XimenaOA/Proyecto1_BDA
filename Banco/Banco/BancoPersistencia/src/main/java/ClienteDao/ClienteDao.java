@@ -126,102 +126,98 @@ public class ClienteDao implements iCliente {
 
     @Override
     public Clientes login(String usr, String contrasenia) throws PersistenciaExcepcion {
-            String sentenciaSQL = "SELECT * FROM Clientes WHERE usr = ? AND contrasena = ?";
+        String sentenciaSQL = "SELECT * FROM Clientes WHERE usr = ? AND contrasena = ?";
 
-            
-            try {
-                String contra = encriptar(contrasenia);
+        try {
+            String contra = encriptar(contrasenia);
 
-                try (Connection conexion = this.con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)) {
-                    comandoSQL.setString(1, usr);
-                    comandoSQL.setString(2, contra);
+            try (Connection conexion = this.con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)) {
+                comandoSQL.setString(1, usr);
+                comandoSQL.setString(2, contra);
 
-                    try (ResultSet res = comandoSQL.executeQuery()) {
-                        if (res.next()) {
-                            return new Clientes(res.getInt("idCliente"), res.getString("nombre"),
-                                    res.getString("apellidopaterno"), res.getString("apellidomaterno"),
-                                    res.getString("fechaDeNacimiento"), res.getString("usr"), res.getString("contrasena"));
-                        }
+                try (ResultSet res = comandoSQL.executeQuery()) {
+                    if (res.next()) {
+                        return new Clientes(res.getInt("idCliente"), res.getString("nombre"),
+                                res.getString("apellidopaterno"), res.getString("apellidomaterno"),
+                                res.getString("fechaDeNacimiento"), res.getString("usr"), res.getString("contrasena"));
                     }
                 }
-            } catch (SQLException e) {
-                LOG.log(Level.SEVERE, "No se pudo iniciar sesión", e);
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return null;
-
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se pudo iniciar sesión", e);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
 
-        @Override
-        public boolean transeferencia
-        (int cuenta1, double MontoCuenta1, double saldo, double MontoCuenta2, int cuenta2) throws PersistenciaExcepcion {
-            String sentencia = ("call transferencia(?, ?, ?, ?, ?);");
+    }
 
-            try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+    @Override
+    public boolean transeferencia(int cuenta1, double MontoCuenta1, double saldo, double MontoCuenta2, int cuenta2) throws PersistenciaExcepcion {
+        String sentencia = ("call transferencia(?, ?, ?, ?, ?);");
 
-                comandoSQL.setInt(01, cuenta1);
-                comandoSQL.setDouble(02, MontoCuenta1);
-                comandoSQL.setDouble(03, saldo);
-                comandoSQL.setDouble(04, MontoCuenta2);
-                comandoSQL.setInt(05, cuenta2);
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
 
-                ResultSet res = comandoSQL.executeQuery(sentencia);
+            comandoSQL.setInt(01, cuenta1);
+            comandoSQL.setDouble(02, MontoCuenta1);
+            comandoSQL.setDouble(03, saldo);
+            comandoSQL.setDouble(04, MontoCuenta2);
+            comandoSQL.setInt(05, cuenta2);
 
-                return true;
-            } catch (SQLException ex) {
-                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
-            }
-            return false;
+            ResultSet res = comandoSQL.executeQuery(sentencia);
+
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
+        return false;
+    }
 
-        @Override
-        public List<String> ConsultarCuentasTranseferencias(int id) throws PersistenciaExcepcion {
-            List<String> listC = new ArrayList<>();
-            String sentencia = String.format("select numeroDeCuenta from Cuentas c join Clientes cl on c.idcliente = cl.idCliente where cl.idCliente='%d'", id);
+    @Override
+    public List<String> ConsultarCuentasTranseferencias(int id) throws PersistenciaExcepcion {
+        List<String> listC = new ArrayList<>();
+        String sentencia = String.format("select numeroDeCuenta from Cuentas c join Clientes cl on c.idcliente = cl.idCliente where cl.idCliente='%d'", id);
 
-            try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
 
-                ResultSet res = comandoSQL.executeQuery(sentencia);
+            ResultSet res = comandoSQL.executeQuery(sentencia);
 
-                while (res.next()) {
-                    String cuenta = res.getString("numeroDeCuenta");
-                    listC.add(cuenta);
-                }
-
-                return listC;
-            } catch (SQLException ex) {
-                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            while (res.next()) {
+                String cuenta = res.getString("numeroDeCuenta");
+                listC.add(cuenta);
             }
 
             return listC;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
+
+        return listC;
+    }
 
     @Override
     public List<Cuentas> ConsultarCuentasInicio(int id) throws PersistenciaExcepcion {
-            List<Cuentas> listC = new ArrayList<>();
-            String sentencia = String.format("select numeroDeCuenta from Cuentas c join Clientes cl on c.idcliente = cl.idCliente where cl.idCliente='%d'", id);
+        List<Cuentas> listC = new ArrayList<>();
+        String sentencia = String.format("select * from Cuentas c join Clientes cl on c.idcliente = cl.idCliente where cl.idCliente='%d'", id);
 
-            try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
 
-                ResultSet res = comandoSQL.executeQuery(sentencia);
+            ResultSet res = comandoSQL.executeQuery(sentencia);
 
-                while (res.next()) {
-                    int numCuenta = res.getInt("numeroDeCuenta");
-                    String fecha = res.getString("fechaApertura");
-                    int saldo = res.getInt("monto");
-                    Cuentas cuenta = new Cuentas(numCuenta, fecha, saldo, id);
-                    listC.add(cuenta);
-                }
-                
-                
-
-                return listC;
-            } catch (SQLException ex) {
-                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            while (res.next()) {
+                int numCuenta = res.getInt("numeroDeCuenta");
+                String fecha = res.getString("fechaApertura");
+                int saldo = res.getInt("monto");
+                Cuentas cuenta = new Cuentas(numCuenta, fecha, saldo, id);
+                listC.add(cuenta);
             }
 
             return listC;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+
+        return listC;
     }
 
-    }
+}
