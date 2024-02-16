@@ -7,6 +7,7 @@ package Control;
 import ClienteDto.ClienteDto;
 import ClienteDto.DomicilioDto;
 import Dominio.Clientes;
+import Dominio.Cuentas;
 //import Dominio.Movimientos;
 import Excepciones.PersistenciaExcepcion;
 import java.security.NoSuchAlgorithmException;
@@ -25,6 +26,7 @@ public interface iControl {
     
     Clientes iniciarSesion(String usr, String contrasenia) throws PersistenciaExcepcion;
     
-    List<String> consultarCuentas(int idCliente) throws PersistenciaExcepcion;
+    public List<String> ConsultarCuentasTranseferencias(int id)throws PersistenciaExcepcion;
     
+    public List<Cuentas> ConsultarCuentasInicio(int id)throws PersistenciaExcepcion;
 }

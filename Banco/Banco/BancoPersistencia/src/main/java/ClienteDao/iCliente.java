@@ -7,6 +7,7 @@ package ClienteDao;
 import ClienteDto.ClienteDto;
 import ClienteDto.DomicilioDto;
 import Dominio.Clientes;
+import Dominio.Cuentas;
 import Dominio.Domicilio;
 //import Dominio.Movimientos;
 import Excepciones.PersistenciaExcepcion;
@@ -32,7 +33,10 @@ public interface iCliente {
 //    public List<Movimientos> historial(ClienteDto cli) throws PersistenciaExcepcion;
     public String encriptar(String contra) throws NoSuchAlgorithmException;
     
-    public List<String> ConsultarCuentas(int id)throws PersistenciaExcepcion;
+    public List<String> ConsultarCuentasTranseferencias(int id)throws PersistenciaExcepcion;
+    
+    public List<Cuentas> ConsultarCuentasInicio(int id)throws PersistenciaExcepcion;
+    
 //    public Clientes modificar(ClienteDto cli) throws PersistenciaExcepcion;
 //    
 //    public Clientes agregarCuenta(ClienteDto cli) throws PersistenciaExcepcion;

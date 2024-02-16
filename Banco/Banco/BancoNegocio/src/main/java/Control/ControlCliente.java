@@ -9,6 +9,7 @@ import ClienteDao.iCliente;
 import ClienteDto.ClienteDto;
 import ClienteDto.DomicilioDto;
 import Dominio.Clientes;
+import Dominio.Cuentas;
 //import Dominio.Movimientos;
 import Excepciones.PersistenciaExcepcion;
 import java.security.NoSuchAlgorithmException;
@@ -47,12 +48,17 @@ public class ControlCliente implements iControl {
     }
 
     @Override
-    public List<String> consultarCuentas(int idCliente) throws PersistenciaExcepcion {
-        return clienteDao.ConsultarCuentas(idCliente);
+    public List<String> ConsultarCuentasTranseferencias(int idCliente) throws PersistenciaExcepcion {
+        return clienteDao.ConsultarCuentasTranseferencias(idCliente);
     }
-
+ 
     @Override
     public String encriptar(String contra) throws NoSuchAlgorithmException {
         return clienteDao.encriptar(contra);
+    }
+
+    @Override
+    public List<Cuentas> ConsultarCuentasInicio(int id) throws PersistenciaExcepcion {
+        return clienteDao.ConsultarCuentasInicio(id);
     }
 }
