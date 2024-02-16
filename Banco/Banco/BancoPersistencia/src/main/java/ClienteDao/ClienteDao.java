@@ -32,12 +32,19 @@ import javax.swing.JOptionPane;
 public class ClienteDao implements iCliente {
 
     final IConexion con;
+    
+    private String idCliente = "", nombre = "", apellidoPaterno = "", apellidoMaterno = "", edad = "", fechaDeNacimiento = "", usr = "", contrasena = "";
 
     private static final Logger LOG = Logger.getLogger(Connection.class.getName());
 
     public ClienteDao(IConexion con) {
         this.con = con;
     }
+
+    public ClienteDao() {
+    }
+    
+    
 
     @Override
     public List<Movimientos> historial(ClienteDto cli) throws PersistenciaExcepcion {
@@ -130,15 +137,20 @@ public class ClienteDao implements iCliente {
 
     @Override
     public boolean login(String usr, String contrasenia) throws PersistenciaExcepcion {
-        String sentenciaSQL = "SELECT usr, contrasena  FROM Clientes WHERE usr = ? AND contrasena = ?";
+        String sentenciaSQL = "SELECT * FROM Clientes WHERE usr = ? AND contrasena = ?";
         try (Connection conexion = this.con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
             comandoSQL.setString(1, usr);
             comandoSQL.setString(2, contrasenia);
             ResultSet res = comandoSQL.executeQuery();
-            if (res.next()) {
-
-            }
-
+            while (res.next()) {
+            usr = res.getString("usr");
+            contrasena = res.getString("contrasena");
+            nombre = res.getString("nombre");
+            apellidoPaterno = res.getString("apellido Paterno");
+            apellidoMaterno = res.getString("apellido Materno");
+            edad = res.getString("edad");
+            fechaDeNacimiento = res.getString("fecha de nacimiento");
+        }
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "No se pudo iniciar sesión", e);
             return false;

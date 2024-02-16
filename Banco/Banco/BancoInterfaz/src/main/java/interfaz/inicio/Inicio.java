@@ -1,12 +1,16 @@
 package interfaz.inicio;
 
+import ClienteDao.ClienteDao;
 import ClienteDto.ClienteDto;
 import Conexion.Conexion;
 import Dominio.Clientes;
 import interfaz.Usuario.InicioUsuario;
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -20,6 +24,8 @@ public class Inicio extends javax.swing.JFrame {
     private String usr = "", contrasena = "", nombre = "", apellidoPaterno = "", apellidoMaterno = "", edad = "", fechaDeNacimiento = "";
     private int idCliente;
     private ClienteDto cliente;
+    private static final Logger LOG = Logger.getLogger(Inicio.class.getName());
+    
 
     /**
      * Creates new form Inicio
@@ -46,8 +52,8 @@ public class Inicio extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtUsr = new javax.swing.JTextField();
         txtContrasena = new javax.swing.JTextField();
-        botonContinuar = new javax.swing.JButton();
-        botonRegistro = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         jScrollPane1.setViewportView(jTree1);
@@ -74,21 +80,16 @@ public class Inicio extends javax.swing.JFrame {
         txtContrasena.setForeground(new java.awt.Color(0, 0, 0));
         txtContrasena.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
 
-        botonContinuar.setBackground(new java.awt.Color(10, 80, 186));
-        botonContinuar.setText("Continuar");
-        botonContinuar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonContinuarActionPerformed(evt);
-            }
-        });
+        jButton1.setBackground(new java.awt.Color(10, 80, 186));
+        jButton1.setText("Continuar");
 
-        botonRegistro.setBackground(new java.awt.Color(255, 255, 255));
-        botonRegistro.setForeground(new java.awt.Color(0, 0, 0));
-        botonRegistro.setText("Registrarse");
-        botonRegistro.setBorder(null);
-        botonRegistro.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setForeground(new java.awt.Color(0, 0, 0));
+        jButton2.setText("Registrarse");
+        jButton2.setBorder(null);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRegistroActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -128,11 +129,11 @@ public class Inicio extends javax.swing.JFrame {
                         .addComponent(jButton3)
                         .addGap(93, 93, 93))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(botonContinuar)
+                        .addComponent(jButton1)
                         .addGap(97, 97, 97))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(69, 69, 69)
-                .addComponent(botonRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -151,9 +152,9 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(botonContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botonRegistro)
+                .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addContainerGap())
@@ -184,42 +185,17 @@ public class Inicio extends javax.swing.JFrame {
 
     private void botonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContinuarActionPerformed
        if (validarUsr(txtUsr.getText()) && validaContrasena(txtContrasena.getText())) {
-            try {
-                Connection connection = con.crearConexion();
-                ResultSet res = null;
-                PreparedStatement st = connection.prepareCall("select * from clientes where usr = ?");
-                st.setString(1, txtUsr.getText().trim());
-                res = st.executeQuery();
-                while (res.next()) {
-                    usr = res.getString("usr");
-                    contrasena = res.getString("contrasena");
-                    nombre = res.getString("nombre");
-                    apellidoPaterno = res.getString("apellido Paterno");
-                    apellidoMaterno = res.getString("apellido Materno");
-                    edad = res.getString("edad");
-                    fechaDeNacimiento = res.getString("fecha de nacimiento");
-                }
-                if (contrasena.equals(txtContrasena.getText()) && usr.equals(txtUsr.getText())) {
-                    JOptionPane.showMessageDialog(this, "Se ha ingresado con éxito");
-                    cliente = new ClienteDto(nombre, apellidoPaterno, apellidoMaterno, fechaDeNacimiento, usr, contrasena);
-                    InicioUsuario menu = new InicioUsuario(cliente);
-                    this.setVisible(false);
-                    menu.setVisible(true);
-                } else if (!usr.equals(txtUsr.getText())) {
-                    JOptionPane.showMessageDialog(this, "El usuario es incorrecto o no es valido");
-                } else if (!contrasena.equals(txtContrasena.getText())) {
-                    JOptionPane.showMessageDialog(this, "la contraseña es incorrecta o no es valida");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Los datos no son validos");
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e);
+          ClienteDao cliente = new ClienteDao();
+           try {
+               cliente.login(usr, contrasena);
+               LOG.log(Level.INFO, "No se inicio sesión");
+           } catch (Exception e) {
+               LOG.log(Level.SEVERE, "No se inicio sesión", e);
+           }
+          
+                
             }
-        } else {
-            if(!validarUsr(txtUsr.getText()) && !validaContrasena(txtContrasena.getText())){
-                JOptionPane.showMessageDialog(this, "Error de formato");
-            }
-        }
+        
 
     }//GEN-LAST:event_botonContinuarActionPerformed
 
@@ -275,8 +251,8 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonContinuar;
-    private javax.swing.JButton botonRegistro;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
