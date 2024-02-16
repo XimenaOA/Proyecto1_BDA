@@ -11,6 +11,8 @@ import ClienteDto.DomicilioDto;
 import Conexion.Conexion;
 import Conexion.IConexion;
 import Excepciones.PersistenciaExcepcion;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,13 +20,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author jesus
  */
 public class Registro extends javax.swing.JFrame {
- 
+
     private static final Logger LOG = Logger.getLogger(Connection.class.getName());
     String url = "jdbc:mysql://localhost:3306/banco";
     String usuario = "root";
@@ -120,8 +121,7 @@ public class Registro extends javax.swing.JFrame {
 
         txtFN.setBackground(new java.awt.Color(204, 204, 204));
         txtFN.setForeground(new java.awt.Color(0, 0, 0));
-        txtFN.setText("      AAAA-MM-DD");
-        txtFN.setToolTipText("");
+        txtFN.setToolTipText("AAAA-MM-DD");
         txtFN.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
         txtFN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -423,28 +423,53 @@ public class Registro extends javax.swing.JFrame {
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
         if (this.verificar()) {
-            ClienteDto cliente = new ClienteDto(this.txtNombre.getText(), this.txtAP.getText(), this.txtAM.getText(), this.txtFN.getText(), this.txtUsu.getText(), this.txtContra.getText());
-            
-            DomicilioDto domi = new DomicilioDto(this.txtCol.getText(), this.txtCalle.getText(), Integer.parseInt(this.txtNum.getText()));
-            
+            ClienteDto cliente = null;
+            DomicilioDto domi = null;
+            try {
+                String contra = encriptar(this.txtContra.getText());
+
+                cliente = new ClienteDto(this.txtNombre.getText(), this.txtAP.getText(), this.txtAM.getText(), this.txtFN.getText(), this.txtUsu.getText(), contra);
+
+                domi = new DomicilioDto(this.txtCol.getText(), this.txtCalle.getText(), Integer.parseInt(this.txtNum.getText()));
+
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             try {
                 cli.registrarUsuario(cliente, domi);
-                
+
                 JOptionPane.showConfirmDialog(this, "Se agrego Completamente el cliente");
-                
+
             } catch (PersistenciaExcepcion ex) {
                 Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void txtFNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFNMouseClicked
-        
+
     }//GEN-LAST:event_txtFNMouseClicked
 
+    public String encriptar(String contra) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hashBytes = md.digest(contra.getBytes());
+
+        StringBuilder hexString = new StringBuilder();
+        for (byte hashByte : hashBytes) {
+            String hex = Integer.toHexString(0xff & hashByte);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+
+        return hexString.toString();
+    }
+
     private void txtFNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFNActionPerformed
-    this.txtFN.setText("");
+        this.txtFN.setText("");
     }//GEN-LAST:event_txtFNActionPerformed
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
@@ -452,12 +477,12 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private boolean verificar() {
-        if (!this.txtNombre.getText().equals("") || !this.txtAP.getText().equals("") || 
-                !this.txtAM.getText().equals("") || !this.txtFN.getText().equals("") || 
-                !this.txtUsu.getText().equals("") || !this.txtContra.getText().equals("") || 
-                !this.txtCol.getText().equals("") || !this.txtCalle.getText().equals("") ||
-                !this.txtNum.getText().equals("")) {
-            
+        if (!this.txtNombre.getText().equals("") || !this.txtAP.getText().equals("")
+                || !this.txtAM.getText().equals("") || !this.txtFN.getText().equals("")
+                || !this.txtUsu.getText().equals("") || !this.txtContra.getText().equals("")
+                || !this.txtCol.getText().equals("") || !this.txtCalle.getText().equals("")
+                || !this.txtNum.getText().equals("")) {
+
             Pattern pattern = Pattern.compile("[A-Za-zÁÉÍÓÚÜÑ]+");
             Matcher matcher = pattern.matcher(txtNombre.getText());
 
@@ -564,7 +589,7 @@ public class Registro extends javax.swing.JFrame {
         });
     }
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Aceptar;
     private javax.swing.JButton Cancelar;
