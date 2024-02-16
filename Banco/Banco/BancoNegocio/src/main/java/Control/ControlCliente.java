@@ -9,8 +9,9 @@ import ClienteDao.iCliente;
 import ClienteDto.ClienteDto;
 import ClienteDto.DomicilioDto;
 import Dominio.Clientes;
-import Dominio.Movimientos;
+//import Dominio.Movimientos;
 import Excepciones.PersistenciaExcepcion;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -24,11 +25,11 @@ public class ControlCliente implements iControl {
     public ControlCliente(ClienteDao clienteDao) {
         this.clienteDao = clienteDao;
     }
-
-    @Override
-    public List<Movimientos> obtenerHistorial(ClienteDto cliente) throws PersistenciaExcepcion {
-        return clienteDao.historial(cliente);
-    }
+//
+//    @Override
+//    public List<Movimientos> obtenerHistorial(ClienteDto cliente) throws PersistenciaExcepcion {
+//        return clienteDao.historial(cliente);
+//    }
 
     @Override
     public boolean realizarTransferencia(int cuenta1, double montoCuenta1, double saldo, double montoCuenta2, int cuenta2) throws PersistenciaExcepcion {
@@ -41,12 +42,17 @@ public class ControlCliente implements iControl {
     }
 
     @Override
-    public boolean iniciarSesion(String usr, String contrasenia) throws PersistenciaExcepcion {
+    public Clientes iniciarSesion(String usr, String contrasenia) throws PersistenciaExcepcion {
         return clienteDao.login(usr, contrasenia);
     }
 
     @Override
     public List<String> consultarCuentas(int idCliente) throws PersistenciaExcepcion {
         return clienteDao.ConsultarCuentas(idCliente);
+    }
+
+    @Override
+    public String encriptar(String contra) throws NoSuchAlgorithmException {
+        return clienteDao.encriptar(contra);
     }
 }

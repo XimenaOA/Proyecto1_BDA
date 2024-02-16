@@ -9,7 +9,7 @@ import ClienteDao.iCliente;
 import ClienteDto.ClienteDto;
 import Conexion.Conexion;
 import Conexion.IConexion;
-import Dominio.Movimientos;
+//import Dominio.Movimientos;
 import Excepciones.PersistenciaExcepcion;
 import java.sql.Connection;
 import java.util.List;
@@ -39,7 +39,7 @@ public class Historial extends javax.swing.JFrame {
      */
     public Historial() throws PersistenciaExcepcion {
         initComponents();
-        this.llenarT();
+//        this.llenarT();
     }
     
     /**
@@ -166,23 +166,23 @@ public class Historial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    public void llenarT() throws PersistenciaExcepcion {
-        List<Movimientos> listaHist = cli.historial(cl);
-
-        DefaultTableModel modeloTabla = (DefaultTableModel) this.jtH.getModel();
-
-        modeloTabla.setRowCount(0);
-
-        listaHist.forEach(Movimientos -> {
-            Object[] filas = new Object[4];
-            filas[0] = Movimientos.getTipo();
-            filas[1] = Movimientos.getIdcuenta();
-            filas[2] = Movimientos.getFecha();
-            filas[3] = Movimientos.getSaldo();
-            modeloTabla.addRow(filas);
-        });
-    }
+//    
+//    public void llenarT() throws PersistenciaExcepcion {
+//        List<Movimientos> listaHist = cli.historial(cl);
+//
+//        DefaultTableModel modeloTabla = (DefaultTableModel) this.jtH.getModel();
+//
+//        modeloTabla.setRowCount(0);
+//
+//        listaHist.forEach(Movimientos -> {
+//            Object[] filas = new Object[4];
+//            filas[0] = Movimientos.getTipo();
+//            filas[1] = Movimientos.getIdcuenta();
+//            filas[2] = Movimientos.getFecha();
+//            filas[3] = Movimientos.getSaldo();
+//            modeloTabla.addRow(filas);
+//        });
+//    }
 
     
     /**

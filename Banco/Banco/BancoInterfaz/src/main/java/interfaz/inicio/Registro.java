@@ -10,6 +10,7 @@ import ClienteDto.ClienteDto;
 import ClienteDto.DomicilioDto;
 import Conexion.Conexion;
 import Conexion.IConexion;
+import Control.ControlCliente;
 import Excepciones.PersistenciaExcepcion;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -27,13 +28,16 @@ import javax.swing.JOptionPane;
 public class Registro extends javax.swing.JFrame {
 
     private static final Logger LOG = Logger.getLogger(Connection.class.getName());
+
     String url = "jdbc:mysql://localhost:3306/banco";
     String usuario = "root";
     String contraseña = "18931Mor";
 
     IConexion con = new Conexion(url, usuario, contraseña);
 
-    private iCliente cli = new ClienteDao(con);
+    private ClienteDao cliente = new ClienteDao(con);
+
+    private ControlCliente control = new ControlCliente(cliente);
 
     /**
      * Creates new form Registro
@@ -421,12 +425,27 @@ public class Registro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCalleActionPerformed
 
+    private void txtFNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFNMouseClicked
+
+    }//GEN-LAST:event_txtFNMouseClicked
+
+
+    private void txtFNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFNActionPerformed
+        this.txtFN.setText("");
+    }//GEN-LAST:event_txtFNActionPerformed
+
+    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+        Inicio ini = new Inicio();
+        setVisible(false);
+        ini.setVisible(true);
+    }//GEN-LAST:event_CancelarActionPerformed
+
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
         if (this.verificar()) {
             ClienteDto cliente = null;
             DomicilioDto domi = null;
             try {
-                String contra = encriptar(this.txtContra.getText());
+                String contra = control.encriptar(this.txtContra.getText());
 
                 cliente = new ClienteDto(this.txtNombre.getText(), this.txtAP.getText(), this.txtAM.getText(), this.txtFN.getText(), this.txtUsu.getText(), contra);
 
@@ -437,44 +456,23 @@ public class Registro extends javax.swing.JFrame {
             }
 
             try {
-                cli.registrarUsuario(cliente, domi);
+                if (control.registrarUsuario(cliente, domi)) {
+                    JOptionPane.showConfirmDialog(this, "Se ha creado su cuenta de cliente exitosamente");
 
-                JOptionPane.showConfirmDialog(this, "Se agrego Completamente el cliente");
+                } else {
+                    JOptionPane.showConfirmDialog(this, "No se ha creado su cuenta de cliente");
+
+                }
 
             } catch (PersistenciaExcepcion ex) {
                 Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
 
+            Inicio ini = new Inicio();
+            setVisible(false);
+            ini.setVisible(true);
+        }
     }//GEN-LAST:event_AceptarActionPerformed
-
-    private void txtFNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFNMouseClicked
-
-    }//GEN-LAST:event_txtFNMouseClicked
-
-    public String encriptar(String contra) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] hashBytes = md.digest(contra.getBytes());
-
-        StringBuilder hexString = new StringBuilder();
-        for (byte hashByte : hashBytes) {
-            String hex = Integer.toHexString(0xff & hashByte);
-            if (hex.length() == 1) {
-                hexString.append('0');
-            }
-            hexString.append(hex);
-        }
-
-        return hexString.toString();
-    }
-
-    private void txtFNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFNActionPerformed
-        this.txtFN.setText("");
-    }//GEN-LAST:event_txtFNActionPerformed
-
-    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
-        setVisible(false);
-    }//GEN-LAST:event_CancelarActionPerformed
 
     private boolean verificar() {
         if (!this.txtNombre.getText().equals("") || !this.txtAP.getText().equals("")
@@ -552,43 +550,43 @@ public class Registro extends javax.swing.JFrame {
             JOptionPane.showConfirmDialog(this, "Porfavor rellene todos los campos");
             return false;
         }
+
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Registro().setVisible(true);
-            }
-        });
-    }
-
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Registro().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Aceptar;
