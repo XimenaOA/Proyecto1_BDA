@@ -127,6 +127,7 @@ public class ClienteDao implements iCliente {
     public Clientes login(String usr, String contrasenia) throws PersistenciaExcepcion {
             String sentenciaSQL = "SELECT * FROM Clientes WHERE usr = ? AND contrasena = ?";
 
+            
             try {
                 String contra = encriptar(contrasenia);
 
