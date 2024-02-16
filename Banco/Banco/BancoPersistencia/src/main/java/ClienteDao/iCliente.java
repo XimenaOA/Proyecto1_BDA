@@ -26,7 +26,7 @@ public interface iCliente {
     
 //    public Clientes retiro(ClienteDto cli) throws PersistenciaExcepcion;
 //    
-//    public Clientes transeferencia(ClienteDto cli) throws PersistenciaExcepcion;
+    public boolean transeferencia(int cuenta1, double MontoCuenta1, double saldo, double MontoCuenta2, int cuenta2) throws PersistenciaExcepcion;
     
     public List<Movimientos> historial(ClienteDto cli) throws PersistenciaExcepcion;
     
