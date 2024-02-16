@@ -5,6 +5,7 @@
 package interfaz.Usuario;
 
 import ClienteDto.ClienteDto;
+import Dominio.Clientes;
 
 /**
  *
@@ -15,7 +16,7 @@ public class InicioUsuario extends javax.swing.JFrame {
     /**
      * Creates new form InicioUsuario
      */
-    public InicioUsuario(ClienteDto cliente) {
+    public InicioUsuario(Clientes cliente) {
         initComponents();
     }
 

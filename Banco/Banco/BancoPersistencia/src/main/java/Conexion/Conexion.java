@@ -30,8 +30,6 @@ public class Conexion implements IConexion{
     public Conexion() {
     }
     
-    
-
     @Override
     public Connection crearConexion() throws SQLException {
         Connection conexion = null;
