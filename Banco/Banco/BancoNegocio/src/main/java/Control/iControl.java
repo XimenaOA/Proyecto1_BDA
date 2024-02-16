@@ -20,6 +20,7 @@ import java.util.List;
 public interface iControl {
 //     List<Movimientos> obtenerHistorial(ClienteDto cliente) throws PersistenciaExcepcion;
     public String encriptar(String contra) throws NoSuchAlgorithmException;
+    
     boolean realizarTransferencia(int cuenta1, double montoCuenta1, double saldo, double montoCuenta2, int cuenta2) throws PersistenciaExcepcion;
     
     boolean registrarUsuario(ClienteDto cliente, DomicilioDto domicilio) throws PersistenciaExcepcion;

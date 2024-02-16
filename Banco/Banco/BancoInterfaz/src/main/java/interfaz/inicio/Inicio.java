@@ -25,7 +25,7 @@ public class Inicio extends javax.swing.JFrame {
 
     String url = "jdbc:mysql://localhost:3306/Banco";
     String usuario = "root";
-    String contraseña = "18931_Mor";
+    String contraseña = "18931Mor";
 
     IConexion con = new Conexion(url, usuario, contraseña);
 
@@ -219,7 +219,7 @@ public class Inicio extends javax.swing.JFrame {
             }
 
         }else{
-        JOptionPane.showConfirmDialog(this, "Usuario o contraseña incorrectos");
+        JOptionPane.showMessageDialog(rootPane, "Usuario o contraseña incorrectos");
         this.txtContrasena.setText("");
         this.txtUsr.setText("");
         
