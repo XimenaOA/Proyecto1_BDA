@@ -1,0 +1,90 @@
+ private void botonContinuarActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        if (validarUsr(txtUsr.getText()) && validaContrasena(txtContrasena.getText())) {
+            try {
+                Connection connection = con.crearConexion();
+                ResultSet res = null;
+                PreparedStatement st = connection.prepareCall("select * from clientes where usr = ?");
+                st.setString(1, txtUsr.getText().trim());
+                res = st.executeQuery();
+                while (res.next()) {
+                    usr = res.getString("usr");
+                    contrasena = res.getString("contrasena");
+                    nombre = res.getString("nombre");
+                    apellidoPaterno = res.getString("apellido Paterno");
+                    apellidoMaterno = res.getString("apellido Materno");
+                    edad = res.getString("edad");
+                    fechaDeNacimiento = res.getString("fecha de nacimiento");
+                }
+                if (contrasena.equals(txtContrasena.getText()) && usr.equals(txtUsr.getText())) {
+                    JOptionPane.showMessageDialog(this, "Se ha ingresado con éxito");
+                    cliente = new Clientes(idCliente, usr, contrasena, contrasena, contrasena, usr, contrasena);
+                    InicioUsuario menu = new InicioUsuario(cliente);
+                    this.setVisible(false);
+                    menu.setVisible(true);
+                } else if (!usr.equals(txtUsr.getText())) {
+                    JOptionPane.showMessageDialog(this, "El usuario es incorrecto o no es valido");
+                } else if (!contrasena.equals(txtContrasena.getText())) {
+                    JOptionPane.showMessageDialog(this, "la contraseña es incorrecta o no es valida");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Los datos no son validos");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e);
+            }
+        } else {
+            if(!validarUsr(txtUsr.getText()) && !validaContrasena(txtContrasena.getText())){
+                JOptionPane.showMessageDialog(this, "Error de formato");
+            }
+        }
+
+
+    }                                              
+
+    public boolean validarUsr(String usr) {
+        Pattern usuario = Pattern.compile("^([A-Za-z0-9_]){5,20}$");
+        Matcher validaUsuario = usuario.matcher(usr);
+        return validaUsuario.matches();
+    }
+
+    public boolean validaContrasena(String contrasena) {
+        String expresionRegular = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$";
+        Pattern pattern = Pattern.compile(expresionRegular);
+        Matcher matcher = pattern.matcher(contrasena);
+        return matcher.matches();
+
+    }
+
+login-interfaz
+ if (validarUsr(txtUsr.getText()) && validaContrasena(txtContrasena.getText())) {
+          ClienteDao cliente = new ClienteDao();
+           try {
+               cliente.login(usr, contrasena);
+               LOG.log(Level.INFO, "No se inicio sesión");
+           } catch (Exception e) {
+               LOG.log(Level.SEVERE, "No se inicio sesión", e);
+           }
+          
+                
+            }
+
+ public boolean login(String usr, String contrasenia) throws PersistenciaExcepcion {
+        String sentenciaSQL = "SELECT * FROM Clientes WHERE usr = ? AND contrasena = ?";
+        try (Connection conexion = this.con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS);) {
+            comandoSQL.setString(1, usr);
+            comandoSQL.setString(2, contrasenia);
+            ResultSet res = comandoSQL.executeQuery();
+            while (res.next()) {
+            usr = res.getString("usr");
+            contrasena = res.getString("contrasena");
+            nombre = res.getString("nombre");
+            apellidoPaterno = res.getString("apellido Paterno");
+            apellidoMaterno = res.getString("apellido Materno");
+            edad = res.getString("edad");
+            fechaDeNacimiento = res.getString("fecha de nacimiento");
+        }
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se pudo iniciar sesión", e);
+            return false;
+        }
+        return false;
+    }
