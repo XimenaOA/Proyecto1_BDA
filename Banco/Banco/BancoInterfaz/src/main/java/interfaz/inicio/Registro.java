@@ -120,7 +120,7 @@ public class Registro extends javax.swing.JFrame {
 
         txtFN.setBackground(new java.awt.Color(204, 204, 204));
         txtFN.setForeground(new java.awt.Color(0, 0, 0));
-        txtFN.setText("      AAAA-MM-DD");
+        txtFN.setText("AAAA-MM-DD");
         txtFN.setToolTipText("");
         txtFN.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
         txtFN.addMouseListener(new java.awt.event.MouseAdapter() {

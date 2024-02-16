@@ -214,6 +214,11 @@ public class transferencia extends javax.swing.JFrame {
         Aceptar.setBackground(new java.awt.Color(10, 80, 186));
         Aceptar.setForeground(new java.awt.Color(255, 255, 255));
         Aceptar.setText("Aceptar");
+        Aceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AceptarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -296,6 +301,10 @@ public class transferencia extends javax.swing.JFrame {
 
         this.txtSaldo.setText(String.valueOf(this.saldoT));
     }//GEN-LAST:event_masActionPerformed
+
+    private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
+        
+    }//GEN-LAST:event_AceptarActionPerformed
 
     /**
      * @param args the command line arguments
