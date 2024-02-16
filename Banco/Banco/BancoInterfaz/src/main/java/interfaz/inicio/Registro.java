@@ -428,6 +428,7 @@ public class Registro extends javax.swing.JFrame {
             
             try {
                 cli.registrarUsuario(cliente, domi);
+                
                 JOptionPane.showConfirmDialog(this, "Se agrego Completamente el cliente");
                 
             } catch (PersistenciaExcepcion ex) {
@@ -450,8 +451,13 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private boolean verificar() {
-        if (txtNombre.getText().equals("") && txtAP.getText().equals("") && txtAM.getText().equals("") && txtFN.getText().equals("") && txtUsu.getText().equals("") && txtContra.getText().equals("") && txtCol.getText().equals("") && txtCalle.getText().equals("") && txtNum.getText().equals("")) {
-            Pattern pattern = Pattern.compile("[A-ZÁÉÍÓÚÜÑ]+");
+        if (!this.txtNombre.getText().equals("") || !this.txtAP.getText().equals("") || 
+                !this.txtAM.getText().equals("") || !this.txtFN.getText().equals("") || 
+                !this.txtUsu.getText().equals("") || !this.txtContra.getText().equals("") || 
+                !this.txtCol.getText().equals("") || !this.txtCalle.getText().equals("") ||
+                !this.txtNum.getText().equals("")) {
+            
+            Pattern pattern = Pattern.compile("[A-Za-zÁÉÍÓÚÜÑ]+");
             Matcher matcher = pattern.matcher(txtNombre.getText());
 
             if (matcher.matches()) {

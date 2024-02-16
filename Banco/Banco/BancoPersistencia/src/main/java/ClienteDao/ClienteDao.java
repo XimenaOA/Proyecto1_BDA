@@ -95,7 +95,7 @@ public String Retiro(Movimientos mov) throws PersistenciaExcepcion {
     }
 
     @Override
-    public void registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion {
+    public boolean registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion {
         DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate fechaNacimiento = LocalDate.parse(cliente.getFehcadenacimiento(), formatoFecha);
         LocalDate hoy = LocalDate.now();
@@ -118,10 +118,14 @@ public String Retiro(Movimientos mov) throws PersistenciaExcepcion {
 
             int res = comandoSQL.executeUpdate();
             
+            
             LOG.log(Level.INFO, "Se ha registrado el usuario", res);
+            return true;
+            
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "No se pudo registrar", e);
         }
+        return false;
     }
 
     @Override

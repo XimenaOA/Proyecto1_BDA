@@ -20,7 +20,7 @@ public interface iCliente {
 
     public String Retiro(Movimientos mov) throws PersistenciaExcepcion;
     
-    public void registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion;
+    public boolean registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion;
 
     public boolean login(String usr, String contrasenia) throws PersistenciaExcepcion;
     
