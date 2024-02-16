@@ -29,21 +29,17 @@ public class Registro extends javax.swing.JFrame {
 
     private static final Logger LOG = Logger.getLogger(Connection.class.getName());
 
-    String url = "jdbc:mysql://localhost:3306/banco";
-    String usuario = "root";
-    String contraseña = "18931Mor";
+  
 
-    IConexion con = new Conexion(url, usuario, contraseña);
-
-    private ClienteDao cliente = new ClienteDao(con);
-
-    private ControlCliente control = new ControlCliente(cliente);
+    private ControlCliente control;
 
     /**
      * Creates new form Registro
      */
-    public Registro() {
+    public Registro(ClienteDao cliente) {
         initComponents();
+        this.control = new ControlCliente(cliente);
+        
     }
 
     /**
