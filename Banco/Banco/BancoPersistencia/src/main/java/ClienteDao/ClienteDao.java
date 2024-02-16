@@ -170,11 +170,9 @@ public class ClienteDao implements iCliente {
     @Override
     public List<String> ConsultarCuentas(int id) throws PersistenciaExcepcion {
         List<String> listC = new ArrayList<>();
-        String sentencia = ("select numeroDeCuenta from Cuentas c join Clientes cl on c.idcliente = cl.idCliente where cl.idCliente= ?;");
+        String sentencia = String.format("select numeroDeCuenta from Cuentas c join Clientes cl on c.idcliente = cl.idCliente where cl.idCliente='%d'", id);
 
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
-
-            comandoSQL.setInt(01, id);
 
             ResultSet res = comandoSQL.executeQuery(sentencia);
 
