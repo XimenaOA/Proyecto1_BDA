@@ -119,6 +119,7 @@ public String Retiro(Movimientos mov) throws PersistenciaExcepcion {
             int res = comandoSQL.executeUpdate();
             
             
+            
             LOG.log(Level.INFO, "Se ha registrado el usuario", res);
             return true;
             
