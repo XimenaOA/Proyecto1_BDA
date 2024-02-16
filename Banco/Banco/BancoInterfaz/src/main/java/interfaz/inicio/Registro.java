@@ -342,6 +342,7 @@ public class Registro extends javax.swing.JFrame {
     
     
     
+    
     /**
      * @param args the command line arguments
      */
