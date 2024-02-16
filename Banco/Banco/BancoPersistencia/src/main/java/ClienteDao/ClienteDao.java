@@ -142,9 +142,5 @@ public String Retiro(Movimientos mov) throws PersistenciaExcepcion {
         return false;
     }
 
-    @Override
-    public void registrarUsuario(Clientes cliente) throws PersistenciaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
 

@@ -10,7 +10,9 @@ import ClienteDto.ClienteDto;
 import ClienteDto.DomicilioDto;
 import Conexion.Conexion;
 import Conexion.IConexion;
+import Excepciones.PersistenciaExcepcion;
 import java.sql.Connection;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -417,8 +419,15 @@ public class Registro extends javax.swing.JFrame {
         if (this.verificar()) {
             ClienteDto cliente = new ClienteDto(this.txtNombre.getText(), this.txtAP.getText(), this.txtAM.getText(), this.txtFN.getText(), this.txtUsu.getText(), this.txtContra.getText());
             
-            DomicilioDto domi = new DomicilioDto();
+            DomicilioDto domi = new DomicilioDto(this.txtCol.getText(), this.txtCalle.getText(), Integer.parseInt(this.txtNum.getText()));
             
+            try {
+                cli.registrarUsuario(cliente, domi);
+                JOptionPane.showConfirmDialog(this, "Se agrego Completamente el cliente");
+                
+            } catch (PersistenciaExcepcion ex) {
+                Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
     }//GEN-LAST:event_AceptarActionPerformed

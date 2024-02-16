@@ -18,9 +18,6 @@ import java.util.List;
  */
 public interface iCliente {
 
-    
-    public void registrarUsuario(Clientes cliente) throws PersistenciaExcepcion;
-    
     public String Retiro(Movimientos mov) throws PersistenciaExcepcion;
     
     public void registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion;
