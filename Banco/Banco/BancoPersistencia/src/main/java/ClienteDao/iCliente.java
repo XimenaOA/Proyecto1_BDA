@@ -30,6 +30,7 @@ public interface iCliente {
     
     public List<Movimientos> historial(ClienteDto cli) throws PersistenciaExcepcion;
     
+    public List<String> ConsultarCuentas(int id)throws PersistenciaExcepcion;
 //    public Clientes modificar(ClienteDto cli) throws PersistenciaExcepcion;
 //    
 //    public Clientes agregarCuenta(ClienteDto cli) throws PersistenciaExcepcion;

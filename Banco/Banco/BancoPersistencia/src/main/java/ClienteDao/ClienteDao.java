@@ -167,4 +167,28 @@ public class ClienteDao implements iCliente {
         return false;
     }
 
+    @Override
+    public List<String> ConsultarCuentas(int id) throws PersistenciaExcepcion {
+        List<String> listC = new ArrayList<>();
+        String sentencia = ("select numeroDeCuenta from Cuentas c join Clientes cl on c.idcliente = cl.idCliente where cl.idCliente= ?;");
+
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+            comandoSQL.setInt(01, id);
+
+            ResultSet res = comandoSQL.executeQuery(sentencia);
+
+            while (res.next()) {
+                String cuenta = res.getString("numeroDeCuenta");
+                listC.add(cuenta);
+            }
+            
+            return listC;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        
+        return listC;
+    }
+
 }
