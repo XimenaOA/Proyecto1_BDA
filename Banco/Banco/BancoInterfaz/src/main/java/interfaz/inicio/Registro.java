@@ -69,10 +69,10 @@ public class Registro extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
+        txtCol = new javax.swing.JTextField();
+        txtNum = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
+        txtCalle = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
         jTextField9.setBackground(new java.awt.Color(204, 204, 204));
@@ -116,11 +116,17 @@ public class Registro extends javax.swing.JFrame {
 
         txtFN.setBackground(new java.awt.Color(204, 204, 204));
         txtFN.setForeground(new java.awt.Color(0, 0, 0));
-        txtFN.setText("AAAA-MM-DD");
+        txtFN.setText("      AAAA-MM-DD");
+        txtFN.setToolTipText("");
         txtFN.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
         txtFN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtFNMouseClicked(evt);
+            }
+        });
+        txtFN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFNActionPerformed(evt);
             }
         });
 
@@ -251,24 +257,24 @@ public class Registro extends javax.swing.JFrame {
         jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("Calle");
 
-        jTextField13.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField13.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField13.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
+        txtCol.setBackground(new java.awt.Color(204, 204, 204));
+        txtCol.setForeground(new java.awt.Color(0, 0, 0));
+        txtCol.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
 
-        jTextField14.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField14.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField14.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
+        txtNum.setBackground(new java.awt.Color(204, 204, 204));
+        txtNum.setForeground(new java.awt.Color(0, 0, 0));
+        txtNum.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
 
         jLabel18.setFont(new java.awt.Font("TeX Gyre Adventor", 0, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Numero");
 
-        jTextField16.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField16.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField16.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
-        jTextField16.addActionListener(new java.awt.event.ActionListener() {
+        txtCalle.setBackground(new java.awt.Color(204, 204, 204));
+        txtCalle.setForeground(new java.awt.Color(0, 0, 0));
+        txtCalle.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
+        txtCalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField16ActionPerformed(evt);
+                txtCalleActionPerformed(evt);
             }
         });
 
@@ -283,15 +289,15 @@ public class Registro extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCol, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtNum, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -300,15 +306,15 @@ public class Registro extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField16)
+                    .addComponent(txtCalle)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(231, 231, 231))
         );
 
@@ -402,18 +408,25 @@ public class Registro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAPActionPerformed
 
-    private void jTextField16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField16ActionPerformed
+    private void txtCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCalleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField16ActionPerformed
+    }//GEN-LAST:event_txtCalleActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-
-        ClienteDto cliente = new ClienteDto();
+        if (this.verificar()) {
+            ClienteDto cliente = new ClienteDto(this.txtNombre.getText(), this.txtAP.getText(), this.txtAM.getText(), this.txtFN.getText(), this.txtUsu.getText(), this.txtContra.getText());
+            
+        }
+        
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void txtFNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFNMouseClicked
         this.txtFN.setText("");
     }//GEN-LAST:event_txtFNMouseClicked
+
+    private void txtFNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFNActionPerformed
+
+    }//GEN-LAST:event_txtFNActionPerformed
 
     private boolean verificar() {
         if (txtNombre.getText().isEmpty() && txtAP.getText().isEmpty() && txtAM.getText().isEmpty() && txtFN.getText().isEmpty() && txtUsu.getText().isEmpty() && txtContra.getText().isEmpty()) {
@@ -423,10 +436,56 @@ public class Registro extends javax.swing.JFrame {
             if (matcher.matches()) {
                 Matcher matcher2 = pattern.matcher(txtAP.getText());
                 Matcher matcher3 = pattern.matcher(txtAP.getText());
+
                 if (matcher2.matches() && matcher3.matches()) {
-                    
-                    
-                    
+                    Pattern pattern2 = Pattern.compile("^[0-9]{4}-[0-9]{2}-[0-9]{2}$");
+                    Matcher matcher4 = pattern2.matcher(txtFN.getText());
+
+                    if (matcher4.matches()) {
+                        Pattern pattern3 = Pattern.compile("^[a-zA-Z0-9]+$");
+                        Matcher matcher5 = pattern3.matcher(txtUsu.getText());
+
+                        if (matcher5.matches()) {
+                            Pattern pattern4 = Pattern.compile("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-zA-Z0-9]).{8,}$");
+                            Matcher matcher6 = pattern4.matcher(txtContra.getText());
+
+                            if (matcher6.matches()) {
+                                Matcher matcher7 = pattern.matcher(txtCol.getText());
+
+                                if (matcher7.matches()) {
+                                    Matcher matcher8 = pattern.matcher(txtCalle.getText());
+
+                                    if (matcher8.matches()) {
+                                        Pattern pattern5 = Pattern.compile("^[0-9]{1,8}$");
+                                        Matcher matcher9 = pattern5.matcher(txtNum.getText());
+
+                                        if (matcher9.matches()) {
+                                            return true;
+                                        } else {
+                                            JOptionPane.showConfirmDialog(this, "El numero solo debe de contener numeros");
+                                            return false;
+                                        }
+
+                                    } else {
+                                        JOptionPane.showConfirmDialog(this, "La calle solo debe de contener letras");
+                                        return false;
+                                    }
+                                } else {
+                                    JOptionPane.showConfirmDialog(this, "La colonia solo debe de contener letras");
+                                    return false;
+                                }
+                            } else {
+                                JOptionPane.showConfirmDialog(this, "La contraseña debe de contener numeros, letras y si lo desea caracteres especiales\nLa contraseña de debe tener minimo 8 caracteres");
+                                return false;
+                            }
+                        } else {
+                            JOptionPane.showConfirmDialog(this, "El usuario solo puede contener numeros y letras");
+                            return false;
+                        }
+                    } else {
+                        JOptionPane.showConfirmDialog(this, "Pon la fecha de nacimiento como se indica: AAAA-MM-DD");
+                        return false;
+                    }
                 } else {
                     JOptionPane.showConfirmDialog(this, "El Apellido solo acepta letras");
                     return false;
@@ -440,7 +499,6 @@ public class Registro extends javax.swing.JFrame {
             JOptionPane.showConfirmDialog(this, "Porfavor rellene todos los campos");
             return false;
         }
-        return false;
     }
 
     /**
@@ -499,15 +557,15 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField9;
     private javax.swing.JTextField txtAM;
     private javax.swing.JTextField txtAP;
+    private javax.swing.JTextField txtCalle;
+    private javax.swing.JTextField txtCol;
     private javax.swing.JTextField txtContra;
     private javax.swing.JTextField txtFN;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNum;
     private javax.swing.JTextField txtUsu;
     // End of variables declaration//GEN-END:variables
 }
