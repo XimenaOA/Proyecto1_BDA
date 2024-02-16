@@ -13,29 +13,17 @@ import java.util.Objects;
  */
 public class DomicilioDto {
     
-    private int idDomicilio;
     private String colonia;
     private String calle;
     private int numero;
-    private int idCliente;
 
     public DomicilioDto() {
     }
 
-    public DomicilioDto(int idDomicilio, String colonia, String calle, int numero, int idCliente) {
-        this.idDomicilio = idDomicilio;
+    public DomicilioDto(String colonia, String calle, int numero) {
         this.colonia = colonia;
         this.calle = calle;
         this.numero = numero;
-        this.idCliente = idCliente;
-    }
-
-    public int getIdDomicilio() {
-        return idDomicilio;
-    }
-
-    public void setIdDomicilio(int idDomicilio) {
-        this.idDomicilio = idDomicilio;
     }
 
     public String getColonia() {
@@ -62,22 +50,12 @@ public class DomicilioDto {
         this.numero = numero;
     }
 
-    public int getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 83 * hash + this.idDomicilio;
-        hash = 83 * hash + Objects.hashCode(this.colonia);
-        hash = 83 * hash + Objects.hashCode(this.calle);
-        hash = 83 * hash + this.numero;
-        hash = 83 * hash + this.idCliente;
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.colonia);
+        hash = 41 * hash + Objects.hashCode(this.calle);
+        hash = 41 * hash + this.numero;
         return hash;
     }
 
@@ -93,13 +71,7 @@ public class DomicilioDto {
             return false;
         }
         final DomicilioDto other = (DomicilioDto) obj;
-        if (this.idDomicilio != other.idDomicilio) {
-            return false;
-        }
         if (this.numero != other.numero) {
-            return false;
-        }
-        if (this.idCliente != other.idCliente) {
             return false;
         }
         if (!Objects.equals(this.colonia, other.colonia)) {

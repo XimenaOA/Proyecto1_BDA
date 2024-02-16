@@ -7,6 +7,7 @@ package interfaz.inicio;
 import ClienteDao.ClienteDao;
 import ClienteDao.iCliente;
 import ClienteDto.ClienteDto;
+import ClienteDto.DomicilioDto;
 import Conexion.Conexion;
 import Conexion.IConexion;
 import java.sql.Connection;
@@ -415,6 +416,8 @@ public class Registro extends javax.swing.JFrame {
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
         if (this.verificar()) {
             ClienteDto cliente = new ClienteDto(this.txtNombre.getText(), this.txtAP.getText(), this.txtAM.getText(), this.txtFN.getText(), this.txtUsu.getText(), this.txtContra.getText());
+            
+            DomicilioDto domi = new DomicilioDto();
             
         }
         
