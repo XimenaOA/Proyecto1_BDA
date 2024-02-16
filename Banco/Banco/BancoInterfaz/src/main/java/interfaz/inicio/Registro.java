@@ -236,6 +236,11 @@ public class Registro extends javax.swing.JFrame {
         Cancelar.setBackground(new java.awt.Color(10, 80, 186));
         Cancelar.setForeground(new java.awt.Color(255, 255, 255));
         Cancelar.setText("Cancelar");
+        Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarActionPerformed(evt);
+            }
+        });
 
         Aceptar.setBackground(new java.awt.Color(10, 80, 186));
         Aceptar.setForeground(new java.awt.Color(255, 255, 255));
@@ -433,15 +438,19 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void txtFNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFNMouseClicked
-        this.txtFN.setText("");
+        
     }//GEN-LAST:event_txtFNMouseClicked
 
     private void txtFNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFNActionPerformed
-
+    this.txtFN.setText("");
     }//GEN-LAST:event_txtFNActionPerformed
 
+    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_CancelarActionPerformed
+
     private boolean verificar() {
-        if (txtNombre.getText().isEmpty() && txtAP.getText().isEmpty() && txtAM.getText().isEmpty() && txtFN.getText().isEmpty() && txtUsu.getText().isEmpty() && txtContra.getText().isEmpty()) {
+        if (txtNombre.getText().equals("") && txtAP.getText().equals("") && txtAM.getText().equals("") && txtFN.getText().equals("") && txtUsu.getText().equals("") && txtContra.getText().equals("") && txtCol.getText().equals("") && txtCalle.getText().equals("") && txtNum.getText().equals("")) {
             Pattern pattern = Pattern.compile("[A-ZÁÉÍÓÚÜÑ]+");
             Matcher matcher = pattern.matcher(txtNombre.getText());
 
