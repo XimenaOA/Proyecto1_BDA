@@ -62,9 +62,10 @@ public class ClienteDao implements iCliente {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
         return null;
-    
-    }     
-public String Retiro(Movimientos mov) throws PersistenciaExcepcion {
+
+    }
+
+    public String Retiro(Movimientos mov) throws PersistenciaExcepcion {
 //        String sentenciaSQL = "select * from Movimientos where idMovimiento= ?";
 //
 //        String sentenciaSQL2 = "select * from Cuentas where idCuenta= ?";
@@ -91,7 +92,7 @@ public String Retiro(Movimientos mov) throws PersistenciaExcepcion {
 //            LOG.log(Level.SEVERE, "No se puede consultar el activista", e);
 //            throw new PersistenciaExcepcion("No se puede consultar el activista", e);
 //        }
-    return null;
+        return null;
     }
 
     @Override
@@ -109,18 +110,18 @@ public String Retiro(Movimientos mov) throws PersistenciaExcepcion {
             comandoSQL.setString(2, cliente.getApellidoPaterno());
             comandoSQL.setString(3, cliente.getApellidoMaterno());
             comandoSQL.setString(4, cliente.getFehcadenacimiento());
-            comandoSQL.setString(5, edad); 
+            comandoSQL.setString(5, edad);
             comandoSQL.setString(6, cliente.getUsr());
             comandoSQL.setString(7, cliente.getContrasena());
-            comandoSQL.setInt(10, dom.getNumero()); 
+            comandoSQL.setInt(10, dom.getNumero());
             comandoSQL.setString(8, dom.getColonia());
             comandoSQL.setString(9, dom.getCalle());
 
             int res = comandoSQL.executeUpdate();
-            
+
             LOG.log(Level.INFO, "Se ha registrado el usuario", res);
             return true;
-            
+
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "No se pudo registrar", e);
         }
@@ -145,5 +146,47 @@ public String Retiro(Movimientos mov) throws PersistenciaExcepcion {
         return false;
     }
 
-}
+    @Override
+    public boolean transeferencia(int cuenta1, double MontoCuenta1, double saldo, double MontoCuenta2, int cuenta2) throws PersistenciaExcepcion {
+        String sentencia = ("call transferencia(?, ?, ?, ?, ?);");
 
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+            comandoSQL.setInt(01, cuenta1);
+            comandoSQL.setDouble(02, MontoCuenta1);
+            comandoSQL.setDouble(03, saldo);
+            comandoSQL.setDouble(04, MontoCuenta2);
+            comandoSQL.setInt(05, cuenta2);
+
+            ResultSet res = comandoSQL.executeQuery(sentencia);
+
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        return false;
+    }
+
+    @Override
+    public List<String> ConsultarCuentas(int id) throws PersistenciaExcepcion {
+        List<String> listC = new ArrayList<>();
+        String sentencia = String.format("select numeroDeCuenta from Cuentas c join Clientes cl on c.idcliente = cl.idCliente where cl.idCliente='%d'", id);
+
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+            ResultSet res = comandoSQL.executeQuery(sentencia);
+
+            while (res.next()) {
+                String cuenta = res.getString("numeroDeCuenta");
+                listC.add(cuenta);
+            }
+            
+            return listC;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        
+        return listC;
+    }
+
+}

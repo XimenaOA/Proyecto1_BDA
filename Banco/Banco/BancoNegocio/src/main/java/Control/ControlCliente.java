@@ -4,8 +4,10 @@
  */
 package Control;
 
+import ClienteDao.ClienteDao;
 import ClienteDao.iCliente;
 import ClienteDto.ClienteDto;
+import ClienteDto.DomicilioDto;
 import Dominio.Clientes;
 import Dominio.Movimientos;
 import Excepciones.PersistenciaExcepcion;
@@ -15,49 +17,36 @@ import java.util.List;
  *
  * @author jesus
  */
-public class ControlCliente implements iControl{
-private final iCliente clienteDao;
+public class ControlCliente implements iControl {
 
-    public ControlCliente(iCliente clienteDao) {
+    private final ClienteDao clienteDao;
+
+    public ControlCliente(ClienteDao clienteDao) {
         this.clienteDao = clienteDao;
     }
 
-//    public Clientes retiro(ClienteDto cli) throws PersistenciaExcepcion {
-//        return clienteDao.retiro(cli);
-//    }
-//
-//    public Clientes transeferencia(ClienteDto cli) throws PersistenciaExcepcion {
-//        return clienteDao.transeferencia(cli);
-//    }
-
-    public List<Movimientos> historial(ClienteDto cli) throws PersistenciaExcepcion {
-        return clienteDao.historial(cli);
-    }
-
-//    public Clientes agregarCliente(ClienteDto cli) throws PersistenciaExcepcion {
-//        return clienteDao.agregarCliente(cli);
-//    }
-//
-//    public Clientes modificar(ClienteDto cli) throws PersistenciaExcepcion {
-//        return clienteDao.modificar(cli);
-//    }
-//
-//    public Clientes agregarCuenta(ClienteDto cli) throws PersistenciaExcepcion {
-//        return clienteDao.agregarCuenta(cli);
-//    }
-//
-//    public Clientes eliminarCuenta(ClienteDto cli) throws PersistenciaExcepcion {
-//        return clienteDao.eliminarCuenta(cli);
-//    }
-
     @Override
-    public void registrarUsuario(Clientes cliente) throws PersistenciaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Movimientos> obtenerHistorial(ClienteDto cliente) throws PersistenciaExcepcion {
+        return clienteDao.historial(cliente);
     }
 
     @Override
-    public boolean login(String usr, String contrasenia) throws PersistenciaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean realizarTransferencia(int cuenta1, double montoCuenta1, double saldo, double montoCuenta2, int cuenta2) throws PersistenciaExcepcion {
+        return clienteDao.transeferencia(cuenta1, montoCuenta1, saldo, montoCuenta2, cuenta2);
     }
-    
+
+    @Override
+    public boolean registrarUsuario(ClienteDto cliente, DomicilioDto domicilio) throws PersistenciaExcepcion {
+        return clienteDao.registrarUsuario(cliente, domicilio);
+    }
+
+    @Override
+    public boolean iniciarSesion(String usr, String contrasenia) throws PersistenciaExcepcion {
+        return clienteDao.login(usr, contrasenia);
+    }
+
+    @Override
+    public List<String> consultarCuentas(int idCliente) throws PersistenciaExcepcion {
+        return clienteDao.ConsultarCuentas(idCliente);
+    }
 }
