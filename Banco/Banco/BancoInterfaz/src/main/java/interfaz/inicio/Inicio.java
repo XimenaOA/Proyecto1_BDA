@@ -1,10 +1,25 @@
 package interfaz.inicio;
 
+import ClienteDto.ClienteDto;
+import Conexion.Conexion;
+import Dominio.Clientes;
+import interfaz.Usuario.InicioUsuario;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jesus
  */
 public class Inicio extends javax.swing.JFrame {
+    private Conexion con = new Conexion();
+    private String usr = "", contrasena = "", nombre = "", apellidoPaterno = "", apellidoMaterno = "", edad = "", fechaDeNacimiento = "";
+    private int idCliente;
+    private ClienteDto cliente;
 
     /**
      * Creates new form Inicio
@@ -29,10 +44,10 @@ public class Inicio extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtUsuario = new javax.swing.JTextField();
-        txtContra = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        txtUsr = new javax.swing.JTextField();
+        txtContrasena = new javax.swing.JTextField();
+        botonContinuar = new javax.swing.JButton();
+        botonRegistro = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         jScrollPane1.setViewportView(jTree1);
@@ -40,8 +55,6 @@ public class Inicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tacot\\Documents\\GitHub\\Banco\\Banco\\BancoInterfaz\\src\\main\\resource\\usuario128.png")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("TeX Gyre Adventor", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(10, 80, 186));
@@ -53,24 +66,29 @@ public class Inicio extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(10, 80, 186));
         jLabel4.setText("Contraseña:");
 
-        txtUsuario.setBackground(new java.awt.Color(255, 255, 255));
-        txtUsuario.setForeground(new java.awt.Color(0, 0, 0));
-        txtUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
+        txtUsr.setBackground(new java.awt.Color(255, 255, 255));
+        txtUsr.setForeground(new java.awt.Color(0, 0, 0));
+        txtUsr.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
 
-        txtContra.setBackground(new java.awt.Color(255, 255, 255));
-        txtContra.setForeground(new java.awt.Color(0, 0, 0));
-        txtContra.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
+        txtContrasena.setBackground(new java.awt.Color(255, 255, 255));
+        txtContrasena.setForeground(new java.awt.Color(0, 0, 0));
+        txtContrasena.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
 
-        jButton1.setBackground(new java.awt.Color(10, 80, 186));
-        jButton1.setText("Continuar");
-
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("Registrarse");
-        jButton2.setBorder(null);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botonContinuar.setBackground(new java.awt.Color(10, 80, 186));
+        botonContinuar.setText("Continuar");
+        botonContinuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botonContinuarActionPerformed(evt);
+            }
+        });
+
+        botonRegistro.setBackground(new java.awt.Color(255, 255, 255));
+        botonRegistro.setForeground(new java.awt.Color(0, 0, 0));
+        botonRegistro.setText("Registrarse");
+        botonRegistro.setBorder(null);
+        botonRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegistroActionPerformed(evt);
             }
         });
 
@@ -100,8 +118,8 @@ public class Inicio extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtUsr, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(40, 40, 40))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -110,11 +128,11 @@ public class Inicio extends javax.swing.JFrame {
                         .addComponent(jButton3)
                         .addGap(93, 93, 93))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(botonContinuar)
                         .addGap(97, 97, 97))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(69, 69, 69)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -127,15 +145,15 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(botonRegistro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addContainerGap())
@@ -156,14 +174,71 @@ public class Inicio extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void botonRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistroActionPerformed
+       
+    }//GEN-LAST:event_botonRegistroActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void botonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContinuarActionPerformed
+       if (validarUsr(txtUsr.getText()) && validaContrasena(txtContrasena.getText())) {
+            try {
+                Connection connection = con.crearConexion();
+                ResultSet res = null;
+                PreparedStatement st = connection.prepareCall("select * from clientes where usr = ?");
+                st.setString(1, txtUsr.getText().trim());
+                res = st.executeQuery();
+                while (res.next()) {
+                    usr = res.getString("usr");
+                    contrasena = res.getString("contrasena");
+                    nombre = res.getString("nombre");
+                    apellidoPaterno = res.getString("apellido Paterno");
+                    apellidoMaterno = res.getString("apellido Materno");
+                    edad = res.getString("edad");
+                    fechaDeNacimiento = res.getString("fecha de nacimiento");
+                }
+                if (contrasena.equals(txtContrasena.getText()) && usr.equals(txtUsr.getText())) {
+                    JOptionPane.showMessageDialog(this, "Se ha ingresado con éxito");
+                    cliente = new ClienteDto(nombre, apellidoPaterno, apellidoMaterno, fechaDeNacimiento, usr, contrasena);
+                    InicioUsuario menu = new InicioUsuario(cliente);
+                    this.setVisible(false);
+                    menu.setVisible(true);
+                } else if (!usr.equals(txtUsr.getText())) {
+                    JOptionPane.showMessageDialog(this, "El usuario es incorrecto o no es valido");
+                } else if (!contrasena.equals(txtContrasena.getText())) {
+                    JOptionPane.showMessageDialog(this, "la contraseña es incorrecta o no es valida");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Los datos no son validos");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e);
+            }
+        } else {
+            if(!validarUsr(txtUsr.getText()) && !validaContrasena(txtContrasena.getText())){
+                JOptionPane.showMessageDialog(this, "Error de formato");
+            }
+        }
+
+    }//GEN-LAST:event_botonContinuarActionPerformed
+
+    
+    public boolean validarUsr(String usr) {
+        Pattern usuario = Pattern.compile("^([A-Za-z0-9_]){5,20}$");
+        Matcher validaUsuario = usuario.matcher(usr);
+        return validaUsuario.matches();
+    }
+
+    public boolean validaContrasena(String contrasena) {
+        String expresionRegular = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$";
+        Pattern pattern = Pattern.compile(expresionRegular);
+        Matcher matcher = pattern.matcher(contrasena);
+        return matcher.matches();
+
+    }
+
+    
     /**
      * @param args the command line arguments
      */
@@ -200,8 +275,8 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton botonContinuar;
+    private javax.swing.JButton botonRegistro;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -210,7 +285,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTree jTree1;
-    private javax.swing.JTextField txtContra;
-    private javax.swing.JTextField txtUsuario;
+    private javax.swing.JTextField txtContrasena;
+    private javax.swing.JTextField txtUsr;
     // End of variables declaration//GEN-END:variables
 }
