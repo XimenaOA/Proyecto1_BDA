@@ -258,7 +258,7 @@ public class Deposito extends javax.swing.JFrame {
 
     private void menosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menosActionPerformed
 
-        if (saldoT < 100) {
+        if (saldoT <= 100) {
             this.saldoT = 1;
         } else {
             this.saldoT -= 100;

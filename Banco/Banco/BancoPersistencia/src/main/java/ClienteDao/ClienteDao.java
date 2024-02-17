@@ -262,6 +262,7 @@ public class ClienteDao implements iCliente {
 
             if (res>0) {
                 LOG.log(Level.SEVERE, "Se pudo depositar");
+                
             } 
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "No se pudo depositar", e);
