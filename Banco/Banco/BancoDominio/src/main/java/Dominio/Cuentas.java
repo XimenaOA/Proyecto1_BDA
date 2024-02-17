@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Cuentas {
 
-    int numeroDeCuenta;
+    long numeroDeCuenta;
     String fechaApertura;
     double saldo;
     int idCliente;
@@ -12,18 +12,18 @@ public class Cuentas {
     public Cuentas() {
     }
 
-    public Cuentas(int numeroDeCuenta, String fechaApertura, double saldo, int idCliente) {
+    public Cuentas(long numeroDeCuenta, String fechaApertura, double saldo, int idCliente) {
         this.numeroDeCuenta = numeroDeCuenta;
         this.fechaApertura = fechaApertura;
         this.saldo = saldo;
         this.idCliente = idCliente;
     }
     
-    public int getNumeroDeCuenta() {
+    public long getNumeroDeCuenta() {
         return numeroDeCuenta;
     }
 
-    public void setNumeroDeCuenta(int numeroDeCuenta) {
+    public void setNumeroDeCuenta(long numeroDeCuenta) {
         this.numeroDeCuenta = numeroDeCuenta;
     }
 
@@ -53,14 +53,15 @@ public class Cuentas {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + this.numeroDeCuenta;
-        hash = 79 * hash + Objects.hashCode(this.fechaApertura);
-        hash = 79 * hash + (int) (Double.doubleToLongBits(this.saldo) ^ (Double.doubleToLongBits(this.saldo) >>> 32));
-        hash = 79 * hash + this.idCliente;
+        int hash = 3;
+        hash = 97 * hash + (int) (this.numeroDeCuenta ^ (this.numeroDeCuenta >>> 32));
+        hash = 97 * hash + Objects.hashCode(this.fechaApertura);
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.saldo) ^ (Double.doubleToLongBits(this.saldo) >>> 32));
+        hash = 97 * hash + this.idCliente;
         return hash;
     }
-
+    
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

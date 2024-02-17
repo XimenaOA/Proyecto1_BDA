@@ -92,6 +92,13 @@ public class AgregarCuenta extends javax.swing.JFrame {
         txtCuenta.setForeground(new java.awt.Color(0, 0, 0));
         txtCuenta.setToolTipText("Debe de contener solo 10 digitos");
         txtCuenta.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
+        txtCuenta.setMaximumSize(new java.awt.Dimension(0, 10));
+        txtCuenta.setMinimumSize(new java.awt.Dimension(0, 10));
+        txtCuenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCuentaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -194,17 +201,16 @@ public class AgregarCuenta extends javax.swing.JFrame {
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
         if (!this.txtCuenta.getText().equals("")) {
-            Pattern pattern = Pattern.compile("^[0-9]{10}$");
-            Matcher matcher = pattern.matcher(this.txtCuenta.getText());
-
-            if (matcher.matches()) {
+            
                 try {
                     LocalDate localDate = LocalDate.now();
                     Date date = java.sql.Date.valueOf(localDate);
                     SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
                     String fecha = simple.format(date);
+                    
+                    long numCuenta = Long.parseLong(txtCuenta.getText());
 
-                    CuentaDto cuenta = new CuentaDto(Integer.parseInt(this.txtCuenta.getText()), fecha, 0, cli.getId());
+                    CuentaDto cuenta = new CuentaDto(numCuenta, fecha, 0, cli.getId());
 
                     control.agregarCuenta(cuenta);
 
@@ -214,11 +220,20 @@ public class AgregarCuenta extends javax.swing.JFrame {
                 } catch (PersistenciaExcepcion ex) {
                     Logger.getLogger(AgregarCuenta.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }else{
+            JOptionPane.showMessageDialog(this, "La cuenta tiene que ser de 10 digitos");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Rellena el campo con numero de cuenta");
-        }
     }//GEN-LAST:event_AceptarActionPerformed
+
+    private void txtCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCuentaKeyTyped
+        char validar = evt.getKeyChar();
+
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Solo se aceptan numeros");
+        }
+    }//GEN-LAST:event_txtCuentaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
