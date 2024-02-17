@@ -56,13 +56,14 @@ public class InicioUsuario extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtCuentas = new javax.swing.JTable();
-        transeferencia = new javax.swing.JButton();
-        retiroSinTarjeta = new javax.swing.JButton();
-        historial = new javax.swing.JButton();
         Editar = new javax.swing.JButton();
-        AgregarCuenta = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        historial = new javax.swing.JButton();
         EliminarCuenta = new javax.swing.JButton();
         Deposito = new javax.swing.JButton();
+        AgregarCuenta = new javax.swing.JButton();
+        retiroSinTarjeta = new javax.swing.JButton();
+        transeferencia = new javax.swing.JButton();
         cerrarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -116,23 +117,6 @@ public class InicioUsuario extends javax.swing.JFrame {
         jtCuentas.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(jtCuentas);
 
-        transeferencia.setBackground(new java.awt.Color(10, 80, 186));
-        transeferencia.setForeground(new java.awt.Color(255, 255, 255));
-        transeferencia.setText("Transeferencia");
-        transeferencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                transeferenciaActionPerformed(evt);
-            }
-        });
-
-        retiroSinTarjeta.setBackground(new java.awt.Color(10, 80, 186));
-        retiroSinTarjeta.setForeground(new java.awt.Color(255, 255, 255));
-        retiroSinTarjeta.setText("Retiro sin tarjeta");
-
-        historial.setBackground(new java.awt.Color(10, 80, 186));
-        historial.setForeground(new java.awt.Color(255, 255, 255));
-        historial.setText("Historial");
-
         Editar.setBackground(new java.awt.Color(255, 255, 255));
         Editar.setForeground(new java.awt.Color(10, 80, 186));
         Editar.setText("Editar perfil");
@@ -140,13 +124,25 @@ public class InicioUsuario extends javax.swing.JFrame {
         Editar.setBorderPainted(false);
         Editar.setContentAreaFilled(false);
 
-        AgregarCuenta.setBackground(new java.awt.Color(10, 80, 186));
-        AgregarCuenta.setForeground(new java.awt.Color(255, 255, 255));
-        AgregarCuenta.setText("Agregar cuenta");
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        historial.setBackground(new java.awt.Color(10, 80, 186));
+        historial.setForeground(new java.awt.Color(255, 255, 255));
+        historial.setText("Historial");
+        historial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historialActionPerformed(evt);
+            }
+        });
 
         EliminarCuenta.setBackground(new java.awt.Color(10, 80, 186));
         EliminarCuenta.setForeground(new java.awt.Color(255, 255, 255));
         EliminarCuenta.setText("Eliminar cuenta");
+        EliminarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarCuentaActionPerformed(evt);
+            }
+        });
 
         Deposito.setBackground(new java.awt.Color(10, 80, 186));
         Deposito.setForeground(new java.awt.Color(255, 255, 255));
@@ -157,33 +153,87 @@ public class InicioUsuario extends javax.swing.JFrame {
             }
         });
 
+        AgregarCuenta.setBackground(new java.awt.Color(10, 80, 186));
+        AgregarCuenta.setForeground(new java.awt.Color(255, 255, 255));
+        AgregarCuenta.setText("Agregar cuenta");
+        AgregarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarCuentaActionPerformed(evt);
+            }
+        });
+
+        retiroSinTarjeta.setBackground(new java.awt.Color(10, 80, 186));
+        retiroSinTarjeta.setForeground(new java.awt.Color(255, 255, 255));
+        retiroSinTarjeta.setText("Retiro sin tarjeta");
+        retiroSinTarjeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                retiroSinTarjetaActionPerformed(evt);
+            }
+        });
+
+        transeferencia.setBackground(new java.awt.Color(10, 80, 186));
+        transeferencia.setForeground(new java.awt.Color(255, 255, 255));
+        transeferencia.setText("Transeferencia");
+        transeferencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transeferenciaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(EliminarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Deposito, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(historial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(AgregarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(retiroSinTarjeta, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(transeferencia)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AgregarCuenta)
+                    .addComponent(retiroSinTarjeta)
+                    .addComponent(transeferencia))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EliminarCuenta)
+                    .addComponent(historial)
+                    .addComponent(Deposito))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(305, 305, 305)
+                        .addGap(235, 235, 235)
                         .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(AgregarCuenta)
-                                    .addComponent(EliminarCuenta))
-                                .addGap(12, 12, 12)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(Deposito, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(retiroSinTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(historial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(transeferencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(15, 15, 15))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -195,17 +245,9 @@ public class InicioUsuario extends javax.swing.JFrame {
                     .addComponent(Editar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(retiroSinTarjeta)
-                    .addComponent(AgregarCuenta)
-                    .addComponent(transeferencia))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(historial)
-                    .addComponent(EliminarCuenta)
-                    .addComponent(Deposito))
-                .addGap(29, 29, 29))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
 
         cerrarSesion.setBackground(new java.awt.Color(10, 80, 186));
@@ -231,9 +273,9 @@ public class InicioUsuario extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNomUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cerrarSesion)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -241,11 +283,10 @@ public class InicioUsuario extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cerrarSesion)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNomUsu)
-                        .addComponent(cerrarSesion)))
+                    .addComponent(txtNomUsu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -254,7 +295,7 @@ public class InicioUsuario extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,6 +323,22 @@ public class InicioUsuario extends javax.swing.JFrame {
         deposito.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_DepositoActionPerformed
+
+    private void historialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_historialActionPerformed
+
+    private void AgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarCuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AgregarCuentaActionPerformed
+
+    private void EliminarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarCuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EliminarCuentaActionPerformed
+
+    private void retiroSinTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retiroSinTarjetaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_retiroSinTarjetaActionPerformed
 
     
     public void llenarTabla(int id) {
@@ -317,6 +374,7 @@ public class InicioUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtCuentas;
     private javax.swing.JButton retiroSinTarjeta;

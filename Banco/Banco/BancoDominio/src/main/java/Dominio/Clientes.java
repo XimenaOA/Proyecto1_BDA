@@ -11,6 +11,22 @@ public class Clientes {
     public Clientes() {
     }
 
+    public Clientes(String nombre, String apellidoPaterno, String apellidoMaterno, String fehcadenacimiento) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.fehcadenacimiento = fehcadenacimiento;
+    }
+
+    public Clientes(String nombre, String apellidoPaterno, String apellidoMaterno, String fehcadenacimiento, String usr, String contrasena) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.fehcadenacimiento = fehcadenacimiento;
+        this.usr = usr;
+        this.contrasena = contrasena;
+    }
+
     public Clientes(int id, String nombre, String apellidoPaterno, String apellidoMaterno, String fehcadenacimiento, String usr, String contrasena) {
         this.id = id;
         this.nombre = nombre;

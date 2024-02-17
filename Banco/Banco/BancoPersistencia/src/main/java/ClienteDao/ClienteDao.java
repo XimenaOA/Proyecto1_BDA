@@ -64,7 +64,7 @@ public class ClienteDao implements iCliente {
     }
 
     @Override
-    public boolean registrarUsuario(ClienteDto cliente, DomicilioDto dom) {
+    public Clientes registrarUsuario(ClienteDto cliente, DomicilioDto dom) {
         DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate fechaNacimiento = LocalDate.parse(cliente.getFehcadenacimiento(), formatoFecha);
         LocalDate hoy = LocalDate.now();
@@ -72,7 +72,7 @@ public class ClienteDao implements iCliente {
         String edad = String.valueOf(periodo.getYears());
 
         if (periodo.getYears() > 100) {
-            return false;
+            return null;
         }
         String sentenciaSQL = "call agregaC(?,?,?,?,?,?,?,?,?,?)";
 
@@ -88,16 +88,17 @@ public class ClienteDao implements iCliente {
             comandoSQL.setString(8, dom.getColonia());
             comandoSQL.setString(9, dom.getCalle());
 
+            Clientes cli = new Clientes(cliente.getNombre(), cliente.getApellidoPaterno(), cliente.getApellidoMaterno(),cliente.getFehcadenacimiento());
             int res = comandoSQL.executeUpdate();
-
+            
             LOG.log(Level.INFO, "Se ha registrado el usuario", res);
-            return true;
+            return cli;
 
         } catch (SQLException e) {
 
             LOG.log(Level.SEVERE, "No se pudo registrar", e);
         }
-        return false;
+        return null;
     }
 
     @Override

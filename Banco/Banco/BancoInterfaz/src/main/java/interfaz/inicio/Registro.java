@@ -438,7 +438,7 @@ public class Registro extends javax.swing.JFrame {
             }
 
             try {
-                if (control.registrarUsuario(cliente, domi)) {
+                if (control.registrarUsuario(cliente, domi) != null) {
                     JOptionPane.showConfirmDialog(this, "Se ha creado su cuenta de cliente exitosamente");
 
                 } else {

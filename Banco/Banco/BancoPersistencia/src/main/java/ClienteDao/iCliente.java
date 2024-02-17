@@ -22,7 +22,7 @@ import java.util.List;
  */
 public interface iCliente {
 
-    public boolean registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion;
+    public Clientes registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion;
 
     public Clientes login(String usr, String contrasenia) throws PersistenciaExcepcion;
      //no sirve

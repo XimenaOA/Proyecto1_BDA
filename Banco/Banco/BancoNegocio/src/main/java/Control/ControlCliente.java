@@ -35,7 +35,7 @@ public class ControlCliente implements iControl {
     }
     
     @Override
-    public boolean registrarUsuario(ClienteDto cliente, DomicilioDto domicilio) throws PersistenciaExcepcion {
+    public Clientes registrarUsuario(ClienteDto cliente, DomicilioDto domicilio) throws PersistenciaExcepcion {
         return clienteDao.registrarUsuario(cliente, domicilio);
     }
     
