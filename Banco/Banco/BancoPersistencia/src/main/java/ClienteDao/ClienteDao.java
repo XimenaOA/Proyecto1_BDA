@@ -366,5 +366,10 @@ public class ClienteDao implements iCliente {
         return min + (long) (Math.random() * (max - min + 1));
     }
 
+     public int generarContra(){
     
+        int min = 10000000;
+        int max = 99999999;
+        return min + (int) (Math.random() * (max - min + 1));
+    }
 }
