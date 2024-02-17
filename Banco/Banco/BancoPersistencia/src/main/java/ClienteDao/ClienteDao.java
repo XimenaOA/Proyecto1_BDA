@@ -343,7 +343,9 @@ public class ClienteDao implements iCliente {
     public boolean retiroSinCuenta(RetiroDTO retiro) throws PersistenciaExcepcion {
      String sentenciaSQL = "INSERT INTO retiroSinCuentea (Folio, estado, contrasena, monto, fecha, idCuenta)\n"  + "VALUES (?, ?, ?, ?, ?, ?)";
        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL)) {
-            comandoSQL.setInt(1, retiro.getFolio());
+            comandoSQL.setLong(1, retiro.getFolio());
+            comandoSQL.setString(2, "Espera");
+            comandoSQL.setString(3, "");
 
             int res = comandoSQL.executeUpdate();
 
@@ -357,3 +359,12 @@ public class ClienteDao implements iCliente {
         }
            
     }
+    
+    public long generarFolio() {
+        long min = 1000000000L;
+        long max = 9999999999L;
+        return min + (long) (Math.random() * (max - min + 1));
+    }
+
+    
+}

@@ -145,4 +145,5 @@ public class ClienteDto {
         return Objects.equals(this.contrasena, other.contrasena);
     }
 
+
 }
