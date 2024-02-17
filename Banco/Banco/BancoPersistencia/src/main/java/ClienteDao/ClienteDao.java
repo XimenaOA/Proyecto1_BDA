@@ -351,7 +351,7 @@ public class ClienteDao implements iCliente {
             comandoSQL.setInt(6, retiro.getIdCuenta());
 
             ResultSet res = comandoSQL.executeQuery(sentenciaSQL);
-
+            
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);

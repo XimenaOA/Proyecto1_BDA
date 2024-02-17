@@ -4,7 +4,11 @@
  */
 package interfaz.Usuario;
 
+import Excepciones.PersistenciaExcepcion;
+import static java.awt.SystemColor.control;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,6 +16,7 @@ import javax.swing.JOptionPane;
  * @author jesus
  */
 public class retiro extends javax.swing.JFrame {
+    private int numero;
 
     /**
      * Creates new form retiro
@@ -30,6 +35,8 @@ public class retiro extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -38,6 +45,8 @@ public class retiro extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtMontoARetirar = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtMontoDisponible = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         botonVolver = new javax.swing.JButton();
         botonAceptar = new javax.swing.JButton();
@@ -55,6 +64,10 @@ public class retiro extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 254, Short.MAX_VALUE)
         );
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -74,6 +87,11 @@ public class retiro extends javax.swing.JFrame {
         comboBoxCuenta.setForeground(new java.awt.Color(0, 0, 0));
         comboBoxCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboBoxCuenta.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
+        comboBoxCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxCuentaActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("TeX Gyre Adventor", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -81,11 +99,29 @@ public class retiro extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("TeX Gyre Adventor", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Monto a retirar");
+        jLabel6.setText("Monto disponible");
 
         txtMontoARetirar.setBackground(new java.awt.Color(255, 255, 255));
         txtMontoARetirar.setForeground(new java.awt.Color(0, 0, 0));
         txtMontoARetirar.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
+        txtMontoARetirar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMontoARetirarActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("TeX Gyre Adventor", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Monto a retirar");
+
+        txtMontoDisponible.setBackground(new java.awt.Color(255, 255, 255));
+        txtMontoDisponible.setForeground(new java.awt.Color(0, 0, 0));
+        txtMontoDisponible.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
+        txtMontoDisponible.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMontoDisponibleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -94,11 +130,15 @@ public class retiro extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
                     .addComponent(txtMontoARetirar, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMontoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(comboBoxCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,9 +147,13 @@ public class retiro extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(comboBoxCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(txtMontoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtMontoARetirar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13))
         );
@@ -121,6 +165,11 @@ public class retiro extends javax.swing.JFrame {
         botonVolver.setBackground(new java.awt.Color(10, 80, 186));
         botonVolver.setForeground(new java.awt.Color(255, 255, 255));
         botonVolver.setText("Volver");
+        botonVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVolverActionPerformed(evt);
+            }
+        });
 
         botonAceptar.setBackground(new java.awt.Color(10, 80, 186));
         botonAceptar.setForeground(new java.awt.Color(255, 255, 255));
@@ -139,10 +188,8 @@ public class retiro extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(236, 236, 236)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addComponent(jLabel4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(botonVolver)
@@ -208,6 +255,28 @@ public class retiro extends javax.swing.JFrame {
 
     }//GEN-LAST:event_botonAceptarActionPerformed
 
+    private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonVolverActionPerformed
+
+    private void txtMontoARetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoARetirarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMontoARetirarActionPerformed
+
+    private void txtMontoDisponibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoDisponibleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMontoDisponibleActionPerformed
+
+    private void comboBoxCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCuentaActionPerformed
+      try {
+            this.numero = Integer.parseInt((String) this.comboBoxCuenta.getSelectedItem());
+
+            this.txtMontoDisponible.setText(String.valueOf(control.consultarSaldo(this.numero)));
+        } catch (PersistenciaExcepcion ex) {
+            Logger.getLogger(Deposito.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_comboBoxCuentaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -251,10 +320,16 @@ public class retiro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txtMontoARetirar;
+    private javax.swing.JTextField txtMontoDisponible;
+    private javax.swing.JTextField txtSaldo1;
+    private javax.swing.JTextField txtSaldo2;
     // End of variables declaration//GEN-END:variables
 }
