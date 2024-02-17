@@ -216,6 +216,7 @@ public class Inicio extends javax.swing.JFrame {
                 }
             } catch (Exception e) {
                 LOG.log(Level.SEVERE, "No se inicio sesión", e);
+                JOptionPane.showMessageDialog(rootPane, "Usuario o contraseña incorrectos");
             }
 
         }else{

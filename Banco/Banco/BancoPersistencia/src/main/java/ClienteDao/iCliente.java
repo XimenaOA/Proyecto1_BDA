@@ -25,7 +25,7 @@ public interface iCliente {
     public boolean registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion;
 
     public Clientes login(String usr, String contrasenia) throws PersistenciaExcepcion;
-    
+     //no sirve
     public boolean transeferencia(int cuenta1, double MontoCuenta1, double saldo, double MontoCuenta2, int cuenta2) throws PersistenciaExcepcion;
     
     public String encriptar(String contra) throws NoSuchAlgorithmException;
@@ -38,7 +38,7 @@ public interface iCliente {
 
     public List<Retiros> ConsultarRetiros(int id)throws PersistenciaExcepcion;
 
-    public void deposito(int numCuenta)throws PersistenciaExcepcion;
+    public void deposito(int numCuenta, double monto)throws PersistenciaExcepcion;
     
     public double consultarSaldo(int numCuenta)throws PersistenciaExcepcion;
     

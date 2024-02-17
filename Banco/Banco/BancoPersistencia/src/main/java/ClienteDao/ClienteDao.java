@@ -249,27 +249,43 @@ public class ClienteDao implements iCliente {
     }
 
     @Override
-    public void deposito(int numCuenta) throws PersistenciaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deposito(int numCuenta, double monto) throws PersistenciaExcepcion {
+        double saldo = this.consultarSaldo(numCuenta);
+        double saldoTotal = saldo + monto;
+        String sentencia = "update Cuentas set monto=? where numeroDeCuenta=?;";
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+            comandoSQL.setDouble(01, saldoTotal);
+            comandoSQL.setInt(02, numCuenta);
+
+            int res = comandoSQL.executeUpdate();
+
+            if (res>0) {
+                LOG.log(Level.SEVERE, "Se pudo depositar");
+            } 
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se pudo depositar", e);
+        }
     }
 
     @Override
     public double consultarSaldo(int numCuenta) throws PersistenciaExcepcion {
-
         String sentencia = "SELECT monto FROM Cuentas WHERE numeroDeCuenta = ?";
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
 
             comandoSQL.setInt(1, numCuenta);
+
             ResultSet res = comandoSQL.executeQuery();
 
-            double monto = res.getDouble("monto");
-            return monto;
-
+            if (res.next()) {
+                double monto = res.getDouble("monto");
+                return monto;
+            } else {
+                throw new RuntimeException("La cuenta no existe.");
+            }
         } catch (SQLException e) {
-
             LOG.log(Level.SEVERE, "No se pudo consultar", e);
         }
-
         return 0;
     }
 

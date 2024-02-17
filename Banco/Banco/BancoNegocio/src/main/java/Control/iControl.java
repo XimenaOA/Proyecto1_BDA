@@ -8,6 +8,8 @@ import ClienteDto.ClienteDto;
 import ClienteDto.DomicilioDto;
 import Dominio.Clientes;
 import Dominio.Cuentas;
+import Dominio.Retiros;
+import Dominio.Transferencias;
 //import Dominio.Movimientos;
 import Excepciones.PersistenciaExcepcion;
 import java.security.NoSuchAlgorithmException;
@@ -18,18 +20,25 @@ import java.util.List;
  * @author jesus
  */
 public interface iControl {
-//     List<Movimientos> obtenerHistorial(ClienteDto cliente) throws PersistenciaExcepcion;
+    
+    public boolean registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion;
+
+    public Clientes login(String usr, String contrasenia) throws PersistenciaExcepcion;
+    //no sirve
+    public boolean transeferencia(int cuenta1, double MontoCuenta1, double saldo, double MontoCuenta2, int cuenta2) throws PersistenciaExcepcion;
+    
     public String encriptar(String contra) throws NoSuchAlgorithmException;
-    
-    boolean realizarTransferencia(int cuenta1, double montoCuenta1, double saldo, double montoCuenta2, int cuenta2) throws PersistenciaExcepcion;
-    
-    boolean registrarUsuario(ClienteDto cliente, DomicilioDto domicilio) throws PersistenciaExcepcion;
-    
-    Clientes login(String usr, String contrasenia) throws PersistenciaExcepcion;
     
     public List<String> ConsultarNumeroCuentas(int id)throws PersistenciaExcepcion;
     
     public List<Cuentas> ConsultarCuentas(int id)throws PersistenciaExcepcion;
     
+    public List<Transferencias> ConsultarTransferencias(int id)throws PersistenciaExcepcion;
+
+    public List<Retiros> ConsultarRetiros(int id)throws PersistenciaExcepcion;
+
+    public void deposito(int numCuenta, double monto)throws PersistenciaExcepcion;
+    
     public double consultarSaldo(int numCuenta)throws PersistenciaExcepcion;
+    
 }

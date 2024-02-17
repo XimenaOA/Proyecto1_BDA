@@ -21,7 +21,8 @@ public class Deposito extends javax.swing.JFrame {
 
     private final ControlCliente control;
     private final Clientes cli;
-    int saldoT = 1;
+    double saldoT = 1;
+    int numeroCuneta;
 
     /**
      * Creates new form Deposito
@@ -31,6 +32,7 @@ public class Deposito extends javax.swing.JFrame {
         this.cli = cli;
         this.control = control;
         this.llenarCuentas(cli.getId());
+
     }
 
     /**
@@ -251,6 +253,7 @@ public class Deposito extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void menosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menosActionPerformed
@@ -283,7 +286,13 @@ public class Deposito extends javax.swing.JFrame {
     }//GEN-LAST:event_VolverActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-
+        try {
+            control.deposito(numeroCuneta, saldoT);
+            JOptionPane.showMessageDialog(this, "Se a depositado con exito");
+        } catch (PersistenciaExcepcion ex) {
+            Logger.getLogger(Deposito.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void txtSaldoCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoCuentaActionPerformed
@@ -292,13 +301,12 @@ public class Deposito extends javax.swing.JFrame {
 
     private void jCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBActionPerformed
         try {
-            int numeroCuneta = Integer.parseInt((String) this.jCB.getSelectedItem());
+            this.numeroCuneta = Integer.parseInt((String) this.jCB.getSelectedItem());
 
             this.txtSaldoCuenta.setText(String.valueOf(control.consultarSaldo(numeroCuneta)));
         } catch (PersistenciaExcepcion ex) {
             Logger.getLogger(Deposito.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_jCBActionPerformed
 
     private void llenarCuentas(int id) {
