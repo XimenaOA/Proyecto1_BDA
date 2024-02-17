@@ -29,6 +29,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -42,8 +43,6 @@ public class ClienteDao implements iCliente {
     final IConexion con;
 
     private String idCliente = "", nombre = "", apellidoPaterno = "", apellidoMaterno = "", edad = "", fechaDeNacimiento = "", usr = "", contrasena = "";
-
-    private static Timer tiempo;
     
     private static final Logger LOG = Logger.getLogger(Connection.class.getName());
 
@@ -341,7 +340,7 @@ public class ClienteDao implements iCliente {
     }
 
     @Override
-    public boolean retiroSinCuenta(double montoCuenta, double montoRetirar, int cuentaUsr) throws PersistenciaExcepcion {
-        
+    public boolean retiroSinCuenta() throws PersistenciaExcepcion {
+        return false;
     }
 }

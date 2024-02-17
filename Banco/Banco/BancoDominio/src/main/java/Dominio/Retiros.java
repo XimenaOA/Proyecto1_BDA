@@ -4,6 +4,8 @@
  */
 package Dominio;
 
+import java.util.Date;
+
 /**
  *
  * @author Ximena
@@ -15,13 +17,13 @@ public class Retiros {
     private String estado;
     private String contrasena;
     private double monto;
-    private String fecha;
+    private Date fecha;
     private int idCuenta;
 
     public Retiros() {
     }
 
-    public Retiros(String tipo, double monto, String fecha, int idCuenta) {
+    public Retiros(String tipo, double monto, Date fecha, int idCuenta) {
         this.tipo = tipo;
         this.monto = monto;
         this.fecha = fecha;
@@ -29,7 +31,7 @@ public class Retiros {
     }
 
     
-    public Retiros(int folio, String estado, String contrasena, double monto, String fecha, int idCuenta) {
+    public Retiros(int folio, String estado, String contrasena, double monto, Date fecha, int idCuenta) {
         this.folio = folio;
         this.estado = estado;
         this.contrasena = contrasena;
@@ -38,7 +40,7 @@ public class Retiros {
         this.idCuenta = idCuenta;
     }
 
-    public Retiros(String tipo, int folio, String estado, String contrasena, double monto, String fecha, int idCuenta) {
+    public Retiros(String tipo, int folio, String estado, String contrasena, double monto, Date fecha, int idCuenta) {
         this.tipo = tipo;
         this.folio = folio;
         this.estado = estado;
@@ -88,11 +90,11 @@ public class Retiros {
         this.monto = monto;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
