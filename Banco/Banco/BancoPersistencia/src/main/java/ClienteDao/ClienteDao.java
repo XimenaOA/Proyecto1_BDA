@@ -350,7 +350,7 @@ public class ClienteDao implements iCliente {
             comandoSQL.setDate(5, (Date) retiro.getFecha());
             comandoSQL.setInt(6, retiro.getIdCuenta());
 
-            ResultSet res = comandoSQL.executeQuery(sentenciaSQL);
+            ResultSet res = comandoSQL.executeQuery();
             
             return true;
         } catch (SQLException ex) {

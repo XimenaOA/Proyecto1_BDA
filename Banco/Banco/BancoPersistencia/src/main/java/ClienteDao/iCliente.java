@@ -50,5 +50,7 @@ public interface iCliente {
     
     public boolean retiroSinCuenta(RetiroDTO retiro) throws PersistenciaExcepcion;
     
-    public 
+    public long generarFolio() throws PersistenciaExcepcion;
+    
+    public long generarContra() throws PersistenciaExcepcion;
 }
