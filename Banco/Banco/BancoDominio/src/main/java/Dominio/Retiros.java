@@ -14,7 +14,7 @@ public class Retiros {
     
     
     private String tipo;
-    private int folio;
+    private long folio;
     private String estado;
     private String contrasena;
     private double monto;
@@ -32,7 +32,7 @@ public class Retiros {
     }
 
     
-    public Retiros(int folio, String estado, String contrasena, double monto, Date fecha, int idCuenta) {
+    public Retiros(long folio, String estado, String contrasena, double monto, Date fecha, int idCuenta) {
         this.folio = folio;
         this.estado = estado;
         this.contrasena = contrasena;
@@ -41,7 +41,7 @@ public class Retiros {
         this.idCuenta = idCuenta;
     }
 
-    public Retiros(String tipo, int folio, String estado, String contrasena, double monto, Date fecha, int idCuenta) {
+    public Retiros(String tipo, long folio, String estado, String contrasena, double monto, Date fecha, int idCuenta) {
         this.tipo = tipo;
         this.folio = folio;
         this.estado = estado;
@@ -59,7 +59,7 @@ public class Retiros {
         this.tipo = tipo;
     }
 
-    public int getFolio() {
+    public long getFolio() {
         return folio;
     }
 

@@ -14,7 +14,7 @@ public class RetiroDTO {
     
     
     private String tipo;
-    private int folio;
+    private long folio;
     private String estado;
     private String contrasena;
     private double monto;
@@ -59,7 +59,7 @@ public class RetiroDTO {
         this.tipo = tipo;
     }
 
-    public int getFolio() {
+    public long getFolio() {
         return folio;
     }
 
