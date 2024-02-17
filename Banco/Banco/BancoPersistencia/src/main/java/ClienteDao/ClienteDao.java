@@ -150,6 +150,8 @@ public class ClienteDao implements iCliente {
         }
         return false;
     }
+    
+    
 
     @Override
     public List<String> ConsultarNumeroCuentas(int id) throws PersistenciaExcepcion {
@@ -333,5 +335,10 @@ public class ClienteDao implements iCliente {
             LOG.log(Level.SEVERE, "No se pudo eliminar la cuenta", e);
         }
         return false;
+    }
+
+    @Override
+    public boolean retiroSinCuenta(double montoCuenta, double montoRetirar, int cuentaUsr) throws PersistenciaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
