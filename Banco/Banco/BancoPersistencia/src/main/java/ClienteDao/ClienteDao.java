@@ -28,6 +28,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -42,6 +43,8 @@ public class ClienteDao implements iCliente {
 
     private String idCliente = "", nombre = "", apellidoPaterno = "", apellidoMaterno = "", edad = "", fechaDeNacimiento = "", usr = "", contrasena = "";
 
+    private static Timer tiempo;
+    
     private static final Logger LOG = Logger.getLogger(Connection.class.getName());
 
     public ClienteDao(IConexion con) {
@@ -339,6 +342,6 @@ public class ClienteDao implements iCliente {
 
     @Override
     public boolean retiroSinCuenta(double montoCuenta, double montoRetirar, int cuentaUsr) throws PersistenciaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 }
