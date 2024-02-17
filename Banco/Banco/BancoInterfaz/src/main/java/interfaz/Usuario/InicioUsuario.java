@@ -151,6 +151,11 @@ public class InicioUsuario extends javax.swing.JFrame {
         Deposito.setBackground(new java.awt.Color(10, 80, 186));
         Deposito.setForeground(new java.awt.Color(255, 255, 255));
         Deposito.setText("Deposito");
+        Deposito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DepositoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -272,10 +277,16 @@ public class InicioUsuario extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_transeferenciaActionPerformed
 
+    private void DepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepositoActionPerformed
+        Deposito deposito = new Deposito(control, cli);
+        deposito.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_DepositoActionPerformed
+
     
     public void llenarTabla(int id) {
         try {
-            List<Cuentas> listaHist = control.ConsultarCuentasInicio(id);
+            List<Cuentas> listaHist = control.ConsultarCuentas(id);
             
             DefaultTableModel modeloTabla = (DefaultTableModel) this.jtCuentas.getModel();
             

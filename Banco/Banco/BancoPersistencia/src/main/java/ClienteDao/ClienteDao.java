@@ -256,13 +256,15 @@ public class ClienteDao implements iCliente {
     @Override
     public double consultarSaldo(int numCuenta) throws PersistenciaExcepcion {
 
-        String sentencia = String.format("select monto from Cuentas where numeroDeCuenta='%d'", numCuenta);
-
+        String sentencia = "SELECT monto FROM Cuentas WHERE numeroDeCuenta = ?";
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
 
-            ResultSet res = comandoSQL.executeQuery(sentencia);
-            
-            return res.getDouble("monto");
+            comandoSQL.setInt(1, numCuenta);
+            ResultSet res = comandoSQL.executeQuery();
+
+            double monto = res.getDouble("monto");
+            return monto;
+
         } catch (SQLException e) {
 
             LOG.log(Level.SEVERE, "No se pudo consultar", e);

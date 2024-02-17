@@ -40,7 +40,7 @@ public class transferencia extends javax.swing.JFrame {
 
     private void llenarCuentas(int id) {
         try {
-            List<String> cuentas = control.ConsultarCuentasTranseferencias(id);
+            List<String> cuentas = control.ConsultarNumeroCuentas(id);
 
             DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
 
