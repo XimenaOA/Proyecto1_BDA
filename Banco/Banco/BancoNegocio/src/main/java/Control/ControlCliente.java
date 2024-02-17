@@ -43,22 +43,27 @@ public class ControlCliente implements iControl {
     }
 
     @Override
-    public Clientes iniciarSesion(String usr, String contrasenia) throws PersistenciaExcepcion {
+    public Clientes login(String usr, String contrasenia) throws PersistenciaExcepcion {
         return clienteDao.login(usr, contrasenia);
     }
 
     @Override
-    public List<String> ConsultarCuentasTranseferencias(int idCliente) throws PersistenciaExcepcion {
-        return clienteDao.ConsultarCuentasTranseferencias(idCliente);
+    public List<String> ConsultarNumeroCuentas(int idCliente) throws PersistenciaExcepcion {
+        return clienteDao.ConsultarNumeroCuentas(idCliente);
     }
- 
+
     @Override
     public String encriptar(String contra) throws NoSuchAlgorithmException {
         return clienteDao.encriptar(contra);
     }
 
     @Override
-    public List<Cuentas> ConsultarCuentasInicio(int id) throws PersistenciaExcepcion {
-        return clienteDao.ConsultarCuentasInicio(id);
+    public List<Cuentas> ConsultarCuentas(int id) throws PersistenciaExcepcion {
+        return clienteDao.ConsultarCuentas(id);
+    }
+
+    @Override
+    public double consultarSaldo(int numCuenta) throws PersistenciaExcepcion {
+        return clienteDao.consultarSaldo(numCuenta);
     }
 }

@@ -25,9 +25,11 @@ public interface iControl {
     
     boolean registrarUsuario(ClienteDto cliente, DomicilioDto domicilio) throws PersistenciaExcepcion;
     
-    Clientes iniciarSesion(String usr, String contrasenia) throws PersistenciaExcepcion;
+    Clientes login(String usr, String contrasenia) throws PersistenciaExcepcion;
     
-    public List<String> ConsultarCuentasTranseferencias(int id)throws PersistenciaExcepcion;
+    public List<String> ConsultarNumeroCuentas(int id)throws PersistenciaExcepcion;
     
-    public List<Cuentas> ConsultarCuentasInicio(int id)throws PersistenciaExcepcion;
+    public List<Cuentas> ConsultarCuentas(int id)throws PersistenciaExcepcion;
+    
+    public double consultarSaldo(int numCuenta)throws PersistenciaExcepcion;
 }

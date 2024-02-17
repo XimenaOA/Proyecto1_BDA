@@ -205,7 +205,7 @@ public class Inicio extends javax.swing.JFrame {
     private void ContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContinuarActionPerformed
         if (validarUsr(txtUsr.getText()) && validaContrasena(txtContrasena.getText())) {
             try {
-                Clientes cli = control.iniciarSesion(txtUsr.getText(), txtContrasena.getText());
+                Clientes cli = control.login(txtUsr.getText(), txtContrasena.getText());
                 if (cli == null) {
                     LOG.log(Level.SEVERE, "No se inicio sesión");
                 } else {

@@ -22,17 +22,12 @@ import java.util.List;
  */
 public interface iCliente {
 
-//    public String Retiro(Movimientos mov) throws PersistenciaExcepcion;
-    
     public boolean registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion;
 
     public Clientes login(String usr, String contrasenia) throws PersistenciaExcepcion;
     
-//    public Clientes retiro(ClienteDto cli) throws PersistenciaExcepcion;
-//    
     public boolean transeferencia(int cuenta1, double MontoCuenta1, double saldo, double MontoCuenta2, int cuenta2) throws PersistenciaExcepcion;
     
-//    public List<Movimientos> historial(ClienteDto cli) throws PersistenciaExcepcion;
     public String encriptar(String contra) throws NoSuchAlgorithmException;
     
     public List<String> ConsultarNumeroCuentas(int id)throws PersistenciaExcepcion;
@@ -46,9 +41,5 @@ public interface iCliente {
     public void deposito(int numCuenta)throws PersistenciaExcepcion;
     
     public double consultarSaldo(int numCuenta)throws PersistenciaExcepcion;
-//    public Clientes modificar(ClienteDto cli) throws PersistenciaExcepcion;
-//    
-//    public Clientes agregarCuenta(ClienteDto cli) throws PersistenciaExcepcion;
-//    
-//    public Clientes eliminarCuenta(ClienteDto cli) throws PersistenciaExcepcion;
+    
 }
