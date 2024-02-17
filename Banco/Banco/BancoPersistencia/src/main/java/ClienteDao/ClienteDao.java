@@ -19,6 +19,7 @@ import Excepciones.PersistenciaExcepcion;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -238,7 +239,7 @@ public class ClienteDao implements iCliente {
             while (res.next()) {
                 double monto = res.getDouble("monto");
                 String tipo = res.getString("Retiro");
-                String fecha = res.getString("fecha");
+                Date fecha = res.getDate("fecha");
                 int cuen = res.getInt("numeroDeCuenta");
                 Retiros ret = new Retiros(tipo, monto, fecha, cuen);
                 listR.add(ret);
