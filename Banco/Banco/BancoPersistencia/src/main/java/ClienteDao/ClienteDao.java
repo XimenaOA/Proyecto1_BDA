@@ -344,8 +344,12 @@ public class ClienteDao implements iCliente {
      String sentenciaSQL = "INSERT INTO retiroSinCuentea (Folio, estado, contrasena, monto, fecha, idCuenta)\n"  + "VALUES (?, ?, ?, ?, ?, ?)";
        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL)) {
             comandoSQL.setLong(1, retiro.getFolio());
-            comandoSQL.setString(2, "Espera");
-            comandoSQL.setString(3, "");
+            comandoSQL.setString(2, retiro.getEstado());
+            comandoSQL.setString(3, retiro.getContrasena());
+            comandoSQL.setDouble(4, retiro.getMonto());
+            comandoSQL.setDate(5, retiro.getFecha());
+            comandoSQL.setInt(6, retiro.getIdCuenta());
+            
 
             int res = comandoSQL.executeUpdate();
 
