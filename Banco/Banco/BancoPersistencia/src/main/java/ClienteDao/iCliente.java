@@ -47,5 +47,5 @@ public interface iCliente {
     
     public boolean eliminarCuenta(int numCuenta)throws PersistenciaExcepcion;
     
-    public boolean retiroSinCuenta() throws PersistenciaExcepcion;
+    public boolean retiroSinCuenta(CuentaDto cuenta) throws PersistenciaExcepcion;
 }
