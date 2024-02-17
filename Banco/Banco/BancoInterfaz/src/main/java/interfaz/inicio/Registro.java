@@ -439,10 +439,10 @@ public class Registro extends javax.swing.JFrame {
 
             try {
                 if (control.registrarUsuario(cliente, domi) != null) {
-                    JOptionPane.showConfirmDialog(this, "Se ha creado su cuenta de cliente exitosamente");
+                    JOptionPane.showMessageDialog(this, "Se ha creado su cuenta de cliente exitosamente");
 
                 } else {
-                    JOptionPane.showConfirmDialog(this, "No se ha creado su cuenta de cliente");
+                    JOptionPane.showMessageDialog(this, "No se ha creado su cuenta de cliente");
 
                 }
 
@@ -496,80 +496,46 @@ public class Registro extends javax.swing.JFrame {
                                         if (matcher9.matches()) {
                                             return true;
                                         } else {
-                                            JOptionPane.showConfirmDialog(this, "El numero solo debe de contener numeros");
+                                            JOptionPane.showMessageDialog(this, "El numero solo debe de contener numeros");
                                             return false;
                                         }
 
                                     } else {
-                                        JOptionPane.showConfirmDialog(this, "La calle solo debe de contener letras");
+                                        JOptionPane.showMessageDialog(this, "La calle solo debe de contener letras");
                                         return false;
                                     }
                                 } else {
-                                    JOptionPane.showConfirmDialog(this, "La colonia solo debe de contener letras");
+                                    JOptionPane.showMessageDialog(this, "La colonia solo debe de contener letras");
                                     return false;
                                 }
                             } else {
-                                JOptionPane.showConfirmDialog(this, "La contraseña debe de contener numeros, letras y si lo desea caracteres especiales\nLa contraseña de debe tener minimo 8 caracteres");
+                                JOptionPane.showMessageDialog(this, "La contraseña debe de contener numeros, letras y si lo desea caracteres especiales\nLa contraseña de debe tener minimo 8 caracteres");
                                 return false;
                             }
                         } else {
-                            JOptionPane.showConfirmDialog(this, "El usuario solo puede contener numeros y letras");
+                            JOptionPane.showMessageDialog(this, "El usuario solo puede contener numeros y letras");
                             return false;
                         }
                     } else {
-                        JOptionPane.showConfirmDialog(this, "Pon la fecha de nacimiento como se indica: AAAA-MM-DD");
+                        JOptionPane.showMessageDialog(this, "Pon la fecha de nacimiento como se indica: AAAA-MM-DD");
                         return false;
                     }
                 } else {
-                    JOptionPane.showConfirmDialog(this, "El Apellido solo acepta letras");
+                    JOptionPane.showMessageDialog(this, "El Apellido solo acepta letras");
                     return false;
                 }
             } else {
-                JOptionPane.showConfirmDialog(this, "El nombre solo acepta letras");
+                JOptionPane.showMessageDialog(this, "El nombre solo acepta letras");
                 return false;
             }
 
         } else {
-            JOptionPane.showConfirmDialog(this, "Porfavor rellene todos los campos");
+            JOptionPane.showMessageDialog(this, "Porfavor rellene todos los campos");
             return false;
         }
 
     }
 
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(Registro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new Registro().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Aceptar;

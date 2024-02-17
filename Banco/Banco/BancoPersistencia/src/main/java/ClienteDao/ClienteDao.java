@@ -5,6 +5,7 @@
 package ClienteDao;
 
 import ClienteDto.ClienteDto;
+import ClienteDto.CuentaDto;
 import ClienteDto.DomicilioDto;
 import Conexion.Conexion;
 import Conexion.IConexion;
@@ -88,9 +89,9 @@ public class ClienteDao implements iCliente {
             comandoSQL.setString(8, dom.getColonia());
             comandoSQL.setString(9, dom.getCalle());
 
-            Clientes cli = new Clientes(cliente.getNombre(), cliente.getApellidoPaterno(), cliente.getApellidoMaterno(),cliente.getFehcadenacimiento());
+            Clientes cli = new Clientes(cliente.getNombre(), cliente.getApellidoPaterno(), cliente.getApellidoMaterno(), cliente.getFehcadenacimiento());
             int res = comandoSQL.executeUpdate();
-            
+
             LOG.log(Level.INFO, "Se ha registrado el usuario", res);
             return cli;
 
@@ -261,10 +262,10 @@ public class ClienteDao implements iCliente {
 
             int res = comandoSQL.executeUpdate();
 
-            if (res>0) {
+            if (res > 0) {
                 LOG.log(Level.SEVERE, "Se pudo depositar");
-                
-            } 
+
+            }
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "No se pudo depositar", e);
         }
@@ -291,4 +292,46 @@ public class ClienteDao implements iCliente {
         return 0;
     }
 
+    @Override
+    public Cuentas agregarCuenta(CuentaDto cuenta) throws PersistenciaExcepcion {
+        String sentencia = "INSERT INTO Cuentas (fechaApertura, monto, numeroDeCuenta, estado, idcliente) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+            comandoSQL.setString(1, cuenta.getFechaApertura());
+            comandoSQL.setDouble(2, cuenta.getSaldo());
+            comandoSQL.setString(3, String.valueOf(cuenta.getNumeroDeCuenta()));
+            comandoSQL.setString(4, "Activo");
+            comandoSQL.setInt(5, cuenta.getIdCliente());
+
+            Cuentas cuentas = new Cuentas(cuenta.getNumeroDeCuenta(), cuenta.getFechaApertura(), cuenta.getSaldo(), cuenta.getIdCliente());
+            int res = comandoSQL.executeUpdate();
+
+            if (res > 0) {
+                LOG.log(Level.INFO, "Cuenta agregada exitosamente");
+                return cuentas;
+            }
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se pudo agregar la cuenta", e);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean eliminarCuenta(int numCuenta) throws PersistenciaExcepcion {
+        String sentenciaSQL = "DELETE FROM Cuentas WHERE numeroDeCuenta = ?";
+
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL)) {
+            comandoSQL.setInt(1, numCuenta);
+
+            int res = comandoSQL.executeUpdate();
+
+            if (res > 0) {
+                LOG.log(Level.INFO, "Cuenta eliminada exitosamente");
+                return true;
+            }
+
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se pudo eliminar la cuenta", e);
+        }
+        return false;
+    }
 }

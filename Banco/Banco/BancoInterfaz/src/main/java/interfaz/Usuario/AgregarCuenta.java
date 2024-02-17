@@ -4,8 +4,14 @@
  */
 package interfaz.Usuario;
 
+import ClienteDto.CuentaDto;
 import Control.ControlCliente;
 import Dominio.Clientes;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +21,7 @@ public class AgregarCuenta extends javax.swing.JFrame {
 
     private final ControlCliente control;
     private final Clientes cli;
+
     /**
      * Creates new form AgregarCuenta
      */
@@ -38,7 +45,7 @@ public class AgregarCuenta extends javax.swing.JFrame {
         Aceptar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        txtCol = new javax.swing.JTextField();
+        txtCuenta = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -76,10 +83,10 @@ public class AgregarCuenta extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Numero de cuenta");
 
-        txtCol.setBackground(new java.awt.Color(204, 204, 204));
-        txtCol.setForeground(new java.awt.Color(0, 0, 0));
-        txtCol.setToolTipText("Debe de contener solo 10 digitos");
-        txtCol.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
+        txtCuenta.setBackground(new java.awt.Color(204, 204, 204));
+        txtCuenta.setForeground(new java.awt.Color(0, 0, 0));
+        txtCuenta.setToolTipText("Debe de contener solo 10 digitos");
+        txtCuenta.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -89,7 +96,7 @@ public class AgregarCuenta extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel16)
                 .addGap(18, 18, 18)
-                .addComponent(txtCol, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -98,7 +105,7 @@ public class AgregarCuenta extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -181,7 +188,20 @@ public class AgregarCuenta extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-
+        if (!this.txtCuenta.getText().equals("")) {
+            Pattern pattern = Pattern.compile("^[0-9]{10}$");
+            Matcher matcher = pattern.matcher(this.txtCuenta.getText());
+            
+            if (matcher.matches()) {
+                SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+                String fecha = simple.format(LocalDate.now());
+                CuentaDto cuenta = new CuentaDto(Integer.parseInt(this.txtCuenta.getText()),fecha, 0,cli.getId());
+            
+                
+            }
+        }else{
+        JOptionPane.showMessageDialog(this, "Rellena el campo con numero de cuenta");
+        }
     }//GEN-LAST:event_AceptarActionPerformed
 
 
@@ -194,6 +214,6 @@ public class AgregarCuenta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JTextField txtCol;
+    private javax.swing.JTextField txtCuenta;
     // End of variables declaration//GEN-END:variables
 }
