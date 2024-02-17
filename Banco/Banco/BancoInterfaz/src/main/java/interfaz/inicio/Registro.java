@@ -421,8 +421,8 @@ public class Registro extends javax.swing.JFrame {
             DomicilioDto domi = null;
             try {
                 String contra = control.encriptar(this.txtContra.getText());
-
-                cliente = new ClienteDto(this.txtNombre.getText(), this.txtAP.getText(), this.txtAM.getText(), "dd", this.txtUsu.getText(), contra);
+                String fecha = this.fechaSeleccionada.getDateFormatString();
+                cliente = new ClienteDto(this.txtNombre.getText(), this.txtAP.getText(), this.txtAM.getText(), fecha, this.txtUsu.getText(), contra);
 
                 domi = new DomicilioDto(this.txtCol.getText(), this.txtCalle.getText(), Integer.parseInt(this.txtNum.getText()));
 
@@ -464,13 +464,13 @@ public class Registro extends javax.swing.JFrame {
                 Matcher matcher3 = pattern.matcher(txtAP.getText());
 
                 if (matcher2.matches() && matcher3.matches()) {
+                    String fecha = this.fechaSeleccionada.getDateFormatString();
                     Pattern pattern2 = Pattern.compile("^[0-9]{4}-[0-9]{2}-[0-9]{2}$");
-                    Matcher matcher4 = pattern2.matcher("xx");
+                    Matcher matcher4 = pattern2.matcher(fecha);
 
                     if (matcher4.matches()) {
-                        String fecha = this.fechaSeleccionada.getDateFormatString();
                         Pattern pattern3 = Pattern.compile("^[a-zA-Z0-9]+$");
-                        Matcher matcher5 = pattern3.matcher(fecha);
+                        Matcher matcher5 = pattern3.matcher(this.txtUsu.getText());
 
                         if (matcher5.matches()) {
                             Pattern pattern4 = Pattern.compile("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-zA-Z0-9]).{8,}$");
