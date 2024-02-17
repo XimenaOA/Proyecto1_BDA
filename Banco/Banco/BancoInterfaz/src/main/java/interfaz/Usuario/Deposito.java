@@ -4,6 +4,8 @@
  */
 package interfaz.Usuario;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author tacot
@@ -256,7 +258,9 @@ public class Deposito extends javax.swing.JFrame {
     }//GEN-LAST:event_VolverActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-
+        int numeroCuneta = Integer.parseInt((String) this.jCB.getSelectedItem());
+        
+        JOptionPane.showMessageDialog(this,numeroCuneta);
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void txtSaldo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldo1ActionPerformed

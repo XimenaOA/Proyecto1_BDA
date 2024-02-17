@@ -35,15 +35,17 @@ public interface iCliente {
 //    public List<Movimientos> historial(ClienteDto cli) throws PersistenciaExcepcion;
     public String encriptar(String contra) throws NoSuchAlgorithmException;
     
-    public List<String> ConsultarCuentasTranseferencias(int id)throws PersistenciaExcepcion;
+    public List<String> ConsultarNumeroCuentas(int id)throws PersistenciaExcepcion;
     
-    public List<Cuentas> ConsultarCuentasInicio(int id)throws PersistenciaExcepcion;
+    public List<Cuentas> ConsultarCuentas(int id)throws PersistenciaExcepcion;
     
     public List<Transferencias> ConsultarTransferencias(int id)throws PersistenciaExcepcion;
 
     public List<Retiros> ConsultarRetiros(int id)throws PersistenciaExcepcion;
 
     public void deposito(int numCuenta)throws PersistenciaExcepcion;
+    
+    public double consultarSaldo(int numCuenta)throws PersistenciaExcepcion;
 //    public Clientes modificar(ClienteDto cli) throws PersistenciaExcepcion;
 //    
 //    public Clientes agregarCuenta(ClienteDto cli) throws PersistenciaExcepcion;

@@ -150,7 +150,7 @@ public class ClienteDao implements iCliente {
     }
 
     @Override
-    public List<String> ConsultarCuentasTranseferencias(int id) throws PersistenciaExcepcion {
+    public List<String> ConsultarNumeroCuentas(int id) throws PersistenciaExcepcion {
         List<String> listC = new ArrayList<>();
         String sentencia = String.format("select numeroDeCuenta from Cuentas c join Clientes cl on c.idcliente = cl.idCliente where cl.idCliente='%d'", id);
 
@@ -172,7 +172,7 @@ public class ClienteDao implements iCliente {
     }
 
     @Override
-    public List<Cuentas> ConsultarCuentasInicio(int id) throws PersistenciaExcepcion {
+    public List<Cuentas> ConsultarCuentas(int id) throws PersistenciaExcepcion {
         List<Cuentas> listC = new ArrayList<>();
         String sentencia = String.format("select * from Cuentas c join Clientes cl on c.idcliente = cl.idCliente where cl.idCliente='%d'", id);
 
@@ -198,7 +198,7 @@ public class ClienteDao implements iCliente {
 
     @Override
     public List<Transferencias> ConsultarTransferencias(int id) throws PersistenciaExcepcion {
-    List<Transferencias> listT = new ArrayList<>();
+        List<Transferencias> listT = new ArrayList<>();
         String sentencia = String.format("select * from transferencias t join Cuentas cl on t.idCuenta = cl.idCuenta where cl.idCliente='%d'", id);
 
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
@@ -251,6 +251,24 @@ public class ClienteDao implements iCliente {
     @Override
     public void deposito(int numCuenta) throws PersistenciaExcepcion {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public double consultarSaldo(int numCuenta) throws PersistenciaExcepcion {
+
+        String sentencia = String.format("select monto from Cuentas where numeroDeCuenta='%d'", numCuenta);
+
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+            ResultSet res = comandoSQL.executeQuery(sentencia);
+            
+            return res.getDouble("monto");
+        } catch (SQLException e) {
+
+            LOG.log(Level.SEVERE, "No se pudo consultar", e);
+        }
+
+        return 0;
     }
 
 }
