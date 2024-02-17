@@ -66,7 +66,7 @@ public class Registro extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         txtUsu = new javax.swing.JTextField();
         txtContra = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        fechaSeleccionada = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         Cancelar = new javax.swing.JButton();
         Aceptar = new javax.swing.JButton();
@@ -144,9 +144,7 @@ public class Registro extends javax.swing.JFrame {
         txtContra.setForeground(new java.awt.Color(0, 0, 0));
         txtContra.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
 
-        jDateChooser1.setBackground(new java.awt.Color(204, 204, 204));
-        jDateChooser1.setForeground(new java.awt.Color(0, 0, 0));
-        jDateChooser1.setDateFormatString("yyyy/mm/dd");
+        fechaSeleccionada.setDateFormatString("yyyy-MM-dd");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -171,11 +169,6 @@ public class Registro extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(67, 67, 67)
@@ -188,6 +181,11 @@ public class Registro extends javax.swing.JFrame {
                             .addComponent(txtUsu)
                             .addComponent(txtContra))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(fechaSeleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,10 +202,10 @@ public class Registro extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtAM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fechaSeleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -453,7 +451,7 @@ public class Registro extends javax.swing.JFrame {
 
     private boolean verificar() {
         if (!this.txtNombre.getText().equals("") || !this.txtAP.getText().equals("")
-//                || !this.txtAM.getText().equals("") || !this.txtFN.getText().equals("")
+                || !this.txtAM.getText().equals("") || !this.fechaSeleccionada.getDateFormatString().equals("")
                 || !this.txtUsu.getText().equals("") || !this.txtContra.getText().equals("")
                 || !this.txtCol.getText().equals("") || !this.txtCalle.getText().equals("")
                 || !this.txtNum.getText().equals("")) {
@@ -470,8 +468,9 @@ public class Registro extends javax.swing.JFrame {
                     Matcher matcher4 = pattern2.matcher("xx");
 
                     if (matcher4.matches()) {
+                        String fecha = this.fechaSeleccionada.getDateFormatString();
                         Pattern pattern3 = Pattern.compile("^[a-zA-Z0-9]+$");
-                        Matcher matcher5 = pattern3.matcher(txtUsu.getText());
+                        Matcher matcher5 = pattern3.matcher(fecha);
 
                         if (matcher5.matches()) {
                             Pattern pattern4 = Pattern.compile("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-zA-Z0-9]).{8,}$");
@@ -568,7 +567,7 @@ public class Registro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Aceptar;
     private javax.swing.JButton Cancelar;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser fechaSeleccionada;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;

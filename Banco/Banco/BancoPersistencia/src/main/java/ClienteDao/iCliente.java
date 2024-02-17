@@ -9,6 +9,8 @@ import ClienteDto.DomicilioDto;
 import Dominio.Clientes;
 import Dominio.Cuentas;
 import Dominio.Domicilio;
+import Dominio.Retiros;
+import Dominio.Transferencias;
 //import Dominio.Movimientos;
 import Excepciones.PersistenciaExcepcion;
 import java.security.NoSuchAlgorithmException;
@@ -37,6 +39,11 @@ public interface iCliente {
     
     public List<Cuentas> ConsultarCuentasInicio(int id)throws PersistenciaExcepcion;
     
+    public List<Transferencias> ConsultarTransferencias(int id)throws PersistenciaExcepcion;
+
+    public List<Retiros> ConsultarRetiros(int id)throws PersistenciaExcepcion;
+
+    public void deposito(int numCuenta)throws PersistenciaExcepcion;
 //    public Clientes modificar(ClienteDto cli) throws PersistenciaExcepcion;
 //    
 //    public Clientes agregarCuenta(ClienteDto cli) throws PersistenciaExcepcion;

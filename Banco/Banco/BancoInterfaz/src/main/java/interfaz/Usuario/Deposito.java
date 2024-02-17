@@ -63,7 +63,7 @@ public class Deposito extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("TeX Gyre Adventor", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Monto a transferir");
+        jLabel6.setText("Monto a Depositar");
 
         txtSaldo.setEditable(false);
         txtSaldo.setBackground(new java.awt.Color(255, 255, 255));

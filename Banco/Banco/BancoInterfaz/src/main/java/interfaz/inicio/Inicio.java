@@ -68,7 +68,7 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/jesus/Documentos/GitHub/Proyecto1_BDA/Banco/Banco/BancoInterfaz/src/main/resource/usuario128.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tacot\\Documents\\GitHub\\Banco\\Banco\\BancoInterfaz\\src\\main\\resource\\usuario128.png")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("TeX Gyre Adventor", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(10, 80, 186));

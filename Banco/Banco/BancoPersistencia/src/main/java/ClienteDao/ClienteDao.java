@@ -11,6 +11,8 @@ import Conexion.IConexion;
 import Dominio.Clientes;
 import Dominio.Cuentas;
 import Dominio.Domicilio;
+import Dominio.Retiros;
+import Dominio.Transferencias;
 //import Dominio.Movimientos;
 import Excepciones.PersistenciaExcepcion;
 import java.security.MessageDigest;
@@ -45,32 +47,6 @@ public class ClienteDao implements iCliente {
         this.con = con;
     }
 
-//    @Override
-//    public List<Movimientos> historial(ClienteDto cli) throws PersistenciaExcepcion {
-//        List<Movimientos> lisHis = new ArrayList<>();
-//
-//        String sentencia = String.format("select m.tipo as TipoMovimiento,c.numeroDeCuenta as Cuenta,m.fecha as Fecha,m.saldo as Saldo from Movimientos m inner join Cuentas c on m.idcuenta = c.idCuenta inner join Clientes cl on c.idcliente = cl.idCliente where cl.idCliente ='%d' order by m.fecha desc", cli.getId());
-//
-//        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
-//
-//            ResultSet res = comandoSQL.executeQuery(sentencia);
-//
-//            while (res.next()) {
-//
-//                Movimientos mov = new Movimientos(res.getString("TipoMovimiento"), res.getString("fecha"), res.getDouble("saldo"), res.getInt("Cuenta"));
-//
-//                lisHis.add(mov);
-//            }
-//
-//            return lisHis;
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
-//        }
-//        return null;
-//
-//    }
-//
     public String encriptar(String contra) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         byte[] hashBytes = md.digest(contra.getBytes());
@@ -84,7 +60,7 @@ public class ClienteDao implements iCliente {
             hexString.append(hex);
         }
 
-        return hexString.toString().substring(0, Math.min(hexString.length(), 70));
+        return hexString.toString().substring(0, Math.min(hexString.length(), 10));
     }
 
     @Override
@@ -218,6 +194,63 @@ public class ClienteDao implements iCliente {
         }
 
         return listC;
+    }
+
+    @Override
+    public List<Transferencias> ConsultarTransferencias(int id) throws PersistenciaExcepcion {
+    List<Transferencias> listT = new ArrayList<>();
+        String sentencia = String.format("select * from transferencias t join Cuentas cl on t.idCuenta = cl.idCuenta where cl.idCliente='%d'", id);
+
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+            ResultSet res = comandoSQL.executeQuery(sentencia);
+
+            while (res.next()) {
+                double monto = res.getDouble("monto");
+                int destinatario = res.getInt("destinatario");
+                String fecha = res.getString("fechaDeTrasferencia");
+                int cuen = res.getInt("numeroDeCuenta");
+                Transferencias trans = new Transferencias(monto, destinatario, fecha, cuen);
+                listT.add(trans);
+            }
+
+            return listT;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+
+        return listT;
+    }
+
+    @Override
+    public List<Retiros> ConsultarRetiros(int id) throws PersistenciaExcepcion {
+        List<Retiros> listR = new ArrayList<>();
+        String sentencia = String.format("select *, \"Retiros\" as Retiro from retiroSinCuentea r join Cuentas cl on r.idCuenta = cl.idCuenta where cl.idCliente='%d'", id);
+
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+            ResultSet res = comandoSQL.executeQuery(sentencia);
+
+            while (res.next()) {
+                double monto = res.getDouble("monto");
+                String tipo = res.getString("Retiro");
+                String fecha = res.getString("fecha");
+                int cuen = res.getInt("numeroDeCuenta");
+                Retiros ret = new Retiros(tipo, monto, fecha, cuen);
+                listR.add(ret);
+            }
+
+            return listR;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+
+        return listR;
+    }
+
+    @Override
+    public void deposito(int numCuenta) throws PersistenciaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
