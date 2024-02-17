@@ -15,6 +15,7 @@ import Excepciones.PersistenciaExcepcion;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -32,6 +33,9 @@ public class Registro extends javax.swing.JFrame {
   
 
     private ControlCliente control;
+    SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+        
+        String fecha; 
 
     /**
      * Creates new form Registro
@@ -416,12 +420,15 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
+        
+        this.fecha = simple.format(this.fechaSeleccionada.getDate());
+        
         if (this.verificar()) {
             ClienteDto cliente = null;
             DomicilioDto domi = null;
             try {
                 String contra = control.encriptar(this.txtContra.getText());
-                String fecha = this.fechaSeleccionada.getDateFormatString();
+                
                 cliente = new ClienteDto(this.txtNombre.getText(), this.txtAP.getText(), this.txtAM.getText(), fecha, this.txtUsu.getText(), contra);
 
                 domi = new DomicilioDto(this.txtCol.getText(), this.txtCalle.getText(), Integer.parseInt(this.txtNum.getText()));
@@ -464,7 +471,7 @@ public class Registro extends javax.swing.JFrame {
                 Matcher matcher3 = pattern.matcher(txtAP.getText());
 
                 if (matcher2.matches() && matcher3.matches()) {
-                    String fecha = this.fechaSeleccionada.getDateFormatString();
+                    fecha = simple.format(this.fechaSeleccionada.getDate());
                     Pattern pattern2 = Pattern.compile("^[0-9]{4}-[0-9]{2}-[0-9]{2}$");
                     Matcher matcher4 = pattern2.matcher(fecha);
 
