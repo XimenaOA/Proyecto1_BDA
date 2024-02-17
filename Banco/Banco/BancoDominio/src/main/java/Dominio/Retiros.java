@@ -12,6 +12,7 @@ import java.util.Date;
  */
 public class Retiros {
     
+    
     private String tipo;
     private int folio;
     private String estado;
