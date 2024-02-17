@@ -321,8 +321,6 @@ public class Deposito extends javax.swing.JFrame {
 
             this.jCB.setModel(comboBoxModel);
         } catch (PersistenciaExcepcion ex) {
-            // Manejar la excepción si ocurre algún error al consultar las cuentas
-            // Aquí puedes mostrar un mensaje de error o tomar alguna otra acción apropiada
             ex.printStackTrace();
         }
     }

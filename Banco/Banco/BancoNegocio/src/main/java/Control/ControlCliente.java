@@ -7,6 +7,7 @@ package Control;
 import ClienteDao.ClienteDao;
 import ClienteDao.iCliente;
 import ClienteDto.ClienteDto;
+import ClienteDto.CuentaDto;
 import ClienteDto.DomicilioDto;
 import Dominio.Clientes;
 import Dominio.Cuentas;
@@ -77,6 +78,16 @@ public class ControlCliente implements iControl {
     @Override
     public void deposito(int numCuenta, double monto) throws PersistenciaExcepcion {
         clienteDao.deposito(numCuenta, monto);
+    }
+
+    @Override
+    public Cuentas agregarCuenta(CuentaDto cuenta) throws PersistenciaExcepcion {
+        return clienteDao.agregarCuenta(cuenta);
+    }
+
+    @Override
+    public boolean eliminarCuenta(int numCuenta) throws PersistenciaExcepcion {
+        return clienteDao.eliminarCuenta(numCuenta);
     }
     
 }

@@ -4,36 +4,32 @@
  */
 package interfaz.Usuario;
 
-import ClienteDto.CuentaDto;
 import Control.ControlCliente;
 import Dominio.Clientes;
 import Excepciones.PersistenciaExcepcion;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.JOptionPane;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
  * @author tacot
  */
-public class AgregarCuenta extends javax.swing.JFrame {
+public class EliminarCuenta extends javax.swing.JFrame {
 
     private final ControlCliente control;
     private final Clientes cli;
     InicioUsuario ini;
 
     /**
-     * Creates new form AgregarCuenta
+     * Creates new form EliminarCuenta
      */
-    public AgregarCuenta(ControlCliente control, Clientes cli) {
+    public EliminarCuenta(ControlCliente control, Clientes cli) {
         initComponents();
         this.cli = cli;
         this.control = control;
+        this.llenarCuentas(cli.getId());
     }
 
     /**
@@ -49,8 +45,7 @@ public class AgregarCuenta extends javax.swing.JFrame {
         Cancelar = new javax.swing.JButton();
         Aceptar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        txtCuenta = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,7 +57,7 @@ public class AgregarCuenta extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("TeX Gyre Adventor", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Informacion de cuenta");
+        jLabel4.setText("Seleccione la cuenta a eliminar");
 
         Cancelar.setBackground(new java.awt.Color(10, 80, 186));
         Cancelar.setForeground(new java.awt.Color(255, 255, 255));
@@ -84,34 +79,25 @@ public class AgregarCuenta extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel16.setFont(new java.awt.Font("TeX Gyre Adventor", 0, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setText("Numero de cuenta");
-
-        txtCuenta.setBackground(new java.awt.Color(204, 204, 204));
-        txtCuenta.setForeground(new java.awt.Color(0, 0, 0));
-        txtCuenta.setToolTipText("Debe de contener solo 10 digitos");
-        txtCuenta.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
+        jComboBox1.setBackground(new java.awt.Color(204, 204, 204));
+        jComboBox1.setForeground(new java.awt.Color(10, 80, 186));
+        jComboBox1.setBorder(null);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel16)
-                .addGap(18, 18, 18)
-                .addComponent(txtCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -123,15 +109,16 @@ public class AgregarCuenta extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(86, 86, 86)
                         .addComponent(Cancelar)
-                        .addGap(44, 44, 44)
+                        .addGap(83, 83, 83)
                         .addComponent(Aceptar))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(jLabel4)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(44, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(75, 75, 75))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +136,7 @@ public class AgregarCuenta extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("TeX Gyre Adventor", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Agregar cuenta");
+        jLabel3.setText("Eliminar cuenta");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -183,7 +170,6 @@ public class AgregarCuenta extends javax.swing.JFrame {
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
@@ -193,43 +179,42 @@ public class AgregarCuenta extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
-        if (!this.txtCuenta.getText().equals("")) {
-            Pattern pattern = Pattern.compile("^[0-9]{10}$");
-            Matcher matcher = pattern.matcher(this.txtCuenta.getText());
+        try {
+            int numCuenta = Integer.parseInt((String) this.jComboBox1.getSelectedItem());
+            control.eliminarCuenta(numCuenta);
 
-            if (matcher.matches()) {
-                try {
-                    LocalDate localDate = LocalDate.now();
-                    Date date = java.sql.Date.valueOf(localDate);
-                    SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
-                    String fecha = simple.format(date);
-
-                    CuentaDto cuenta = new CuentaDto(Integer.parseInt(this.txtCuenta.getText()), fecha, 0, cli.getId());
-
-                    control.agregarCuenta(cuenta);
-
-                    ini = new InicioUsuario(control, cli);
-                    setVisible(false);
-                    ini.setVisible(true);
-                } catch (PersistenciaExcepcion ex) {
-                    Logger.getLogger(AgregarCuenta.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Rellena el campo con numero de cuenta");
+            ini = new InicioUsuario(control, cli);
+            setVisible(false);
+            ini.setVisible(true);
+        } catch (PersistenciaExcepcion ex) {
+            Logger.getLogger(EliminarCuenta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_AceptarActionPerformed
 
+    private void llenarCuentas(int id) {
+        try {
+            List<String> cuentas = control.ConsultarNumeroCuentas(id);
+
+            DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
+
+            for (String cuenta : cuentas) {
+                comboBoxModel.addElement(cuenta);
+            }
+
+            this.jComboBox1.setModel(comboBoxModel);
+        } catch (PersistenciaExcepcion ex) {
+            ex.printStackTrace();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Aceptar;
     private javax.swing.JButton Cancelar;
-    private javax.swing.JLabel jLabel16;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JTextField txtCuenta;
     // End of variables declaration//GEN-END:variables
 }

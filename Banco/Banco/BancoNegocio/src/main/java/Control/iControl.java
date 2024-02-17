@@ -5,6 +5,7 @@
 package Control;
 
 import ClienteDto.ClienteDto;
+import ClienteDto.CuentaDto;
 import ClienteDto.DomicilioDto;
 import Dominio.Clientes;
 import Dominio.Cuentas;
@@ -41,4 +42,7 @@ public interface iControl {
     
     public double consultarSaldo(int numCuenta)throws PersistenciaExcepcion;
     
+    public Cuentas agregarCuenta(CuentaDto cuenta)throws PersistenciaExcepcion;
+    
+    public boolean eliminarCuenta(int numCuenta)throws PersistenciaExcepcion;
 }

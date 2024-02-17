@@ -329,11 +329,16 @@ public class InicioUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_historialActionPerformed
 
     private void AgregarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarCuentaActionPerformed
-        // TODO add your handling code here:
+        AgregarCuenta aCuenta = new AgregarCuenta(control, cli);
+        aCuenta.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_AgregarCuentaActionPerformed
 
     private void EliminarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarCuentaActionPerformed
-        // TODO add your handling code here:
+        EliminarCuenta Ecuenta = new EliminarCuenta(control, cli);
+        Ecuenta.setVisible(true);
+        this.dispose();
+        
     }//GEN-LAST:event_EliminarCuentaActionPerformed
 
     private void retiroSinTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retiroSinTarjetaActionPerformed
