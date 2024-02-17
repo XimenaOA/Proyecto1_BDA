@@ -44,7 +44,7 @@ public class ClienteDao implements iCliente {
     final IConexion con;
 
     private String idCliente = "", nombre = "", apellidoPaterno = "", apellidoMaterno = "", edad = "", fechaDeNacimiento = "", usr = "", contrasena = "";
-    
+
     private static final Logger LOG = Logger.getLogger(Connection.class.getName());
 
     public ClienteDao(IConexion con) {
@@ -153,8 +153,6 @@ public class ClienteDao implements iCliente {
         }
         return false;
     }
-    
-    
 
     @Override
     public List<String> ConsultarNumeroCuentas(int id) throws PersistenciaExcepcion {
@@ -342,6 +340,15 @@ public class ClienteDao implements iCliente {
 
     @Override
     public boolean retiroSinCuenta() throws PersistenciaExcepcion {
-        return false;
+        String sentenciaSQL = "INSERT INTO retiroSinCuentea (Folio, estado, contrasena, monto, fecha, idCuenta)\n"
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL)) {
+            comandoSQL.setInt(1, numCuenta);
+            
+        }
+            
+
+            }catch (Exception e) {
+        }
+        }
     }
-}
