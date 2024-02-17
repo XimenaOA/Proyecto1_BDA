@@ -347,7 +347,7 @@ public class ClienteDao implements iCliente {
             comandoSQL.setString(2, retiro.getEstado());
             comandoSQL.setString(3, retiro.getContrasena());
             comandoSQL.setDouble(4, retiro.getMonto());
-            comandoSQL.setDate(5, retiro.getFecha());
+            comandoSQL.setDate(5, (Date) retiro.getFecha());
             comandoSQL.setInt(6, retiro.getIdCuenta());
             
 
