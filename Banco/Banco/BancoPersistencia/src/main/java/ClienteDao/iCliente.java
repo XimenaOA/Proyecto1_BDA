@@ -7,6 +7,7 @@ package ClienteDao;
 import ClienteDto.ClienteDto;
 import ClienteDto.CuentaDto;
 import ClienteDto.DomicilioDto;
+import ClienteDto.RetiroDTO;
 import Dominio.Clientes;
 import Dominio.Cuentas;
 import Dominio.Domicilio;
@@ -47,5 +48,5 @@ public interface iCliente {
     
     public boolean eliminarCuenta(int numCuenta)throws PersistenciaExcepcion;
     
-    public boolean retiroSinCuenta(CuentaDto cuenta) throws PersistenciaExcepcion;
+    public boolean retiroSinCuenta(RetiroDTO retiro) throws PersistenciaExcepcion;
 }
