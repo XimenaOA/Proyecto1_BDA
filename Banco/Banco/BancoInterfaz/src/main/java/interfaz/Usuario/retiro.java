@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
  * @author jesus
  */
 public class retiro extends javax.swing.JFrame {
+
     private int numero;
     private ControlCliente control;
     private Clientes cli;
@@ -274,7 +275,7 @@ public class retiro extends javax.swing.JFrame {
     }//GEN-LAST:event_txtMontoDisponibleActionPerformed
 
     private void comboBoxCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCuentaActionPerformed
-      try {
+        try {
             this.numero = Integer.parseInt((String) this.comboBoxCuenta.getSelectedItem());
 
             this.txtMontoDisponible.setText(String.valueOf(control.consultarSaldo(this.numero)));
@@ -282,6 +283,19 @@ public class retiro extends javax.swing.JFrame {
             Logger.getLogger(Deposito.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_comboBoxCuentaActionPerformed
+
+    public long generarFolio() {
+        long min = 1000000000L;
+        long max = 9999999999L;
+        return min + (long) (Math.random() * (max - min + 1));
+    }
+
+    public int generarContra() {
+
+        int min = 10000000;
+        int max = 99999999;
+        return min + (int) (Math.random() * (max - min + 1));
+    }
 
 //    /**
 //     * @param args the command line arguments
