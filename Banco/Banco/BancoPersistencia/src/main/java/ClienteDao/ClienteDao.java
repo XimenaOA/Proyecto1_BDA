@@ -341,37 +341,33 @@ public class ClienteDao implements iCliente {
 
     @Override
     public boolean retiroSinCuenta(RetiroDTO retiro) throws PersistenciaExcepcion {
-     String sentenciaSQL = "INSERT INTO retiroSinCuentea (Folio, estado, contrasena, monto, fecha, idCuenta)\n"  + "VALUES (?, ?, ?, ?, ?, ?)";
-       try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL)) {
+        String sentenciaSQL = "INSERT INTO retiroSinCuentea (Folio, estado, contrasena, monto, fecha, idCuenta)\n" + "VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL)) {
             comandoSQL.setLong(1, retiro.getFolio());
             comandoSQL.setString(2, retiro.getEstado());
             comandoSQL.setString(3, retiro.getContrasena());
             comandoSQL.setDouble(4, retiro.getMonto());
             comandoSQL.setDate(5, (Date) retiro.getFecha());
             comandoSQL.setInt(6, retiro.getIdCuenta());
-            
 
-            int res = comandoSQL.executeUpdate();
+            ResultSet res = comandoSQL.executeQuery(sentenciaSQL);
 
-            if (res > 0) {
-                LOG.log(Level.INFO, "Cuenta eliminada exitosamente");
-                return true;
-            }
-
-        } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "No se pudo eliminar la cuenta", e);
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
-           
+        return false;
+
     }
-    
+
     public long generarFolio() {
         long min = 1000000000L;
         long max = 9999999999L;
         return min + (long) (Math.random() * (max - min + 1));
     }
 
-     public int generarContra(){
-    
+    public int generarContra() {
+
         int min = 10000000;
         int max = 99999999;
         return min + (int) (Math.random() * (max - min + 1));
