@@ -52,5 +52,5 @@ public interface iCliente {
     
     public long generarFolio() throws PersistenciaExcepcion;
     
-    public long generarContra() throws PersistenciaExcepcion;
+    public int generarContra() throws PersistenciaExcepcion;
 }

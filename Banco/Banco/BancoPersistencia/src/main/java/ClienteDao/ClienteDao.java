@@ -360,12 +360,14 @@ public class ClienteDao implements iCliente {
 
     }
 
+    @Override
     public long generarFolio() {
         long min = 1000000000L;
         long max = 9999999999L;
         return min + (long) (Math.random() * (max - min + 1));
     }
 
+    @Override
     public int generarContra() {
 
         int min = 10000000;
