@@ -7,6 +7,7 @@ package ClienteDao;
 import ClienteDto.ClienteDto;
 import ClienteDto.CuentaDto;
 import ClienteDto.DomicilioDto;
+import ClienteDto.RetiroDTO;
 import Conexion.Conexion;
 import Conexion.IConexion;
 import Dominio.Clientes;
@@ -339,16 +340,20 @@ public class ClienteDao implements iCliente {
     }
 
     @Override
-    public boolean retiroSinCuenta() throws PersistenciaExcepcion {
-        String sentenciaSQL = "INSERT INTO retiroSinCuentea (Folio, estado, contrasena, monto, fecha, idCuenta)\n"
-                + "VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL)) {
-            comandoSQL.setInt(1, numCuenta);
-            
-        }
-            
+    public boolean retiroSinCuenta(RetiroDTO retiro) throws PersistenciaExcepcion {
+     String sentenciaSQL = "INSERT INTO retiroSinCuentea (Folio, estado, contrasena, monto, fecha, idCuenta)\n"  + "VALUES (?, ?, ?, ?, ?, ?)";
+       try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL)) {
+            comandoSQL.setInt(1, retiro.getFolio());
 
-            }catch (Exception e) {
+            int res = comandoSQL.executeUpdate();
+
+            if (res > 0) {
+                LOG.log(Level.INFO, "Cuenta eliminada exitosamente");
+                return true;
+            }
+
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se pudo eliminar la cuenta", e);
         }
-        }
+           
     }

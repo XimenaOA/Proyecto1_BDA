@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Dominio;
+package ClienteDto;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author Ximena
  */
-public class Retiros {
+public class RetiroDTO {
     
     
     private String tipo;
@@ -21,10 +21,10 @@ public class Retiros {
     private Date fecha;
     private int idCuenta;
 
-    public Retiros() {
+    public RetiroDTO() {
     }
 
-    public Retiros(String tipo, double monto, Date fecha, int idCuenta) {
+    public RetiroDTO(String tipo, double monto, Date fecha, int idCuenta) {
         this.tipo = tipo;
         this.monto = monto;
         this.fecha = fecha;
@@ -32,7 +32,7 @@ public class Retiros {
     }
 
     
-    public Retiros(long folio, String estado, String contrasena, double monto, Date fecha, int idCuenta) {
+    public RetiroDTO(int folio, String estado, String contrasena, double monto, Date fecha, int idCuenta) {
         this.folio = folio;
         this.estado = estado;
         this.contrasena = contrasena;
@@ -41,7 +41,7 @@ public class Retiros {
         this.idCuenta = idCuenta;
     }
 
-    public Retiros(String tipo, long folio, String estado, String contrasena, double monto, Date fecha, int idCuenta) {
+    public RetiroDTO(String tipo, int folio, String estado, String contrasena, double monto, Date fecha, int idCuenta) {
         this.tipo = tipo;
         this.folio = folio;
         this.estado = estado;
