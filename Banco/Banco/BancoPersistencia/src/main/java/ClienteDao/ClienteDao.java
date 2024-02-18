@@ -515,4 +515,9 @@ public class ClienteDao implements iCliente {
         }
     }
 
+    @Override
+    public Retiros validarRetiros(RetiroDTO retiro) throws PersistenciaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

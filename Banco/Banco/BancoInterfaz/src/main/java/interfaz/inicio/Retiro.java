@@ -201,6 +201,7 @@ public class Retiro extends javax.swing.JFrame {
         long folio = Long.parseLong(txtFolio.getText());
         int contra = Integer.parseInt(txtContra.getText());
         
+        
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void txtContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraActionPerformed
