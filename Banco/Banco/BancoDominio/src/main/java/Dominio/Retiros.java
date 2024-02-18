@@ -18,7 +18,7 @@ public class Retiros {
     private String estado;
     private String contrasena;
     private double monto;
-    private Date fecha;
+    private LocalDateTime fecha;
     private int idCuenta;
 
     public Retiros() {

@@ -4,6 +4,7 @@
  */
 package ClienteDto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -18,13 +19,13 @@ public class RetiroDTO {
     private String estado;
     private String contrasena;
     private double monto;
-    private Date fecha;
+    private LocalDateTime fecha;
     private int idCuenta;
 
     public RetiroDTO() {
     }
 
-    public RetiroDTO(String tipo, double monto, Date fecha, int idCuenta) {
+    public RetiroDTO(String tipo, double monto, LocalDateTime fecha, int idCuenta) {
         this.tipo = tipo;
         this.monto = monto;
         this.fecha = fecha;
@@ -32,7 +33,7 @@ public class RetiroDTO {
     }
 
     
-    public RetiroDTO(int folio, String estado, String contrasena, double monto, Date fecha, int idCuenta) {
+    public RetiroDTO(int folio, String estado, String contrasena, double monto, LocalDateTime fecha, int idCuenta) {
         this.folio = folio;
         this.estado = estado;
         this.contrasena = contrasena;
@@ -41,7 +42,7 @@ public class RetiroDTO {
         this.idCuenta = idCuenta;
     }
 
-    public RetiroDTO(String tipo, int folio, String estado, String contrasena, double monto, Date fecha, int idCuenta) {
+    public RetiroDTO(String tipo, int folio, String estado, String contrasena, double monto, LocalDateTime fecha, int idCuenta) {
         this.tipo = tipo;
         this.folio = folio;
         this.estado = estado;
@@ -91,11 +92,11 @@ public class RetiroDTO {
         this.monto = monto;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
