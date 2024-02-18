@@ -94,6 +94,11 @@ public class AgregarCuenta extends javax.swing.JFrame {
         txtCuenta.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
         txtCuenta.setMaximumSize(new java.awt.Dimension(0, 10));
         txtCuenta.setMinimumSize(new java.awt.Dimension(0, 10));
+        txtCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCuentaActionPerformed(evt);
+            }
+        });
         txtCuenta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCuentaKeyTyped(evt);
@@ -234,6 +239,10 @@ public class AgregarCuenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Solo se aceptan numeros");
         }
     }//GEN-LAST:event_txtCuentaKeyTyped
+
+    private void txtCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCuentaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

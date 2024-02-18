@@ -92,6 +92,11 @@ public class Deposito extends javax.swing.JFrame {
         txtSaldo.setForeground(new java.awt.Color(0, 0, 0));
         txtSaldo.setText("1");
         txtSaldo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
+        txtSaldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSaldoActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("TeX Gyre Adventor", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
@@ -308,6 +313,10 @@ public class Deposito extends javax.swing.JFrame {
             Logger.getLogger(Deposito.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jCBActionPerformed
+
+    private void txtSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSaldoActionPerformed
 
     private void llenarCuentas(int id) {
         try {
