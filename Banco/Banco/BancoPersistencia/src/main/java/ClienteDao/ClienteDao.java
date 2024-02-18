@@ -25,6 +25,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -241,9 +242,10 @@ public class ClienteDao implements iCliente {
             while (res.next()) {
                 double monto = res.getDouble("monto");
                 String tipo = res.getString("Retiro");
-                LocalDateTime fecha = res.getTimestamp("fecha");
+                Timestamp fecha = res.getTimestamp("fecha");
+                LocalDateTime fecha2 = fecha.toLocalDateTime();
                 int cuen = res.getInt("numeroDeCuenta");
-                Retiros ret = new Retiros(tipo, monto, fecha, cuen);
+                Retiros ret = new Retiros(tipo, monto, fecha2 , cuen);
                 listR.add(ret);
             }
 
