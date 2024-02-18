@@ -9,6 +9,7 @@ import ClienteDao.iCliente;
 import ClienteDto.ClienteDto;
 import ClienteDto.CuentaDto;
 import ClienteDto.DomicilioDto;
+import ClienteDto.RetiroDTO;
 import Dominio.Clientes;
 import Dominio.Cuentas;
 import Dominio.Retiros;
@@ -88,6 +89,21 @@ public class ControlCliente implements iControl {
     @Override
     public boolean eliminarCuenta(int numCuenta) throws PersistenciaExcepcion {
         return clienteDao.eliminarCuenta(numCuenta);
+    }
+
+    @Override
+    public boolean retiroSinCuenta(RetiroDTO retiro) throws PersistenciaExcepcion {
+        return clienteDao.retiroSinCuenta(retiro);
+    }
+
+    @Override
+    public long generarFolio() throws PersistenciaExcepcion {
+        return clienteDao.generarFolio();
+    }
+
+    @Override
+    public int generarContra() throws PersistenciaExcepcion {
+        return clienteDao.generarContra();
     }
     
     
