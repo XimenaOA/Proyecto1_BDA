@@ -30,7 +30,7 @@ import javax.swing.JOptionPane;
  */
 public class transferencia extends javax.swing.JFrame {
     private InicioUsuario ini;
-    private int numeroCuneta;
+    private long numeroCuneta;
     private int saldoT = 1;
     private final ControlCliente control;
     private final Clientes cli;
@@ -59,8 +59,6 @@ public class transferencia extends javax.swing.JFrame {
 
             this.jCB.setModel(comboBoxModel);
         } catch (PersistenciaExcepcion ex) {
-            // Manejar la excepción si ocurre algún error al consultar las cuentas
-            // Aquí puedes mostrar un mensaje de error o tomar alguna otra acción apropiada
             ex.printStackTrace();
         }
     }
@@ -312,14 +310,18 @@ public class transferencia extends javax.swing.JFrame {
                     String fecha = simple.format(date);
                     
                     long numCuenta = Long.parseLong(txtCuenta.getText());
-
-                    int cantidad = this.monto.getValue();
                     
-                    TransferenciasDto trans = new TransferenciasDto("Tranferencia", cantidad, numCuenta,fecha, cli.getId());
+                    long Cuenta = Long.parseLong(String.valueOf(this.jCB.getSelectedItem()));
+                    
+                    double cantidad = this.monto.getValue();
+                    
+                    TransferenciasDto trans = new TransferenciasDto("Tranferencia", cantidad, Cuenta, numCuenta,fecha, cli.getId());
 
+                    control.transeferencia(trans);
                     ini = new InicioUsuario(control, cli);
                     setVisible(false);
                     ini.setVisible(true);
+                    
                 } catch (PersistenciaExcepcion ex) {
                     Logger.getLogger(AgregarCuenta.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -334,7 +336,7 @@ public class transferencia extends javax.swing.JFrame {
 
     private void jCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBActionPerformed
         try {
-            this.numeroCuneta = Integer.parseInt((String) this.jCB.getSelectedItem());
+            this.numeroCuneta = Long.parseLong(String.valueOf(this.jCB.getSelectedItem()));
 
             this.txtSaldoCuenta.setText(String.valueOf(control.consultarSaldo(numeroCuneta)));
         } catch (PersistenciaExcepcion ex) {

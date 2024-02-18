@@ -10,8 +10,10 @@ import ClienteDto.ClienteDto;
 import ClienteDto.CuentaDto;
 import ClienteDto.DomicilioDto;
 import ClienteDto.RetiroDTO;
+import ClienteDto.TransferenciasDto;
 import Dominio.Clientes;
 import Dominio.Cuentas;
+import Dominio.Domicilio;
 import Dominio.Retiros;
 import Dominio.Transferencias;
 //import Dominio.Movimientos;
@@ -24,60 +26,60 @@ import java.util.List;
  * @author jesus
  */
 public class ControlCliente implements iControl {
-    
+
     private final ClienteDao clienteDao;
-    
+
     public ControlCliente(ClienteDao clienteDao) {
         this.clienteDao = clienteDao;
     }
-    
+
     @Override
-    public boolean transeferencia(int cuenta1, double montoCuenta1, double saldo, double montoCuenta2, int cuenta2) throws PersistenciaExcepcion {
-        return clienteDao.transeferencia(cuenta1, montoCuenta1, saldo, montoCuenta2, cuenta2);
+    public Transferencias transeferencia(TransferenciasDto trans) throws PersistenciaExcepcion {
+        return clienteDao.transeferencia(trans);
     }
-    
+
     @Override
     public Clientes registrarUsuario(ClienteDto cliente, DomicilioDto domicilio) throws PersistenciaExcepcion {
         return clienteDao.registrarUsuario(cliente, domicilio);
     }
-    
+
     @Override
     public Clientes login(String usr, String contrasenia) throws PersistenciaExcepcion {
         return clienteDao.login(usr, contrasenia);
     }
-    
+
     @Override
     public List<String> ConsultarNumeroCuentas(int idCliente) throws PersistenciaExcepcion {
         return clienteDao.ConsultarNumeroCuentas(idCliente);
     }
-    
+
     @Override
     public String encriptar(String contra) throws NoSuchAlgorithmException {
         return clienteDao.encriptar(contra);
     }
-    
+
     @Override
     public List<Cuentas> ConsultarCuentas(int id) throws PersistenciaExcepcion {
         return clienteDao.ConsultarCuentas(id);
     }
-    
+
     @Override
-    public double consultarSaldo(int numCuenta) throws PersistenciaExcepcion {
+    public double consultarSaldo(long numCuenta) throws PersistenciaExcepcion {
         return clienteDao.consultarSaldo(numCuenta);
     }
-    
+
     @Override
     public List<Transferencias> ConsultarTransferencias(int id) throws PersistenciaExcepcion {
         return clienteDao.ConsultarTransferencias(id);
     }
-    
+
     @Override
     public List<Retiros> ConsultarRetiros(int id) throws PersistenciaExcepcion {
         return clienteDao.ConsultarRetiros(id);
     }
-    
+
     @Override
-    public void deposito(int numCuenta, double monto) throws PersistenciaExcepcion {
+    public void deposito(long numCuenta, double monto) throws PersistenciaExcepcion {
         clienteDao.deposito(numCuenta, monto);
     }
 
@@ -87,7 +89,7 @@ public class ControlCliente implements iControl {
     }
 
     @Override
-    public boolean eliminarCuenta(int numCuenta) throws PersistenciaExcepcion {
+    public boolean eliminarCuenta(long numCuenta) throws PersistenciaExcepcion {
         return clienteDao.eliminarCuenta(numCuenta);
     }
 
@@ -105,7 +107,24 @@ public class ControlCliente implements iControl {
     public int generarContra() throws PersistenciaExcepcion {
         return clienteDao.generarContra();
     }
-    
-    
-    
+
+    @Override
+    public Cuentas ConsultarCuenta(int id) throws PersistenciaExcepcion {
+        return clienteDao.ConsultarCuenta(id);
+    }
+
+    @Override
+    public void modificarCliente(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion {
+        clienteDao.modificarCliente(cliente, dom);
+    }
+
+    @Override
+    public Clientes consultarCliente(int id) throws PersistenciaExcepcion {
+        return clienteDao.consultarCliente(id);
+    }
+
+    @Override
+    public Domicilio consultarDomicilio(int idCliente) throws PersistenciaExcepcion {
+        return clienteDao.consultarDomicilio(idCliente);
+    }
 }

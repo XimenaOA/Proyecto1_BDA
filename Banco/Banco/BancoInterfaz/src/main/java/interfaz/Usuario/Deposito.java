@@ -22,7 +22,7 @@ public class Deposito extends javax.swing.JFrame {
     private final ControlCliente control;
     private final Clientes cli;
     double saldoT = 1;
-    int numeroCuneta;
+    long numeroCuneta;
 
     /**
      * Creates new form Deposito
@@ -306,7 +306,7 @@ public class Deposito extends javax.swing.JFrame {
 
     private void jCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBActionPerformed
         try {
-            this.numeroCuneta = Integer.parseInt((String) this.jCB.getSelectedItem());
+            this.numeroCuneta = Long.parseLong((String) this.jCB.getSelectedItem());
 
             this.txtSaldoCuenta.setText(String.valueOf(control.consultarSaldo(numeroCuneta)));
         } catch (PersistenciaExcepcion ex) {

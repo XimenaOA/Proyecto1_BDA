@@ -6,6 +6,8 @@ package interfaz.Usuario;
 
 import Control.ControlCliente;
 import Dominio.Clientes;
+import Dominio.Domicilio;
+import Excepciones.PersistenciaExcepcion;
 
 /**
  *
@@ -18,11 +20,13 @@ public class EditarDatos extends javax.swing.JFrame {
     /**
      * Creates new form EditarDatos
      */
-    public EditarDatos(ControlCliente control, Clientes cli) {
+    public EditarDatos(ControlCliente control, Clientes cli) throws PersistenciaExcepcion {
+        
         initComponents();
         
         this.cli = cli;
         this.control = control;
+        this.llenar(cli.getId());
     }
 
     /**
@@ -333,6 +337,7 @@ public class EditarDatos extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtAPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAPActionPerformed
@@ -351,6 +356,18 @@ public class EditarDatos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_AceptarActionPerformed
 
+    public void llenar(int id) throws PersistenciaExcepcion{
+        Clientes cliente = control.consultarCliente(id);
+        Domicilio dom = control.consultarDomicilio(id);
+        
+        this.txtNombre.setText(cliente.getNombre());
+        this.txtAM.setText(cliente.getApellidoMaterno());
+        this.txtAP.setText(cliente.getApellidoPaterno());
+//        this.txtCalle.setText(dom.getCalle());
+//        this.txtCol.setText(dom.getColonia());
+//        this.txtNum.setText(String.valueOf(dom.getNumero()));
+    }
+    
     private void txtCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCalleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCalleActionPerformed

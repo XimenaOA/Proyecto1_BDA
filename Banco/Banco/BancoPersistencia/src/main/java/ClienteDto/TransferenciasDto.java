@@ -14,6 +14,7 @@ public class TransferenciasDto {
     
     private String tipo;
     private Double concepto;
+    private long remitente;
     private long destinatario;
     private String fechaDeTransferencia;
     private int idCuenta;
@@ -21,20 +22,12 @@ public class TransferenciasDto {
     public TransferenciasDto() {
     }
 
-    public TransferenciasDto(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public TransferenciasDto(String tipo, Double concepto, int destinatario, String fechaDeTransferencia, int idCuenta) {
+    
+    
+    public TransferenciasDto(String tipo, Double concepto, long remitente, long destinatario, String fechaDeTransferencia, int idCuenta) {
         this.tipo = tipo;
         this.concepto = concepto;
-        this.destinatario = destinatario;
-        this.fechaDeTransferencia = fechaDeTransferencia;
-        this.idCuenta = idCuenta;
-    }
-
-    public TransferenciasDto(Double concepto, int destinatario, String fechaDeTransferencia, int idCuenta) {
-        this.concepto = concepto;
+        this.remitente = remitente;
         this.destinatario = destinatario;
         this.fechaDeTransferencia = fechaDeTransferencia;
         this.idCuenta = idCuenta;
@@ -54,6 +47,14 @@ public class TransferenciasDto {
 
     public void setConcepto(Double concepto) {
         this.concepto = concepto;
+    }
+
+    public long getRemitente() {
+        return remitente;
+    }
+
+    public void setRemitente(long remitente) {
+        this.remitente = remitente;
     }
 
     public long getDestinatario() {
@@ -83,10 +84,12 @@ public class TransferenciasDto {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.tipo);
-        hash = 79 * hash + Objects.hashCode(this.concepto);
-        hash = 79 * hash + Objects.hashCode(this.fechaDeTransferencia);
-        hash = 79 * hash + this.idCuenta;
+        hash = 59 * hash + Objects.hashCode(this.tipo);
+        hash = 59 * hash + Objects.hashCode(this.concepto);
+        hash = 59 * hash + (int) (this.remitente ^ (this.remitente >>> 32));
+        hash = 59 * hash + (int) (this.destinatario ^ (this.destinatario >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.fechaDeTransferencia);
+        hash = 59 * hash + this.idCuenta;
         return hash;
     }
 
@@ -102,6 +105,9 @@ public class TransferenciasDto {
             return false;
         }
         final TransferenciasDto other = (TransferenciasDto) obj;
+        if (this.remitente != other.remitente) {
+            return false;
+        }
         if (this.destinatario != other.destinatario) {
             return false;
         }
@@ -118,5 +124,4 @@ public class TransferenciasDto {
     }
 
     
-
 }

@@ -16,6 +16,7 @@ public class Retiros {
     
     private String tipo;
     private long folio;
+    private long numCuenta;
     private String estado;
     private String contrasena;
     private double monto;
@@ -25,28 +26,31 @@ public class Retiros {
     public Retiros() {
     }
 
-    public Retiros(String tipo, double monto, LocalDateTime fecha, int idCuenta) {
+    public Retiros(String tipo,long numCuenta,  double monto, LocalDateTime fecha, int idCuenta) {
         this.tipo = tipo;
         this.monto = monto;
+        this.numCuenta=numCuenta;
         this.fecha = fecha;
         this.idCuenta = idCuenta;
     }
 
     
-    public Retiros(long folio, String estado, String contrasena, double monto, LocalDateTime fecha, int idCuenta) {
+    public Retiros(long folio,long numCuenta, String estado, String contrasena, double monto, LocalDateTime fecha, int idCuenta) {
         this.folio = folio;
         this.estado = estado;
         this.contrasena = contrasena;
+        this.numCuenta=numCuenta;
         this.monto = monto;
         this.fecha = fecha;
         this.idCuenta = idCuenta;
     }
 
-    public Retiros(String tipo, long folio, String estado, String contrasena, double monto, LocalDateTime fecha, int idCuenta) {
+    public Retiros(String tipo,long numCuenta, long folio, String estado, String contrasena, double monto, LocalDateTime fecha, int idCuenta) {
         this.tipo = tipo;
         this.folio = folio;
         this.estado = estado;
         this.contrasena = contrasena;
+        this.numCuenta=numCuenta;
         this.monto = monto;
         this.fecha = fecha;
         this.idCuenta = idCuenta;
@@ -108,5 +112,12 @@ public class Retiros {
         this.idCuenta = idCuenta;
     }
 
-    
+    public long getNumCuenta() {
+        return numCuenta;
+    }
+
+    public void setNumCuenta(long numCuenta) {
+        this.numCuenta = numCuenta;
+    }
+
 }

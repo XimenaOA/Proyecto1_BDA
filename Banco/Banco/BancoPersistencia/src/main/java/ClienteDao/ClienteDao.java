@@ -8,6 +8,7 @@ import ClienteDto.ClienteDto;
 import ClienteDto.CuentaDto;
 import ClienteDto.DomicilioDto;
 import ClienteDto.RetiroDTO;
+import ClienteDto.TransferenciasDto;
 import Conexion.Conexion;
 import Conexion.IConexion;
 import Dominio.Clientes;
@@ -45,8 +46,6 @@ import javax.swing.JOptionPane;
 public class ClienteDao implements iCliente {
 
     final IConexion con;
-
-    private String idCliente = "", nombre = "", apellidoPaterno = "", apellidoMaterno = "", edad = "", fechaDeNacimiento = "", usr = "", contrasena = "";
 
     private static final Logger LOG = Logger.getLogger(Connection.class.getName());
 
@@ -129,6 +128,7 @@ public class ClienteDao implements iCliente {
             }
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "No se pudo iniciar sesión", e);
+            return null;
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -137,24 +137,24 @@ public class ClienteDao implements iCliente {
     }
 
     @Override
-    public boolean transeferencia(int cuenta1, double MontoCuenta1, double saldo, double MontoCuenta2, int cuenta2) throws PersistenciaExcepcion {
-        String sentencia = ("call transferencia(?, ?, ?, ?, ?);");
+    public Transferencias transeferencia(TransferenciasDto trans) throws PersistenciaExcepcion {
+        String sentencia = ("call transferencia(?, ?, ?);");
 
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
 
-            comandoSQL.setInt(01, cuenta1);
-            comandoSQL.setDouble(02, MontoCuenta1);
-            comandoSQL.setDouble(03, saldo);
-            comandoSQL.setDouble(04, MontoCuenta2);
-            comandoSQL.setInt(05, cuenta2);
+            comandoSQL.setLong(01, trans.getRemitente());
+            comandoSQL.setLong(02, trans.getDestinatario());
+            comandoSQL.setDouble(03, trans.getConcepto());
 
-            ResultSet res = comandoSQL.executeQuery(sentencia);
+            ResultSet res = comandoSQL.executeQuery();
 
-            return true;
+            Transferencias transferencia = new Transferencias(trans.getTipo(), trans.getConcepto(), trans.getRemitente(), trans.getDestinatario(), trans.getFechaDeTransferencia(), trans.getIdCuenta());
+
+            return transferencia;
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
-        return false;
+        return null;
     }
 
     @Override
@@ -189,9 +189,9 @@ public class ClienteDao implements iCliente {
             ResultSet res = comandoSQL.executeQuery(sentencia);
 
             while (res.next()) {
-                int numCuenta = res.getInt("numeroDeCuenta");
+                long numCuenta = res.getLong("numeroDeCuenta");
                 String fecha = res.getString("fechaApertura");
-                int saldo = res.getInt("monto");
+                double saldo = res.getInt("monto");
                 Cuentas cuenta = new Cuentas(numCuenta, fecha, saldo, id);
                 listC.add(cuenta);
             }
@@ -215,10 +215,10 @@ public class ClienteDao implements iCliente {
 
             while (res.next()) {
                 double monto = res.getDouble("monto");
-                int destinatario = res.getInt("destinatario");
+                long destinatario = res.getLong("destinatario");
                 String fecha = res.getString("fechaDeTrasferencia");
-                int cuen = res.getInt("numeroDeCuenta");
-                Transferencias trans = new Transferencias(monto, destinatario, fecha, cuen);
+                long cuen = res.getLong("numeroDeCuenta");
+                Transferencias trans = new Transferencias("Transferencia", monto, cuen, destinatario, fecha, id);
                 listT.add(trans);
             }
 
@@ -245,7 +245,8 @@ public class ClienteDao implements iCliente {
                 Timestamp fecha = res.getTimestamp("fecha");
                 LocalDateTime fecha2 = fecha.toLocalDateTime();
                 int cuen = res.getInt("numeroDeCuenta");
-                Retiros ret = new Retiros(tipo, monto, fecha2 , cuen);
+                long numC = res.getLong("cuenta");
+                Retiros ret = new Retiros("Retiro", numC, monto, fecha2, cuen);
                 listR.add(ret);
             }
 
@@ -258,14 +259,14 @@ public class ClienteDao implements iCliente {
     }
 
     @Override
-    public void deposito(int numCuenta, double monto) throws PersistenciaExcepcion {
+    public void deposito(long numCuenta, double monto) throws PersistenciaExcepcion {
         double saldo = this.consultarSaldo(numCuenta);
         double saldoTotal = saldo + monto;
         String sentencia = "update Cuentas set monto=? where numeroDeCuenta=?;";
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
 
             comandoSQL.setDouble(01, saldoTotal);
-            comandoSQL.setInt(02, numCuenta);
+            comandoSQL.setLong(02, numCuenta);
 
             int res = comandoSQL.executeUpdate();
 
@@ -279,11 +280,11 @@ public class ClienteDao implements iCliente {
     }
 
     @Override
-    public double consultarSaldo(int numCuenta) throws PersistenciaExcepcion {
+    public double consultarSaldo(long numCuenta) throws PersistenciaExcepcion {
         String sentencia = "SELECT monto FROM Cuentas WHERE numeroDeCuenta = ?";
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
 
-            comandoSQL.setInt(1, numCuenta);
+            comandoSQL.setLong(1, numCuenta);
 
             ResultSet res = comandoSQL.executeQuery();
 
@@ -305,7 +306,7 @@ public class ClienteDao implements iCliente {
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
             comandoSQL.setString(1, cuenta.getFechaApertura());
             comandoSQL.setDouble(2, cuenta.getSaldo());
-            comandoSQL.setString(3, String.valueOf(cuenta.getNumeroDeCuenta()));
+            comandoSQL.setLong(3, cuenta.getNumeroDeCuenta());
             comandoSQL.setString(4, "Activo");
             comandoSQL.setInt(5, cuenta.getIdCliente());
 
@@ -323,11 +324,11 @@ public class ClienteDao implements iCliente {
     }
 
     @Override
-    public boolean eliminarCuenta(int numCuenta) throws PersistenciaExcepcion {
+    public boolean eliminarCuenta(long numCuenta) throws PersistenciaExcepcion {
         String sentenciaSQL = "DELETE FROM Cuentas WHERE numeroDeCuenta = ?";
 
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL)) {
-            comandoSQL.setInt(1, numCuenta);
+            comandoSQL.setLong(1, numCuenta);
 
             int res = comandoSQL.executeUpdate();
 
@@ -350,11 +351,11 @@ public class ClienteDao implements iCliente {
             comandoSQL.setString(2, retiro.getEstado());
             comandoSQL.setInt(3, retiro.getContrasena());
             comandoSQL.setDouble(4, retiro.getMonto());
-            comandoSQL.setTimestamp(5,  java.sql.Timestamp.valueOf(retiro.getFecha()));
+            comandoSQL.setTimestamp(5, java.sql.Timestamp.valueOf(retiro.getFecha()));
             comandoSQL.setInt(6, retiro.getIdCuenta());
 
             ResultSet res = comandoSQL.executeQuery();
-            
+
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
@@ -370,10 +371,148 @@ public class ClienteDao implements iCliente {
         return min + (long) (Math.random() * (max - min + 1));
     }
 
+    @Override
     public int generarContra() {
 
         int min = 10000000;
         int max = 99999999;
         return min + (int) (Math.random() * (max - min + 1));
     }
+
+    @Override
+    public Cuentas ConsultarCuenta(int id) throws PersistenciaExcepcion {
+        Cuentas cuenta;
+        String sentencia = String.format("select * from Cuentas where idCuenta='%d'", id);
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+            ResultSet res = comandoSQL.executeQuery(sentencia);
+
+            long numCuenta = res.getLong("numeroDeCuenta");
+            String fecha = res.getString("fechaApertura");
+            double saldo = res.getInt("monto");
+            cuenta = new Cuentas(numCuenta, fecha, saldo, id);
+
+            return cuenta;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        return null;
+
+    }
+
+    @Override
+    public void modificarCliente(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion {
+
+        String sentencia;
+
+        if (!cliente.getContrasena().equals("")) {
+            sentencia = "UPDATE Clientes SET nombre=?, apellidopaterno=?, apellidomaterno=?, contrasena=? WHERE idCliente=?";
+
+            try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+                comandoSQL.setString(1, cliente.getNombre());
+                comandoSQL.setString(2, cliente.getApellidoPaterno());
+                comandoSQL.setString(3, cliente.getApellidoMaterno());
+                comandoSQL.setString(4, cliente.getContrasena());
+                comandoSQL.setInt(5, cliente.getId());
+
+                comandoSQL.executeUpdate();
+
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, "Se actualizo el clinte");
+
+            } catch (SQLException ex) {
+                throw new PersistenciaExcepcion("Error al modificar el cliente: " + ex.getMessage());
+            }
+        } else {
+            sentencia = "UPDATE Clientes SET nombre=?, apellidopaterno=?, apellidomaterno=? WHERE idCliente=?";
+
+            try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+                comandoSQL.setString(1, cliente.getNombre());
+                comandoSQL.setString(2, cliente.getApellidoPaterno());
+                comandoSQL.setString(3, cliente.getApellidoMaterno());
+                comandoSQL.setInt(4, cliente.getId());
+
+                comandoSQL.executeUpdate();
+
+                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, "Se actualizo el clinte");
+
+            } catch (SQLException ex) {
+                throw new PersistenciaExcepcion("Error al modificar el cliente: " + ex.getMessage());
+            }
+        }
+
+        sentencia = "UPDATE Domicilios SET colonia=?, calle=?, numero=? WHERE idcliente=?";
+
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+            comandoSQL.setString(1, dom.getColonia());
+            comandoSQL.setString(2, dom.getCalle());
+            comandoSQL.setInt(3, dom.getNumero());
+            comandoSQL.setInt(4, cliente.getId());
+
+            int filasAfectadas = comandoSQL.executeUpdate();
+
+            if (filasAfectadas == 0) {
+                throw new PersistenciaExcepcion("No se pudo modificar el domicilio, ID no encontrado.");
+            }
+
+        } catch (SQLException ex) {
+            throw new PersistenciaExcepcion("Error al modificar el domicilio: " + ex.getMessage());
+        }
+
+    }
+
+    @Override
+    public Clientes consultarCliente(int id) throws PersistenciaExcepcion {
+
+        String sentencia = String.format("SELECT * FROM Clientes WHERE idCliente='%d'", id);
+
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+            ResultSet res = comandoSQL.executeQuery(sentencia);
+
+            if (res.next()) {
+                Clientes clienteConsultado = new Clientes();
+                clienteConsultado.setId(res.getInt("idCliente"));
+                clienteConsultado.setNombre(res.getString("nombre"));
+                clienteConsultado.setApellidoPaterno(res.getString("apellidopaterno"));
+                clienteConsultado.setApellidoMaterno(res.getString("apellidomaterno"));
+                clienteConsultado.setFehcadenacimiento(res.getString("fechaDeNacimiento"));
+                clienteConsultado.setUsr(res.getString("usr"));
+                clienteConsultado.setContrasena(res.getString("contrasena"));
+
+                return clienteConsultado;
+            } else {
+                throw new PersistenciaExcepcion("No se encontró ningún cliente con el ID especificado.");
+            }
+
+        } catch (SQLException ex) {
+            throw new PersistenciaExcepcion("Error al consultar el cliente: " + ex.getMessage());
+        }
+    }
+
+    public Domicilio consultarDomicilio(int id) throws PersistenciaExcepcion {
+        Domicilio dom;
+        
+        String sentencia = String.format("SELECT * FROM Domicilios WHERE idcliente='%d'", id);
+
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+            ResultSet res = comandoSQL.executeQuery(sentencia);
+
+            dom = new Domicilio();
+            dom.setIdDomicilio(res.getInt("idDomicilio"));
+            dom.setColonia(res.getString("colonia"));
+            dom.setCalle(res.getString("calle"));
+            dom.setNumero(res.getInt("numero"));
+            dom.setIdCliente(res.getInt("idcliente"));
+
+            return dom;
+
+        } catch (SQLException ex) {
+            throw new PersistenciaExcepcion("Error al consultar los domicilios del cliente: " + ex.getMessage());
+        }
+    }
+
 }

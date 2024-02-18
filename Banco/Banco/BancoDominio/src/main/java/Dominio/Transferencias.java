@@ -14,27 +14,25 @@ public class Transferencias {
     
     private String tipo;
     private Double concepto;
-    private int destinatario;
+    private long remitente;
+    private long destinatario;
     private String fechaDeTransferencia;
     private int idCuenta;
 
     public Transferencias() {
     }
 
-    public Transferencias(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public Transferencias(String tipo, Double concepto, int destinatario, String fechaDeTransferencia, int idCuenta) {
-        this.tipo = tipo;
+    public Transferencias(Double concepto, long remitente, long destinatario, String fechaDeTransferencia) {
         this.concepto = concepto;
+        this.remitente = remitente;
         this.destinatario = destinatario;
         this.fechaDeTransferencia = fechaDeTransferencia;
-        this.idCuenta = idCuenta;
     }
 
-    public Transferencias(Double concepto, int destinatario, String fechaDeTransferencia, int idCuenta) {
+    public Transferencias(String tipo, Double concepto, long remitente, long destinatario, String fechaDeTransferencia, int idCuenta) {
+        this.tipo = tipo;
         this.concepto = concepto;
+        this.remitente = remitente;
         this.destinatario = destinatario;
         this.fechaDeTransferencia = fechaDeTransferencia;
         this.idCuenta = idCuenta;
@@ -56,11 +54,19 @@ public class Transferencias {
         this.concepto = concepto;
     }
 
-    public int getDestinatario() {
+    public long getRemitente() {
+        return remitente;
+    }
+
+    public void setRemitente(long remitente) {
+        this.remitente = remitente;
+    }
+
+    public long getDestinatario() {
         return destinatario;
     }
 
-    public void setDestinatario(int destinatario) {
+    public void setDestinatario(long destinatario) {
         this.destinatario = destinatario;
     }
 
@@ -83,11 +89,12 @@ public class Transferencias {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.tipo);
-        hash = 79 * hash + Objects.hashCode(this.concepto);
-        hash = 79 * hash + this.destinatario;
-        hash = 79 * hash + Objects.hashCode(this.fechaDeTransferencia);
-        hash = 79 * hash + this.idCuenta;
+        hash = 59 * hash + Objects.hashCode(this.tipo);
+        hash = 59 * hash + Objects.hashCode(this.concepto);
+        hash = 59 * hash + (int) (this.remitente ^ (this.remitente >>> 32));
+        hash = 59 * hash + (int) (this.destinatario ^ (this.destinatario >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.fechaDeTransferencia);
+        hash = 59 * hash + this.idCuenta;
         return hash;
     }
 
@@ -103,6 +110,9 @@ public class Transferencias {
             return false;
         }
         final Transferencias other = (Transferencias) obj;
+        if (this.remitente != other.remitente) {
+            return false;
+        }
         if (this.destinatario != other.destinatario) {
             return false;
         }
@@ -119,5 +129,4 @@ public class Transferencias {
     }
 
     
-
 }

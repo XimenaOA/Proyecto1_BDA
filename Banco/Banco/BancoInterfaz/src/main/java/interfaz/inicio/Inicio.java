@@ -6,6 +6,7 @@ import Conexion.Conexion;
 import Conexion.IConexion;
 import Control.ControlCliente;
 import Dominio.Clientes;
+import Excepciones.PersistenciaExcepcion;
 import interfaz.Usuario.InicioUsuario;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
@@ -67,6 +68,11 @@ public class Inicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel2KeyPressed(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tacot\\Documents\\GitHub\\Banco\\Banco\\BancoInterfaz\\src\\main\\resource\\usuario128.png")); // NOI18N
 
@@ -93,6 +99,11 @@ public class Inicio extends javax.swing.JFrame {
         Continuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ContinuarActionPerformed(evt);
+            }
+        });
+        Continuar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ContinuarKeyPressed(evt);
             }
         });
 
@@ -214,7 +225,7 @@ public class Inicio extends javax.swing.JFrame {
                     inicioUsuario.setVisible(true);
                     this.setVisible(false);
                 }
-            } catch (Exception e) {
+            } catch (PersistenciaExcepcion e) {
                 LOG.log(Level.SEVERE, "No se inicio sesión", e);
                 JOptionPane.showMessageDialog(rootPane, "Usuario o contraseña incorrectos");
             }
@@ -232,6 +243,14 @@ public class Inicio extends javax.swing.JFrame {
         this.setVisible(false);
         regi.setVisible(true);
     }//GEN-LAST:event_retiro1ActionPerformed
+
+    private void jPanel2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2KeyPressed
+
+    private void ContinuarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ContinuarKeyPressed
+        
+    }//GEN-LAST:event_ContinuarKeyPressed
 
     public boolean validarUsr(String usr) {
         Pattern usuario = Pattern.compile("^[a-zA-Z0-9]+$");

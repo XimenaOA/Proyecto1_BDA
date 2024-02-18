@@ -148,6 +148,7 @@ public class Registro extends javax.swing.JFrame {
         txtContra.setForeground(new java.awt.Color(0, 0, 0));
         txtContra.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
 
+        fechaSeleccionada.setBackground(new java.awt.Color(204, 204, 204));
         fechaSeleccionada.setDateFormatString("yyyy-MM-dd");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);

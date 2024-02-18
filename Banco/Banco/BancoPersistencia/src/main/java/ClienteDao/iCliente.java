@@ -8,6 +8,7 @@ import ClienteDto.ClienteDto;
 import ClienteDto.CuentaDto;
 import ClienteDto.DomicilioDto;
 import ClienteDto.RetiroDTO;
+import ClienteDto.TransferenciasDto;
 import Dominio.Clientes;
 import Dominio.Cuentas;
 import Dominio.Domicilio;
@@ -27,8 +28,8 @@ public interface iCliente {
     public Clientes registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion;
 
     public Clientes login(String usr, String contrasenia) throws PersistenciaExcepcion;
-     //no sirve
-    public boolean transeferencia(int cuenta1, double MontoCuenta1, double saldo, double MontoCuenta2, int cuenta2) throws PersistenciaExcepcion;
+    
+    public Transferencias transeferencia(TransferenciasDto trans) throws PersistenciaExcepcion;
     
     public String encriptar(String contra) throws NoSuchAlgorithmException;
     
@@ -36,21 +37,29 @@ public interface iCliente {
     
     public List<Cuentas> ConsultarCuentas(int id)throws PersistenciaExcepcion;
     
+    public Cuentas ConsultarCuenta(int id)throws PersistenciaExcepcion;
+    
     public List<Transferencias> ConsultarTransferencias(int id)throws PersistenciaExcepcion;
 
     public List<Retiros> ConsultarRetiros(int id)throws PersistenciaExcepcion;
 
-    public void deposito(int numCuenta, double monto)throws PersistenciaExcepcion;
+    public void deposito(long numCuenta, double monto)throws PersistenciaExcepcion;
     
-    public double consultarSaldo(int numCuenta)throws PersistenciaExcepcion;
+    public double consultarSaldo(long numCuenta)throws PersistenciaExcepcion;
     
     public Cuentas agregarCuenta(CuentaDto cuenta)throws PersistenciaExcepcion;
     
-    public boolean eliminarCuenta(int numCuenta)throws PersistenciaExcepcion;
+    public boolean eliminarCuenta(long numCuenta)throws PersistenciaExcepcion;
     
     public boolean retiroSinCuenta(RetiroDTO retiro) throws PersistenciaExcepcion;
     
     public long generarFolio() throws PersistenciaExcepcion;
     
     public int generarContra() throws PersistenciaExcepcion;
+    
+    public void modificarCliente(ClienteDto cliente,DomicilioDto dom) throws PersistenciaExcepcion;
+    
+    public Clientes consultarCliente(int id) throws PersistenciaExcepcion;
+    
+    public Domicilio consultarDomicilio(int id) throws PersistenciaExcepcion;
 }

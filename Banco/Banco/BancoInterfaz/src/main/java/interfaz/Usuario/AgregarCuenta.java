@@ -205,14 +205,18 @@ public class AgregarCuenta extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
+        long min= 1000000000;
+        long max= Long.parseLong("9999999999");
+        
         if (!this.txtCuenta.getText().equals("")) {
-            
+            if (Long.parseLong(this.txtCuenta.getText()) >= min && Long.parseLong(this.txtCuenta.getText()) < max) {
+
                 try {
                     LocalDate localDate = LocalDate.now();
                     Date date = java.sql.Date.valueOf(localDate);
                     SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
                     String fecha = simple.format(date);
-                    
+
                     long numCuenta = Long.parseLong(txtCuenta.getText());
 
                     CuentaDto cuenta = new CuentaDto(numCuenta, fecha, 0, cli.getId());
@@ -225,9 +229,12 @@ public class AgregarCuenta extends javax.swing.JFrame {
                 } catch (PersistenciaExcepcion ex) {
                     Logger.getLogger(AgregarCuenta.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }else{
-            JOptionPane.showMessageDialog(this, "La cuenta tiene que ser de 10 digitos");
+            } else {
+                JOptionPane.showMessageDialog(this, "La cuenta tiene que ser de 10 digitos");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "La cuenta tiene que ser de 10 digitos");
+        }
     }//GEN-LAST:event_AceptarActionPerformed
 
     private void txtCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCuentaKeyTyped

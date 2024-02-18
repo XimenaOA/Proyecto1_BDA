@@ -181,7 +181,7 @@ public class EliminarCuenta extends javax.swing.JFrame {
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
         try {
-            int numCuenta = Integer.parseInt((String) this.jComboBox1.getSelectedItem());
+            long numCuenta = Long.parseLong((String) this.jComboBox1.getSelectedItem());
             control.eliminarCuenta(numCuenta);
 
             ini = new InicioUsuario(control, cli);
