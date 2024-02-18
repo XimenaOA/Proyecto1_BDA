@@ -13,6 +13,7 @@ import interfaz.inicio.Inicio;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 //import javax.swing.table.DefaultTableModel;
 
 /**
