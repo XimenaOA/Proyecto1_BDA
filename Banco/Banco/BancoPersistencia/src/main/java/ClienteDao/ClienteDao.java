@@ -348,7 +348,7 @@ public class ClienteDao implements iCliente {
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL)) {
             comandoSQL.setLong(1, retiro.getFolio());
             comandoSQL.setString(2, retiro.getEstado());
-            comandoSQL.setString(3, retiro.getContrasena());
+            comandoSQL.setInt(3, retiro.getContrasena());
             comandoSQL.setDouble(4, retiro.getMonto());
             comandoSQL.setTimestamp(5,  java.sql.Timestamp.valueOf(retiro.getFecha()));
             comandoSQL.setInt(6, retiro.getIdCuenta());

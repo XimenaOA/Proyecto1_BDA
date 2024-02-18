@@ -17,7 +17,7 @@ public class RetiroDTO {
     private String tipo;
     private long folio;
     private String estado;
-    private String contrasena;
+    private int contrasena;
     private double monto;
     private LocalDateTime fecha;
     private int idCuenta;
@@ -33,7 +33,7 @@ public class RetiroDTO {
     }
 
     
-    public RetiroDTO(int folio, String estado, String contrasena, double monto, LocalDateTime fecha, int idCuenta) {
+    public RetiroDTO(long folio, String estado, int contrasena, double monto, LocalDateTime fecha, int idCuenta) {
         this.folio = folio;
         this.estado = estado;
         this.contrasena = contrasena;
@@ -42,7 +42,7 @@ public class RetiroDTO {
         this.idCuenta = idCuenta;
     }
 
-    public RetiroDTO(String tipo, int folio, String estado, String contrasena, double monto, LocalDateTime fecha, int idCuenta) {
+    public RetiroDTO(String tipo, long folio, String estado, int contrasena, double monto, LocalDateTime fecha, int idCuenta) {
         this.tipo = tipo;
         this.folio = folio;
         this.estado = estado;
@@ -76,11 +76,11 @@ public class RetiroDTO {
         this.estado = estado;
     }
 
-    public String getContrasena() {
+    public int getContrasena() {
         return contrasena;
     }
 
-    public void setContrasena(String contrasena) {
+    public void setContrasena(int contrasena) {
         this.contrasena = contrasena;
     }
 
