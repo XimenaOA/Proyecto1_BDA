@@ -132,9 +132,9 @@ public class Retiro extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(58, 58, 58)
                         .addComponent(botonCancelar)
-                        .addGap(18, 18, 18)
+                        .addGap(46, 46, 46)
                         .addComponent(botonAceptar))
                     .addComponent(jLabel4)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -198,6 +198,8 @@ public class Retiro extends javax.swing.JFrame {
         ini.setVisible(true);    }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
+        long folio = Long.parseLong(txtFolio.getText());
+        int contra = Integer.parseInt(txtContra.getText());
         
     }//GEN-LAST:event_botonAceptarActionPerformed
 
