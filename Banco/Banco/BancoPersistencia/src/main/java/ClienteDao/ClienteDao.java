@@ -241,7 +241,7 @@ public class ClienteDao implements iCliente {
             while (res.next()) {
                 double monto = res.getDouble("monto");
                 String tipo = res.getString("Retiro");
-                Date fecha = res.getDate("fecha");
+                LocalDateTime fecha = res.getTimestamp("fecha");
                 int cuen = res.getInt("numeroDeCuenta");
                 Retiros ret = new Retiros(tipo, monto, fecha, cuen);
                 listR.add(ret);
