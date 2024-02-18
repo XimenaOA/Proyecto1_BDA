@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
+ * 
  * @author tacot
  */
 public class AgregarCuenta extends javax.swing.JFrame {
