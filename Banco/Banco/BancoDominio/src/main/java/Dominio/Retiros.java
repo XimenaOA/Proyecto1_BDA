@@ -4,6 +4,7 @@
  */
 package Dominio;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -24,7 +25,7 @@ public class Retiros {
     public Retiros() {
     }
 
-    public Retiros(String tipo, double monto, Date fecha, int idCuenta) {
+    public Retiros(String tipo, double monto, LocalDateTime fecha, int idCuenta) {
         this.tipo = tipo;
         this.monto = monto;
         this.fecha = fecha;
@@ -32,7 +33,7 @@ public class Retiros {
     }
 
     
-    public Retiros(long folio, String estado, String contrasena, double monto, Date fecha, int idCuenta) {
+    public Retiros(long folio, String estado, String contrasena, double monto, LocalDateTime fecha, int idCuenta) {
         this.folio = folio;
         this.estado = estado;
         this.contrasena = contrasena;
@@ -41,7 +42,7 @@ public class Retiros {
         this.idCuenta = idCuenta;
     }
 
-    public Retiros(String tipo, long folio, String estado, String contrasena, double monto, Date fecha, int idCuenta) {
+    public Retiros(String tipo, long folio, String estado, String contrasena, double monto, LocalDateTime fecha, int idCuenta) {
         this.tipo = tipo;
         this.folio = folio;
         this.estado = estado;
@@ -91,11 +92,11 @@ public class Retiros {
         this.monto = monto;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
