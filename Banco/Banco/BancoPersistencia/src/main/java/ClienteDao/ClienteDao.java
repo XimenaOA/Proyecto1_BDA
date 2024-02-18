@@ -494,7 +494,7 @@ public class ClienteDao implements iCliente {
 
     public Domicilio consultarDomicilio(int id) throws PersistenciaExcepcion {
         Domicilio dom;
-        
+
         String sentencia = String.format("SELECT * FROM Domicilios WHERE idcliente='%d'", id);
 
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
@@ -517,7 +517,8 @@ public class ClienteDao implements iCliente {
 
     @Override
     public Retiros validarRetiros(RetiroDTO retiro) throws PersistenciaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        
     }
 
     @Override
@@ -528,19 +529,19 @@ public class ClienteDao implements iCliente {
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
 
             ResultSet res = comandoSQL.executeQuery(sentencia);
-                double monto = res.getDouble("monto");
-                String tipo = res.getString("Retiro");
-                Timestamp fecha = res.getTimestamp("fecha");
-                LocalDateTime fecha2 = fecha.toLocalDateTime();
-                int cuen = res.getInt("numeroDeCuenta");
-                long numC = res.getLong("cuenta");
-                Retiros ret = new Retiros("Retiro", numC, monto, fecha2, cuen);
+            double monto = res.getDouble("monto");
+            String tipo = res.getString("Retiro");
+            LocalDateTime fecha2 = LocalDateTime.now();
+            int cuen = res.getInt("numeroDeCuenta");
+            long numC = res.getLong("cuenta");
+            Retiros ret = new Retiros("Retiro", numC, monto, fecha2, cuen);
 
             return retiro;
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
 
-        return retiro;    }
+        return retiro;
+    }
 
 }
