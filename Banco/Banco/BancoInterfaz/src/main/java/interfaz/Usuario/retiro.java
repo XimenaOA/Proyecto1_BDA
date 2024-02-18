@@ -258,20 +258,22 @@ public class retiro extends javax.swing.JFrame {
 //        String fecha = sdf.format(this.si.getDate());
 //                
 //        JOptionPane.showMessageDialog(this,  fecha);
-
+        
 
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
-        // TODO add your handling code here:
+        InicioUsuario ini = new InicioUsuario();
+        setVisible(false);
+        ini.setVisible(true);
     }//GEN-LAST:event_botonVolverActionPerformed
 
     private void txtMontoARetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoARetirarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtMontoARetirarActionPerformed
 
     private void txtMontoDisponibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoDisponibleActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtMontoDisponibleActionPerformed
 
     private void comboBoxCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCuentaActionPerformed

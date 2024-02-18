@@ -13,7 +13,7 @@ import interfaz.inicio.Inicio;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
+//import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -38,6 +38,10 @@ public class InicioUsuario extends javax.swing.JFrame {
         
         this.llenarTabla(cli.getId());
     }
+    
+//    public InicioUsuario(){
+//        
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
