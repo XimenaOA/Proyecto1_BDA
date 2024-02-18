@@ -258,8 +258,9 @@ public class retiro extends javax.swing.JFrame {
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         try {
             LocalDateTime fecha = LocalDateTime.now();
-            control.
-            RetiroDTO retiro = new RetiroDTO(tipo, WIDTH, estado, contrasena, WIDTH, fecha, WIDTH);
+            long folio = control.generarFolio();
+            int contra = control.generarContra();
+            RetiroDTO retiro = new RetiroDTO("Retiro", folio, "Espera", contra, Integer.parseInt(this.txtMontoARetirar.getText()), fecha, 1);
             
         } catch (Exception e) {
         }
