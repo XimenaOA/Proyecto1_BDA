@@ -347,7 +347,7 @@ public class ClienteDao implements iCliente {
             comandoSQL.setString(2, retiro.getEstado());
             comandoSQL.setString(3, retiro.getContrasena());
             comandoSQL.setDouble(4, retiro.getMonto());
-            comandoSQL.setDate(5, (Date) retiro.getFecha());
+            comandoSQL.setDate(5,  retiro.getFecha());
             comandoSQL.setInt(6, retiro.getIdCuenta());
 
             ResultSet res = comandoSQL.executeQuery();
@@ -367,7 +367,6 @@ public class ClienteDao implements iCliente {
         return min + (long) (Math.random() * (max - min + 1));
     }
 
-    @Override
     public int generarContra() {
 
         int min = 10000000;
