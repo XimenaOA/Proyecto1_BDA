@@ -520,4 +520,27 @@ public class ClienteDao implements iCliente {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    @Override
+    public Retiros ConsultarUnRetiro(int id) throws PersistenciaExcepcion {
+        Retiros retiro = new Retiros();
+        String sentencia = String.format("select * from restioSinCuentea where folio = ?", id);
+
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+            ResultSet res = comandoSQL.executeQuery(sentencia);
+                double monto = res.getDouble("monto");
+                String tipo = res.getString("Retiro");
+                Timestamp fecha = res.getTimestamp("fecha");
+                LocalDateTime fecha2 = fecha.toLocalDateTime();
+                int cuen = res.getInt("numeroDeCuenta");
+                long numC = res.getLong("cuenta");
+                Retiros ret = new Retiros("Retiro", numC, monto, fecha2, cuen);
+
+            return retiro;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+
+        return retiro;    }
+
 }
