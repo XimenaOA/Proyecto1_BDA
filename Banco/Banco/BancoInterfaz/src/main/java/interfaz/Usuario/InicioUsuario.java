@@ -39,7 +39,7 @@ public class InicioUsuario extends javax.swing.JFrame {
         
         this.llenarTabla(cli.getId());
     }
-    
+//    
 //    public InicioUsuario(){
 //        
 //    }

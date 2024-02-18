@@ -7,6 +7,7 @@ package Control;
 import ClienteDto.ClienteDto;
 import ClienteDto.CuentaDto;
 import ClienteDto.DomicilioDto;
+import ClienteDto.RetiroDTO;
 import Dominio.Clientes;
 import Dominio.Cuentas;
 import Dominio.Retiros;
@@ -22,10 +23,10 @@ import java.util.List;
  */
 public interface iControl {
     
-    public Clientes registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion;
+     public Clientes registrarUsuario(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion;
 
     public Clientes login(String usr, String contrasenia) throws PersistenciaExcepcion;
-    //no sirve
+     //no sirve
     public boolean transeferencia(int cuenta1, double MontoCuenta1, double saldo, double MontoCuenta2, int cuenta2) throws PersistenciaExcepcion;
     
     public String encriptar(String contra) throws NoSuchAlgorithmException;
@@ -45,4 +46,10 @@ public interface iControl {
     public Cuentas agregarCuenta(CuentaDto cuenta)throws PersistenciaExcepcion;
     
     public boolean eliminarCuenta(int numCuenta)throws PersistenciaExcepcion;
+    
+    public boolean retiroSinCuenta(RetiroDTO retiro) throws PersistenciaExcepcion;
+    
+    public long generarFolio() throws PersistenciaExcepcion;
+    
+    public int generarContra() throws PersistenciaExcepcion;
 }

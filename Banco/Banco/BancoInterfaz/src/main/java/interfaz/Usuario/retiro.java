@@ -4,11 +4,14 @@
  */
 package interfaz.Usuario;
 
+import ClienteDto.RetiroDTO;
 import Control.ControlCliente;
 import Dominio.Clientes;
 import Excepciones.PersistenciaExcepcion;
 import static java.awt.SystemColor.control;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -253,17 +256,17 @@ public class retiro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        
-//        String fecha = sdf.format(this.si.getDate());
-//                
-//        JOptionPane.showMessageDialog(this,  fecha);
-        
-
+        try {
+            LocalDateTime fecha = LocalDateTime.now();
+            control.
+            RetiroDTO retiro = new RetiroDTO(tipo, WIDTH, estado, contrasena, WIDTH, fecha, WIDTH);
+            
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
-        InicioUsuario ini = new InicioUsuario();
+        InicioUsuario ini = new InicioUsuario(control, cli);
         setVisible(false);
         ini.setVisible(true);
     }//GEN-LAST:event_botonVolverActionPerformed
