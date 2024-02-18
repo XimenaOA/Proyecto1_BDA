@@ -243,7 +243,7 @@ public class ClienteDao implements iCliente {
                 String tipo = res.getString("Retiro");
                 Date fecha = res.getDate("fecha");
                 int cuen = res.getInt("numeroDeCuenta");
-                Retiros ret = new Retiros(tipo, monto, , cuen);
+                Retiros ret = new Retiros(tipo, monto, fecha, cuen);
                 listR.add(ret);
             }
 
