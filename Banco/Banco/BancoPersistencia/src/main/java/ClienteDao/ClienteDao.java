@@ -26,6 +26,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -242,7 +243,7 @@ public class ClienteDao implements iCliente {
                 String tipo = res.getString("Retiro");
                 Date fecha = res.getDate("fecha");
                 int cuen = res.getInt("numeroDeCuenta");
-                Retiros ret = new Retiros(tipo, monto, fecha, cuen);
+                Retiros ret = new Retiros(tipo, monto, , cuen);
                 listR.add(ret);
             }
 
@@ -347,7 +348,7 @@ public class ClienteDao implements iCliente {
             comandoSQL.setString(2, retiro.getEstado());
             comandoSQL.setString(3, retiro.getContrasena());
             comandoSQL.setDouble(4, retiro.getMonto());
-            comandoSQL.setDate(5,  retiro.getFecha());
+            comandoSQL.setTimestamp(5,  java.sql.Timestamp.valueOf(retiro.getFecha()));
             comandoSQL.setInt(6, retiro.getIdCuenta());
 
             ResultSet res = comandoSQL.executeQuery();
