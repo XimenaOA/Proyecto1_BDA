@@ -65,14 +65,27 @@ public class Transferencias {
         return tipo;
     }
 
+    /**
+     * Establece el tipo de la transferencia.
+     * @param tipo El tipo de la transferencia.
+     */
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
+    /**
+     * Obtiene el monto de la transferencia.
+     * @return El monto de la transferencia.
+     */
     public Double getConcepto() {
         return concepto;
     }
 
+    
+    /**
+     * Establece el monto de la transferencia.
+     * @param concepto El monto de la transferencia.
+     */
     public void setConcepto(Double concepto) {
         this.concepto = concepto;
     }
