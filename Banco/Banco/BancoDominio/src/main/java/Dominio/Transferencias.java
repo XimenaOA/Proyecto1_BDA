@@ -39,6 +39,15 @@ public class Transferencias {
         this.fechaDeTransferencia = fechaDeTransferencia;
     }
 
+    /**
+     * Constructor con tipo, concepto, remitente, destinatario, fecha de transferencia y ID de cuenta.
+     * @param tipo El tipo de la transferencia (por ejemplo, "Transferencia" o "Pago").
+     * @param concepto El monto de la transferencia.
+     * @param remitente El ID de la cuenta remitente.
+     * @param destinatario El ID de la cuenta destinataria.
+     * @param fechaDeTransferencia La fecha de la transferencia.
+     * @param idCuenta El ID de la cuenta asociada a la transferencia.
+     */
     public Transferencias(String tipo, Double concepto, long remitente, long destinatario, String fechaDeTransferencia, int idCuenta) {
         this.tipo = tipo;
         this.concepto = concepto;
@@ -48,6 +57,10 @@ public class Transferencias {
         this.idCuenta = idCuenta;
     }
 
+    /**
+     * Obtiene el tipo de la transferencia.
+     * @return El tipo de la transferencia.
+     */
     public String getTipo() {
         return tipo;
     }
