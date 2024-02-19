@@ -90,22 +90,39 @@ public class Transferencias {
         this.concepto = concepto;
     }
 
+    /**
+     * Obtiene el ID de la cuenta remitente.
+     * @return El ID de la cuenta remitente.
+     */
     public long getRemitente() {
         return remitente;
     }
 
+    /**
+     * Establece el ID de la cuenta remitente.
+     * @param remitente El ID de la cuenta remitente.
+     */
     public void setRemitente(long remitente) {
         this.remitente = remitente;
     }
 
+    /**
+     * Obtiene el ID de la cuenta destinataria.
+     * @return El ID de la cuenta destinataria.
+     */
     public long getDestinatario() {
         return destinatario;
     }
 
+    /**
+     * Establece el ID de la cuenta destinataria.
+     * @param destinatario El ID de la cuenta destinataria.
+     */
     public void setDestinatario(long destinatario) {
         this.destinatario = destinatario;
     }
 
+    
     public String getFechaDeTransferencia() {
         return fechaDeTransferencia;
     }
