@@ -180,7 +180,10 @@ public class Clientes {
         this.contrasena = contrasena;
     }
 
-    
+    /**
+     * Calcula el código hash para el objeto.
+     * @return El código hash del objeto.
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -194,6 +197,11 @@ public class Clientes {
         return hash;
     }
 
+    /**
+     * Compara este objeto con otro objeto para determinar su igualdad.
+     * @param obj El objeto a comparar.
+     * @return true si los objetos son iguales, false de lo contrario.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
