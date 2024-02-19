@@ -517,6 +517,9 @@ public class ClienteDao implements iCliente {
 
     @Override
     public Retiros validarRetiros(RetiroDTO retiro) throws PersistenciaExcepcion {
+        Retiros ret = new Retiros();
+        String sentenciaSQL = "";
+        
         
         
     }
