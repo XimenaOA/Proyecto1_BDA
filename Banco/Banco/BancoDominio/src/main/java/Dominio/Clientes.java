@@ -4,13 +4,24 @@ import java.util.Objects;
 
 public class Clientes {
 
+    //Atributos de la clase
     int id;
     String nombre, apellidoPaterno, apellidoMaterno, fehcadenacimiento, usr, contrasena;
-    
 
+    /**
+     * Constructor vacio por defecto
+     */
     public Clientes() {
     }
 
+    /**
+     * Constructor con nombre, apellidos y fecha de nacimiento.
+     *
+     * @param nombre El nombre del cliente.
+     * @param apellidoPaterno El apellido paterno del cliente.
+     * @param apellidoMaterno El apellido materno del cliente.
+     * @param fehcadenacimiento La fecha de nacimiento del cliente.
+     */
     public Clientes(String nombre, String apellidoPaterno, String apellidoMaterno, String fehcadenacimiento) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -18,6 +29,15 @@ public class Clientes {
         this.fehcadenacimiento = fehcadenacimiento;
     }
 
+    /**
+     * Constructor con nombre, apellidos, fecha de nacimiento, usuario y contraseña.
+     * @param nombre El nombre del cliente.
+     * @param apellidoPaterno El apellido paterno del cliente.
+     * @param apellidoMaterno El apellido materno del cliente.
+     * @param fehcadenacimiento La fecha de nacimiento del cliente.
+     * @param usr El nombre de usuario del cliente.
+     * @param contrasena La contraseña del cliente.
+     */
     public Clientes(String nombre, String apellidoPaterno, String apellidoMaterno, String fehcadenacimiento, String usr, String contrasena) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -27,6 +47,16 @@ public class Clientes {
         this.contrasena = contrasena;
     }
 
+    /**
+     * Constructor con ID, nombre, apellidos, fecha de nacimiento, usuario y contraseña.
+     * @param id El ID del cliente.
+     * @param nombre El nombre del cliente.
+     * @param apellidoPaterno El apellido paterno del cliente.
+     * @param apellidoMaterno El apellido materno del cliente.
+     * @param fehcadenacimiento La fecha de nacimiento del cliente.
+     * @param usr El nombre de usuario del cliente.
+     * @param contrasena La contraseña del cliente.
+     */
     public Clientes(int id, String nombre, String apellidoPaterno, String apellidoMaterno, String fehcadenacimiento, String usr, String contrasena) {
         this.id = id;
         this.nombre = nombre;
@@ -37,54 +67,104 @@ public class Clientes {
         this.contrasena = contrasena;
     }
 
+    /**
+     * Obtiene el ID del cliente.
+     * @return El ID del cliente.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Establece el ID del cliente.
+     * @param id El ID del cliente.
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Obtiene el nombre del cliente.
+     * @return El nombre del cliente.
+     */
     public String getNombre() {
         return nombre;
     }
 
+     /**
+     * Establece el nombre del cliente.
+     * @param nombre El nombre del cliente.
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     * Obtiene el apellido paterno del cliente.
+     * @return El apellido paterno del cliente.
+     */
     public String getApellidoPaterno() {
         return apellidoPaterno;
     }
 
+    /**
+     * Establece el apellido paterno del cliente.
+     * @param apellidoPaterno El apellido paterno del cliente.
+     */
     public void setApellidoPaterno(String apellidoPaterno) {
         this.apellidoPaterno = apellidoPaterno;
     }
 
+    /**
+     * Obtiene el apellido materno del cliente.
+     * @return El apellido materno del cliente.
+     */
     public String getApellidoMaterno() {
         return apellidoMaterno;
     }
 
+     /**
+     * Establece el apellido materno del cliente.
+     * @param apellidoMaterno El apellido materno del cliente.
+     */
     public void setApellidoMaterno(String apellidoMaterno) {
         this.apellidoMaterno = apellidoMaterno;
     }
+    
+    /**
+     * Obtiene la fecha de nacimiento del cliente.
+     * @return La fecha de nacimiento del cliente.
+     */
 
     public String getFehcadenacimiento() {
         return fehcadenacimiento;
     }
 
+    /**
+     * Establece la fecha de nacimiento del cliente.
+     * @param fehcadenacimiento La fecha de nacimiento del cliente.
+     */
     public void setFehcadenacimiento(String fehcadenacimiento) {
         this.fehcadenacimiento = fehcadenacimiento;
     }
 
+    /**
+     * Obtiene el nombre de usuario del cliente.
+     * @return El nombre de usuario del cliente.
+     */
     public String getUsr() {
         return usr;
     }
 
+    /**
+     * Establece el nombre de usuario del cliente.
+     * @param usr El nombre de usuario del cliente.
+     */
     public void setUsr(String usr) {
         this.usr = usr;
     }
 
+    
     public String getContrasena() {
         return contrasena;
     }
@@ -139,6 +219,4 @@ public class Clientes {
         return Objects.equals(this.contrasena, other.contrasena);
     }
 
-    
-    
 }
