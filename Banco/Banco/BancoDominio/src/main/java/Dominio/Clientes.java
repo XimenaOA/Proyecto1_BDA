@@ -164,15 +164,23 @@ public class Clientes {
         this.usr = usr;
     }
 
-    
+    /**
+     * Obtiene la contraseña del cliente.
+     * @return La contraseña del cliente.
+     */
     public String getContrasena() {
         return contrasena;
     }
 
+     /**
+     * Establece la contraseña del cliente.
+     * @param contrasena La contraseña del cliente.
+     */
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 7;
