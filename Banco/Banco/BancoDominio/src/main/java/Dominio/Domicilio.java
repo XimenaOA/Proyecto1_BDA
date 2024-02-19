@@ -48,14 +48,26 @@ public class Domicilio {
         this.idDomicilio = idDomicilio;
     }
 
+    /**
+     * Obtiene la colonia del domicilio.
+     * @return La colonia del domicilio.
+     */
     public String getColonia() {
         return colonia;
     }
 
+    /**
+     * Establece la colonia del domicilio.
+     * @param colonia La colonia del domicilio.
+     */
     public void setColonia(String colonia) {
         this.colonia = colonia;
     }
 
+    /**
+     * Obtiene la calle del domicilio.
+     * @return La calle del domicilio.
+     */
     public String getCalle() {
         return calle;
     }
