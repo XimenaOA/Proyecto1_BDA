@@ -16,6 +16,7 @@ public class RetiroDTO {
     
     private String tipo;
     private long folio;
+    private long numCuenta;
     private String estado;
     private int contrasena;
     private double monto;

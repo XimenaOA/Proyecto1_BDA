@@ -98,6 +98,8 @@ public class ClienteDto {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
+    
+    
 
     @Override
     public int hashCode() {
