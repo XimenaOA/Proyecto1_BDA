@@ -72,26 +72,51 @@ public class Domicilio {
         return calle;
     }
 
+     /**
+     * Establece la calle del domicilio.
+     * @param calle La calle del domicilio.
+     */
     public void setCalle(String calle) {
         this.calle = calle;
     }
 
+    
+    /**
+     * Obtiene el número del domicilio.
+     * @return El número del domicilio.
+     */
     public int getNumero() {
         return numero;
     }
 
+    /**
+     * Establece el número del domicilio.
+     * @param numero El número del domicilio.
+     */
     public void setNumero(int numero) {
         this.numero = numero;
     }
 
+    /**
+     * Obtiene el ID del cliente asociado al domicilio.
+     * @return El ID del cliente asociado al domicilio.
+     */
     public int getIdCliente() {
         return idCliente;
     }
 
+     /**
+     * Establece el ID del cliente asociado al domicilio.
+     * @param idCliente El ID del cliente asociado al domicilio.
+     */
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
+     /**
+     * Calcula el código hash para el objeto.
+     * @return El código hash del objeto.
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -103,6 +128,11 @@ public class Domicilio {
         return hash;
     }
 
+    /**
+     * Compara este objeto con otro objeto para determinar su igualdad.
+     * @param obj El objeto a comparar.
+     * @return true si los objetos son iguales, false de lo contrario.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
