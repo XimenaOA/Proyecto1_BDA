@@ -361,9 +361,9 @@ public class InicioUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_retiroSinTarjetaActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
-        EditarDatos edit;
+        
         try {
-            edit = new EditarDatos(control, cli);
+            EditarDatos edit = new EditarDatos(control, cli);
             edit.setVisible(true);
             this.dispose();
         } catch (PersistenciaExcepcion ex) {
