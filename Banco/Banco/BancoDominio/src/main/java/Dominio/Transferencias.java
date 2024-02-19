@@ -11,7 +11,7 @@ import java.util.Objects;
  * @author Ximena
  */
 public class Transferencias {
-    
+    //Atributos de la clase
     private String tipo;
     private Double concepto;
     private long remitente;
@@ -19,9 +19,19 @@ public class Transferencias {
     private String fechaDeTransferencia;
     private int idCuenta;
 
+    /**
+     * Contructor vacio por defecto
+     */
     public Transferencias() {
     }
 
+      /**
+     * Constructor con concepto, remitente, destinatario y fecha de transferencia.
+     * @param concepto El monto de la transferencia.
+     * @param remitente El ID de la cuenta remitente.
+     * @param destinatario El ID de la cuenta destinataria.
+     * @param fechaDeTransferencia La fecha de la transferencia.
+     */
     public Transferencias(Double concepto, long remitente, long destinatario, String fechaDeTransferencia) {
         this.concepto = concepto;
         this.remitente = remitente;
