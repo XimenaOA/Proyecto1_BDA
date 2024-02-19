@@ -344,7 +344,7 @@ public class ClienteDao implements iCliente {
 
     @Override
     public boolean retiroSinCuenta(RetiroDTO retiro) throws PersistenciaExcepcion {
-        String sentenciaSQL = "INSERT INTO retiroSinCuentea (Folio, estado, contrasena, monto, fecha, idCuenta)\n" + "VALUES (?, ?, ?, ?, ?, ?)";
+        String sentenciaSQL = "INSERT INTO retiroSinCuentea (Folio, estado, contrasena, monto, fecha, idCuenta,cuenta)\n" + "VALUES (?, ?, ?, ?, ?, ?,?)";
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL)) {
             comandoSQL.setLong(1, retiro.getFolio());
             comandoSQL.setString(2, "Espera");
@@ -355,8 +355,9 @@ public class ClienteDao implements iCliente {
 
             comandoSQL.setTimestamp(5, java.sql.Timestamp.valueOf(retiro.getFecha()));
             comandoSQL.setInt(6, retiro.getIdCuenta());
+            comandoSQL.setLong(7, retiro.getNumCuenta());
 
-            ResultSet res = comandoSQL.executeQuery();
+            int res = comandoSQL.executeUpdate();
 
             return true;
         } catch (SQLException ex) {
@@ -529,15 +530,17 @@ public class ClienteDao implements iCliente {
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
 
             ResultSet res = comandoSQL.executeQuery(sentencia);
-
-            dom = new Domicilio();
-            dom.setIdDomicilio(res.getInt("idDomicilio"));
-            dom.setColonia(res.getString("colonia"));
-            dom.setCalle(res.getString("calle"));
-            dom.setNumero(res.getInt("numero"));
-            dom.setIdCliente(res.getInt("idcliente"));
-
-            return dom;
+            
+            if (res.next()) { 
+                dom = new Domicilio();
+                dom.setIdDomicilio(res.getInt("idDomicilio"));
+                dom.setColonia(res.getString("colonia"));
+                dom.setCalle(res.getString("calle"));
+                dom.setNumero(res.getInt("numero"));
+                dom.setIdCliente(res.getInt("idcliente"));
+                return dom;
+            }
+            return null;
 
         } catch (SQLException ex) {
             throw new PersistenciaExcepcion("Error al consultar los domicilios del cliente: " + ex.getMessage());
@@ -546,44 +549,51 @@ public class ClienteDao implements iCliente {
 
     @Override
     public Retiros validarRetiros(RetiroDTO retiro) throws PersistenciaExcepcion {
-        Retiros ret;
-        String sentenciaSQL = "update retiroSinCuentea set monto = ? where folio=?";
-        String sentenciaSQL2 = String.format("select * from retirosincuentea where folio = '10d'", retiro.getFolio());
-        String sentenciaSQL3 = "update retiroSinCuentea set estado='Activo' set monto=? where folio=?";
+        Retiros ret = new Retiros("121");
 
-        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL); PreparedStatement comandoSQL2 = conexion.prepareStatement(sentenciaSQL2); PreparedStatement comandoSQL3 = conexion.prepareStatement(sentenciaSQL3);) {
+        String sentenciaSQL = "update retiroSinCuentea set estado = ? where folio=?";
+        String sentenciaSQL2 = String.format("select * from retirosincuentea where folio = %d", retiro.getFolio());
+        String sentenciaSQL3 = "update Cuentas set monto=? where numeroDeCuenta=?";
 
-            comandoSQL.setDouble(1, retiro.getMonto());
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL); PreparedStatement comandoSQL2 = conexion.prepareStatement(sentenciaSQL2); PreparedStatement comandoSQL3 = conexion.prepareStatement(sentenciaSQL3)) {
+
+            comandoSQL.setString(1, "Espera");
             comandoSQL.setLong(2, retiro.getFolio());
 
-            ResultSet res = comandoSQL.executeQuery();
-            ResultSet res2 = comandoSQL2.executeQuery(sentenciaSQL2);
+            int res = comandoSQL.executeUpdate();
 
-            if (res2.getString("estado").equals("Cancelado")) {
-                return ret = new Retiros("510");
-            } else {
+            ResultSet res2 = comandoSQL2.executeQuery();
 
-                if (this.encriptar(String.valueOf(retiro.getContrasena())).equals(res2.getString("contrasena"))) {
-                    double retirado = res2.getDouble("monto");
-                    double saldo = this.consultarSaldo(res2.getLong("numeroDeCuenta"));
-                    double total = saldo - retirado;
-
-                    comandoSQL3.setDouble(1, total);
-                    comandoSQL3.setLong(2, retiro.getFolio());
-
-                    ResultSet res3 = comandoSQL3.executeQuery();
-
+            if (res2.next()) {
+                if (res2.getString("estado").equals("Cancelado")) {
+                    return new Retiros("510");
+                } else {
                     Timestamp fecha = res2.getTimestamp("fecha");
                     LocalDateTime fecha2 = fecha.toLocalDateTime();
-                    int cuen = res2.getInt("numeroDeCuenta");
-                    long numC = res2.getLong("cuenta");
+                    Retiros rere = new Retiros("Retiro", res2.getLong("cuenta"), res2.getLong("Folio"),
+                            res2.getString("estado"), String.valueOf(retiro.getContrasena()), res2.getDouble("monto"), fecha2,
+                            res2.getInt("idCuenta"));
 
-                    ret = new Retiros("Retiro", numC, total, fecha2, cuen);
+                    String contrasenaRetiro = res2.getString("contrasena");
 
-                    return ret;
-                } else {
-                    return ret = new Retiros("320");
+                    if (this.encriptar(String.valueOf(retiro.getContrasena())).equals(contrasenaRetiro)) {
+                        double retirado = rere.getMonto();
+                        double saldo = this.consultarSaldo(res2.getLong("cuenta"));
+                        double total = saldo - retirado;
+
+                        comandoSQL3.setDouble(1, total);
+                        comandoSQL3.setLong(2, rere.getNumCuenta());
+                        int res3 = comandoSQL3.executeUpdate();
+
+                        Logger.getLogger(ClienteDao.class.getName()).log(Level.INFO, "se ah validado");
+
+                        return rere;
+                    } else {
+                        return new Retiros("320");
+                    }
                 }
+            } else {
+                return ret;
             }
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);

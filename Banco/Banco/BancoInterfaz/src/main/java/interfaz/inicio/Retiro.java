@@ -213,20 +213,21 @@ public class Retiro extends javax.swing.JFrame {
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         long folio = Long.parseLong(txtFolio.getText());
         int contra = Integer.parseInt(txtContra.getText());
-        
-        RetiroDTO retiro = new RetiroDTO(folio, contra );
-        
+
+        RetiroDTO retiro = new RetiroDTO(folio, contra);
+
         try {
             Retiros reti = control.validarRetiros(retiro);
-            
-            if (!reti.getContrasena().equals("320")) {
-                if (!reti.getContrasena().equals("510")) {
-                    JOptionPane.showMessageDialog(this, "Retiro realizado con exito");
-                }else{
+
+            if (reti.getContrasena()==null) {
                 JOptionPane.showMessageDialog(this, "El retiro ya no esta disponible");
-                }
-            }else{
-                JOptionPane.showMessageDialog(this, "Contraseña incorrecta o no es valida");
+            } else {
+
+                    JOptionPane.showMessageDialog(this, "Retiro realizado con exito");
+                    Inicio ini = new Inicio();
+                    ini.setVisible(true);
+                    this.dispose();
+                
             }
         } catch (PersistenciaExcepcion ex) {
             Logger.getLogger(Retiro.class.getName()).log(Level.SEVERE, null, ex);

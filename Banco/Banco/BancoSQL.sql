@@ -33,14 +33,14 @@ foreign key (idcliente) references Clientes(idCliente)
 );
 
 create table retiroSinCuentea(
-idRetiro int(10) primary key,
-Folio int(10) unique key, 
+idRetiro int primary key auto_increment,
+Folio BIGINT(10) unique, 
 estado varchar(20) check(estado in("Activo", "Espera", "Cancelado")),
-contrasena varchar(8),
+contrasena long,
 monto double,
 fecha datetime,
 cuenta long,
-idCuenta int(10),
+idCuenta int,
 foreign key (idCuenta) references Cuentas(idCuenta)
 );
 
@@ -52,19 +52,20 @@ fechaDeTrasferencia varchar(10),
 idCuenta int(10),
 foreign key(idCuenta) references Cuentas(idCuenta)
 );
-
-INSERT INTO retiroSinCuentea (Folio, estado, contrasena, monto, fecha, cuenta, idCuenta) 
-VALUES (1, 'Activo', '12345678', 500.00, '2024-02-18', 1234567890, 1);
+INSERT INTO Clientes (nombre, apellidopaterno, apellidomaterno, edad, fechaDeNacimiento, usr, contrasena) 
+VALUES ('Juan', 'Pérez', 'Gómez', '30', '1994-05-15', 'juanpgomez', 'contraseña123');
 
 INSERT INTO Cuentas (fechaApertura, monto, numeroDeCuenta, estado, idcliente) 
 VALUES ('2024-02-18', 1000.00, 1234567890, 'Activo', LAST_INSERT_ID());
 
-INSERT INTO Clientes (nombre, apellidopaterno, apellidomaterno, edad, fechaDeNacimiento, usr, contrasena) 
-VALUES ('Juan', 'Pérez', 'Gómez', '30', '1994-05-15', 'juanpgomez', 'contraseña123');
+INSERT INTO retiroSinCuentea (Folio, estado, contrasena, monto, fecha, cuenta, idCuenta) 
+VALUES (1, 'Activo', '12345678', 500.00, '2024-02-18', 1234567890, 2);
 
-
-
+update retirosincuentea set monto=100 where idRetiro=2 ;
 select * from Cuentas;
-select * from Cuentas where idCuenta=1;
-select * from retirosincuentea where folio = 1;
-select * from retirosincuentea;
+update Cuentas set monto=488 where numeroDeCuenta=2342342314;
+select * from Cuentas where numeroDeCuenta=2342342314;
+SELECT * FROM retirosincuentea WHERE folio =4582059753;
+update retiroSinCuentea set estado='Activo', monto=400 where folio=7767991974;
+select *  from retirosincuentea ;-- r join Cuentas c on r.idCuenta = c.idCuenta;
+SELECT * FROM Domicilios WHERE idcliente=2;
