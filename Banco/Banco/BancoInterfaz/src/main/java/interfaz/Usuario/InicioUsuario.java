@@ -355,7 +355,9 @@ public class InicioUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_EliminarCuentaActionPerformed
 
     private void retiroSinTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retiroSinTarjetaActionPerformed
-        // TODO add your handling code here:
+        retiro reti= new retiro(control, cli);
+        reti.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_retiroSinTarjetaActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed

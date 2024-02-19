@@ -7,13 +7,16 @@ package interfaz.Usuario;
 import ClienteDto.RetiroDTO;
 import Control.ControlCliente;
 import Dominio.Clientes;
+import Dominio.Cuentas;
 import Excepciones.PersistenciaExcepcion;
 import static java.awt.SystemColor.control;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,7 +25,7 @@ import javax.swing.JOptionPane;
  */
 public class retiro extends javax.swing.JFrame {
 
-    private int numero;
+    private long numero;
     private ControlCliente control;
     private Clientes cli;
 
@@ -33,6 +36,7 @@ public class retiro extends javax.swing.JFrame {
         this.control = control;
         this.cli = cli;
         initComponents();
+        this.llenarCuentas(cli.getId());
     }
 
     /**
@@ -51,7 +55,7 @@ public class retiro extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        comboBoxCuenta = new javax.swing.JComboBox<>();
+        jCB = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtMontoARetirar = new javax.swing.JTextField();
@@ -93,13 +97,12 @@ public class retiro extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
 
-        comboBoxCuenta.setBackground(new java.awt.Color(255, 255, 255));
-        comboBoxCuenta.setForeground(new java.awt.Color(0, 0, 0));
-        comboBoxCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboBoxCuenta.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
-        comboBoxCuenta.addActionListener(new java.awt.event.ActionListener() {
+        jCB.setBackground(new java.awt.Color(255, 255, 255));
+        jCB.setForeground(new java.awt.Color(0, 0, 0));
+        jCB.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
+        jCB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxCuentaActionPerformed(evt);
+                jCBActionPerformed(evt);
             }
         });
 
@@ -145,7 +148,7 @@ public class retiro extends javax.swing.JFrame {
                             .addComponent(txtMontoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMontoARetirar, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addComponent(comboBoxCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCB, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(47, 47, 47)
                                 .addComponent(jLabel6))))
@@ -160,7 +163,7 @@ public class retiro extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(comboBoxCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -264,8 +267,14 @@ public class retiro extends javax.swing.JFrame {
             LocalDateTime fecha = LocalDateTime.now();
             long folio = control.generarFolio();
             int contra = control.generarContra();
-            RetiroDTO retiro = new RetiroDTO("Retiro", folio, "Espera", contra, Integer.parseInt(this.txtMontoARetirar.getText()), fecha, 1);
             
+            Cuentas cuenta =control.ConsultarCuenta(Long.parseLong(String.valueOf(this.jCB.getSelectedItem())));
+            
+            RetiroDTO retiro = new RetiroDTO("Retiro", folio, "Espera", contra, Integer.parseInt(this.txtMontoARetirar.getText()), fecha, cuenta.getIdCliente());
+            
+            control.retiroSinCuenta(retiro);
+            
+            JOptionPane.showConfirmDialog(this, "Folio: "+ folio +"\nContra:"+contra);
         } catch (Exception e) {
         }
     }//GEN-LAST:event_botonAceptarActionPerformed
@@ -284,27 +293,30 @@ public class retiro extends javax.swing.JFrame {
         
     }//GEN-LAST:event_txtMontoDisponibleActionPerformed
 
-    private void comboBoxCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCuentaActionPerformed
+    private void jCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBActionPerformed
         try {
-            this.numero = Integer.parseInt((String) this.comboBoxCuenta.getSelectedItem());
+            this.numero = Long.parseLong((String) this.jCB.getSelectedItem());
 
             this.txtMontoDisponible.setText(String.valueOf(control.consultarSaldo(this.numero)));
+            
         } catch (PersistenciaExcepcion ex) {
             Logger.getLogger(Deposito.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_comboBoxCuentaActionPerformed
+    }//GEN-LAST:event_jCBActionPerformed
+private void llenarCuentas(int id) {
+        try {
+            List<String> cuentas = control.ConsultarNumeroCuentas(id);
 
-    public long generarFolio() {
-        long min = 1000000000L;
-        long max = 9999999999L;
-        return min + (long) (Math.random() * (max - min + 1));
-    }
+            DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
 
-    public int generarContra() {
+            for (String cuenta : cuentas) {
+                comboBoxModel.addElement(cuenta);
+            }
 
-        int min = 10000000;
-        int max = 99999999;
-        return min + (int) (Math.random() * (max - min + 1));
+            this.jCB.setModel(comboBoxModel);
+        } catch (PersistenciaExcepcion ex) {
+            ex.printStackTrace();
+        }
     }
 
 //    /**
@@ -345,7 +357,7 @@ public class retiro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonVolver;
-    private javax.swing.JComboBox<String> comboBoxCuenta;
+    private javax.swing.JComboBox<String> jCB;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

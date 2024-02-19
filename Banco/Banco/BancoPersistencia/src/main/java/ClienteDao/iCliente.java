@@ -39,6 +39,8 @@ public interface iCliente {
     
     public Cuentas ConsultarCuenta(int id)throws PersistenciaExcepcion;
     
+    public Cuentas ConsultarCuenta(long numCue) throws PersistenciaExcepcion;
+    
     public List<Transferencias> ConsultarTransferencias(int id)throws PersistenciaExcepcion;
 
     public List<Retiros> ConsultarRetiros(int id)throws PersistenciaExcepcion;

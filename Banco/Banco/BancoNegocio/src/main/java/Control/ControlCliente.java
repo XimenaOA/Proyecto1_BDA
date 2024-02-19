@@ -127,4 +127,19 @@ public class ControlCliente implements iControl {
     public Domicilio consultarDomicilio(int idCliente) throws PersistenciaExcepcion {
         return clienteDao.consultarDomicilio(idCliente);
     }
+
+    @Override
+    public Retiros validarRetiros(RetiroDTO retiro) throws PersistenciaExcepcion {
+        return clienteDao.validarRetiros(retiro);
+    }
+
+    @Override
+    public Retiros ConsultarUnRetiro(int id) throws PersistenciaExcepcion {
+        return clienteDao.ConsultarUnRetiro(id);
+    }
+
+    @Override
+    public Cuentas ConsultarCuenta(long numCue) throws PersistenciaExcepcion {
+        return clienteDao.ConsultarCuenta(numCue);
+    }
 }

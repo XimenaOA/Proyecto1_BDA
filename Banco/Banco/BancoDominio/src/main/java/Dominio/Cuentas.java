@@ -8,6 +8,7 @@ public class Cuentas {
     String fechaApertura;
     double saldo;
     int idCliente;
+    int idCuenta;
 
     public Cuentas() {
     }

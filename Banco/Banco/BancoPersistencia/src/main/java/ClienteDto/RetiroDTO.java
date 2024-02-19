@@ -32,7 +32,14 @@ public class RetiroDTO {
         this.idCuenta = idCuenta;
     }
 
-    
+    public RetiroDTO(long folio, int contrasena) {
+        this.folio = folio;
+        this.contrasena = contrasena;
+    }
+
+    public RetiroDTO(int contrasena) {
+        this.contrasena = contrasena;
+    }
     
     public RetiroDTO(long folio, String estado, int contrasena, double monto, LocalDateTime fecha, int idCuenta) {
         this.folio = folio;

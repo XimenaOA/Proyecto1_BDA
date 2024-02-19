@@ -62,4 +62,10 @@ public interface iControl {
     public Clientes consultarCliente(int id) throws PersistenciaExcepcion;
     
     public Domicilio consultarDomicilio(int id) throws PersistenciaExcepcion;
+    
+    public Retiros validarRetiros(RetiroDTO retiro) throws PersistenciaExcepcion;
+    
+    public Retiros ConsultarUnRetiro(int id)throws PersistenciaExcepcion;
+    
+    public Cuentas ConsultarCuenta(long numCue) throws PersistenciaExcepcion;
 }

@@ -233,7 +233,7 @@ public class ClienteDao implements iCliente {
     @Override
     public List<Retiros> ConsultarRetiros(int id) throws PersistenciaExcepcion {
         List<Retiros> listR = new ArrayList<>();
-        String sentencia = String.format("select *, \"Retiros\" as Retiro from retiroSinCuentea r join Cuentas cl on r.idCuenta = cl.idCuenta where cl.idCliente='%d'", id);
+        String sentencia = String.format("select *,\"Retiro\" as tipo from retiroSinCuentea r join Cuentas cl on r.idCuenta = cl.idCuenta where cl.idCliente=1 and r.estado=\"Activo\"", id);
 
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
 
@@ -241,7 +241,6 @@ public class ClienteDao implements iCliente {
 
             while (res.next()) {
                 double monto = res.getDouble("monto");
-                String tipo = res.getString("Retiro");
                 Timestamp fecha = res.getTimestamp("fecha");
                 LocalDateTime fecha2 = fecha.toLocalDateTime();
                 int cuen = res.getInt("numeroDeCuenta");
@@ -348,9 +347,12 @@ public class ClienteDao implements iCliente {
         String sentenciaSQL = "INSERT INTO retiroSinCuentea (Folio, estado, contrasena, monto, fecha, idCuenta)\n" + "VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL)) {
             comandoSQL.setLong(1, retiro.getFolio());
-            comandoSQL.setString(2, retiro.getEstado());
-            comandoSQL.setInt(3, retiro.getContrasena());
+            comandoSQL.setString(2, "Espera");
+
+            String contra = this.encriptar(String.valueOf(retiro.getContrasena()));
+            comandoSQL.setString(3, contra);
             comandoSQL.setDouble(4, retiro.getMonto());
+
             comandoSQL.setTimestamp(5, java.sql.Timestamp.valueOf(retiro.getFecha()));
             comandoSQL.setInt(6, retiro.getIdCuenta());
 
@@ -359,6 +361,8 @@ public class ClienteDao implements iCliente {
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
 
@@ -397,6 +401,31 @@ public class ClienteDao implements iCliente {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
         return null;
+
+    }
+
+    @Override
+    public Cuentas ConsultarCuenta(long numCue) throws PersistenciaExcepcion {
+        Cuentas cuenta = null;
+        String sentencia = "SELECT * FROM Cuentas WHERE numeroDeCuenta = ?";
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia)) {
+
+            comandoSQL.setLong(1, numCue);
+            ResultSet res = comandoSQL.executeQuery();
+
+            if (res.next()) { // Comprueba si hay al menos una fila de resultados
+                double saldo = res.getDouble("monto");
+                long numCuenta = res.getLong("numeroDeCuenta");
+                String fecha = res.getString("fechaApertura");
+                int idCuenta = res.getInt("idCuenta");
+
+                cuenta = new Cuentas(numCuenta, fecha, saldo, idCuenta);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            throw new PersistenciaExcepcion("Error al consultar la cuenta: " + ex.getMessage());
+        }
+        return cuenta;
 
     }
 
@@ -517,11 +546,51 @@ public class ClienteDao implements iCliente {
 
     @Override
     public Retiros validarRetiros(RetiroDTO retiro) throws PersistenciaExcepcion {
-        Retiros ret = new Retiros();
-        String sentenciaSQL = "";
-        
-        
-        
+        Retiros ret;
+        String sentenciaSQL = "update retiroSinCuentea set monto = ? where folio=?";
+        String sentenciaSQL2 = String.format("select * from retirosincuentea where folio = '10d'", retiro.getFolio());
+        String sentenciaSQL3 = "update retiroSinCuentea set estado='Activo' set monto=? where folio=?";
+
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSQL); PreparedStatement comandoSQL2 = conexion.prepareStatement(sentenciaSQL2); PreparedStatement comandoSQL3 = conexion.prepareStatement(sentenciaSQL3);) {
+
+            comandoSQL.setDouble(1, retiro.getMonto());
+            comandoSQL.setLong(2, retiro.getFolio());
+
+            ResultSet res = comandoSQL.executeQuery();
+            ResultSet res2 = comandoSQL2.executeQuery(sentenciaSQL2);
+
+            if (res2.getString("estado").equals("Cancelado")) {
+                return ret = new Retiros("510");
+            } else {
+
+                if (this.encriptar(String.valueOf(retiro.getContrasena())).equals(res2.getString("contrasena"))) {
+                    double retirado = res2.getDouble("monto");
+                    double saldo = this.consultarSaldo(res2.getLong("numeroDeCuenta"));
+                    double total = saldo - retirado;
+
+                    comandoSQL3.setDouble(1, total);
+                    comandoSQL3.setLong(2, retiro.getFolio());
+
+                    ResultSet res3 = comandoSQL3.executeQuery();
+
+                    Timestamp fecha = res2.getTimestamp("fecha");
+                    LocalDateTime fecha2 = fecha.toLocalDateTime();
+                    int cuen = res2.getInt("numeroDeCuenta");
+                    long numC = res2.getLong("cuenta");
+
+                    ret = new Retiros("Retiro", numC, total, fecha2, cuen);
+
+                    return ret;
+                } else {
+                    return ret = new Retiros("320");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override

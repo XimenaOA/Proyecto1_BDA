@@ -24,9 +24,9 @@ import javax.swing.JOptionPane;
  */
 public class Inicio extends javax.swing.JFrame {
 
-    String url = "jdbc:mysql://localhost:3306/Banco";
+    String url = "jdbc:mysql://localhost:3306/banco";
     String usuario = "root";
-    String contraseña = "23300515";
+    String contraseña = "18931Mor";
 
     IConexion con = new Conexion(url, usuario, contraseña);
 

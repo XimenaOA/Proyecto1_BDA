@@ -4,17 +4,30 @@
  */
 package interfaz.inicio;
 
+import ClienteDto.RetiroDTO;
+import Control.ControlCliente;
+import Dominio.Clientes;
+import Dominio.Retiros;
+import Excepciones.PersistenciaExcepcion;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jesus
  */
 public class Retiro extends javax.swing.JFrame {
 
+    private final ControlCliente control;
+    private final Clientes cli;
     /**
      * Creates new form Retiro
      */
-    public Retiro() {
+    public Retiro(ControlCliente control, Clientes cli) {
         initComponents();
+        this.cli = cli;
+        this.control = control;
     }
 
     /**
@@ -201,6 +214,23 @@ public class Retiro extends javax.swing.JFrame {
         long folio = Long.parseLong(txtFolio.getText());
         int contra = Integer.parseInt(txtContra.getText());
         
+        RetiroDTO retiro = new RetiroDTO(folio, contra );
+        
+        try {
+            Retiros reti = control.validarRetiros(retiro);
+            
+            if (!reti.getContrasena().equals("320")) {
+                if (!reti.getContrasena().equals("510")) {
+                    JOptionPane.showMessageDialog(this, "Retiro realizado con exito");
+                }else{
+                JOptionPane.showMessageDialog(this, "El retiro ya no esta disponible");
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Contraseña incorrecta o no es valida");
+            }
+        } catch (PersistenciaExcepcion ex) {
+            Logger.getLogger(Retiro.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_botonAceptarActionPerformed
 
