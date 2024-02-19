@@ -38,6 +38,15 @@ public class Retiros {
         this.contrasena = contrasena;
     }
 
+    public Retiros(String tipo, long numCuenta, double monto, LocalDateTime fecha) {
+        this.tipo = tipo;
+        this.numCuenta = numCuenta;
+        this.monto = monto;
+        this.fecha = fecha;
+    }
+
+
+    
     
     public Retiros(long folio,long numCuenta, String estado, String contrasena, double monto, LocalDateTime fecha, int idCuenta) {
         this.folio = folio;

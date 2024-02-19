@@ -16,6 +16,7 @@ public class RetiroDTO {
     
     private String tipo;
     private long folio;
+    private long numCuenta;
     private String estado;
     private int contrasena;
     private double monto;
@@ -50,7 +51,7 @@ public class RetiroDTO {
         this.idCuenta = idCuenta;
     }
 
-    public RetiroDTO(String tipo, long folio, String estado, int contrasena, double monto, LocalDateTime fecha, int idCuenta) {
+    public RetiroDTO(String tipo, long folio, String estado, int contrasena, double monto, LocalDateTime fecha, int idCuenta, long numCuenta) {
         this.tipo = tipo;
         this.folio = folio;
         this.estado = estado;
@@ -58,6 +59,7 @@ public class RetiroDTO {
         this.monto = monto;
         this.fecha = fecha;
         this.idCuenta = idCuenta;
+        this.numCuenta =numCuenta;
     }
 
     public String getTipo() {
@@ -72,8 +74,16 @@ public class RetiroDTO {
         return folio;
     }
 
-    public void setFolio(int folio) {
+    public void setFolio(long folio) {
         this.folio = folio;
+    }
+
+    public long getNumCuenta() {
+        return numCuenta;
+    }
+
+    public void setNumCuenta(long numCuenta) {
+        this.numCuenta = numCuenta;
     }
 
     public String getEstado() {
@@ -115,6 +125,6 @@ public class RetiroDTO {
     public void setIdCuenta(int idCuenta) {
         this.idCuenta = idCuenta;
     }
-
+    
     
 }

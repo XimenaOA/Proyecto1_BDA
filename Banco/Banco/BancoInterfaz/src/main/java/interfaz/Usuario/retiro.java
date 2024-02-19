@@ -4,6 +4,7 @@
  */
 package interfaz.Usuario;
 
+import ClienteDao.ClienteDao;
 import ClienteDto.RetiroDTO;
 import Control.ControlCliente;
 import Dominio.Clientes;
@@ -269,8 +270,9 @@ public class retiro extends javax.swing.JFrame {
             int contra = control.generarContra();
             
             Cuentas cuenta =control.ConsultarCuenta(Long.parseLong(String.valueOf(this.jCB.getSelectedItem())));
-            
-            RetiroDTO retiro = new RetiroDTO("Retiro", folio, "Espera", contra, Integer.parseInt(this.txtMontoARetirar.getText()), fecha, cuenta.getIdCliente());
+            long numcuenta = Long.parseLong(String.valueOf(this.jCB.getSelectedItem()));
+            double cantidad = Double.parseDouble(this.txtMontoARetirar.getText());
+            RetiroDTO retiro = new RetiroDTO("Retiro", folio, "Espera", contra, cantidad, fecha, cuenta.getIdCliente(), numcuenta);
             
             control.retiroSinCuenta(retiro);
             

@@ -206,7 +206,9 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegistroActionPerformed
 
     private void retiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retiroActionPerformed
-        // TODO add your handling code here:
+        Retiro retiro = new Retiro(control);
+        setVisible(false);
+        retiro.setVisible(true);
     }//GEN-LAST:event_retiroActionPerformed
 
     private void botonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContinuarActionPerformed
@@ -230,11 +232,11 @@ public class Inicio extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Usuario o contraseña incorrectos");
             }
 
-        }else{
-        JOptionPane.showMessageDialog(rootPane, "Usuario o contraseña incorrectos");
-        this.txtContrasena.setText("");
-        this.txtUsr.setText("");
-        
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuario o contraseña incorrectos");
+            this.txtContrasena.setText("");
+            this.txtUsr.setText("");
+
         }
     }//GEN-LAST:event_ContinuarActionPerformed
 
@@ -249,7 +251,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel2KeyPressed
 
     private void ContinuarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ContinuarKeyPressed
-        
+
     }//GEN-LAST:event_ContinuarKeyPressed
 
     public boolean validarUsr(String usr) {
