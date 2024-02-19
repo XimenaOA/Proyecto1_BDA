@@ -33,6 +33,7 @@ foreign key (idcliente) references Clientes(idCliente)
 );
 
 create table retiroSinCuentea(
+idRetiro int(10) primary key,
 Folio int(10) unique key, 
 estado varchar(20) check(estado in("Activo", "Espera", "Cancelado")),
 contrasena varchar(8),
@@ -44,6 +45,7 @@ foreign key (idCuenta) references Cuentas(idCuenta)
 );
 
 create table transferencias(
+idTransferencia int(10) primary key,
 monto double,
 destinatario long,
 fechaDeTrasferencia varchar(10),
