@@ -122,23 +122,42 @@ public class Transferencias {
         this.destinatario = destinatario;
     }
 
-    
+    /**
+     * Obtiene la fecha de la transferencia.
+     * @return La fecha de la transferencia.
+     */
     public String getFechaDeTransferencia() {
         return fechaDeTransferencia;
     }
 
+     /**
+     * Establece la fecha de la transferencia.
+     * @param fechaDeTransferencia La fecha de la transferencia.
+     */
     public void setFechaDeTransferencia(String fechaDeTransferencia) {
         this.fechaDeTransferencia = fechaDeTransferencia;
     }
 
+    /**
+     * Obtiene el ID de la cuenta asociada a la transferencia.
+     * @return El ID de la cuenta asociada a la transferencia.
+     */
     public int getIdCuenta() {
         return idCuenta;
     }
 
+    /**
+     * Establece el ID de la cuenta asociada a la transferencia.
+     * @param idCuenta El ID de la cuenta asociada a la transferencia.
+     */
     public void setIdCuenta(int idCuenta) {
         this.idCuenta = idCuenta;
     }
 
+    /**
+     * Calcula el código hash para el objeto.
+     * @return El código hash del objeto.
+     */
     @Override
     public int hashCode() {
         int hash = 5;
@@ -151,6 +170,11 @@ public class Transferencias {
         return hash;
     }
 
+     /**
+     * Compara este objeto con otro objeto para determinar su igualdad.
+     * @param obj El objeto a comparar.
+     * @return true si los objetos son iguales, false de lo contrario.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
