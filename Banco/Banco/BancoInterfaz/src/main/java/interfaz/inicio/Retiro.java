@@ -20,13 +20,11 @@ import javax.swing.JOptionPane;
 public class Retiro extends javax.swing.JFrame {
 
     private final ControlCliente control;
-    private final Clientes cli;
     /**
      * Creates new form Retiro
      */
-    public Retiro(ControlCliente control, Clientes cli) {
+    public Retiro(ControlCliente control) {
         initComponents();
-        this.cli = cli;
         this.control = control;
     }
 

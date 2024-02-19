@@ -114,8 +114,8 @@ public class ControlCliente implements iControl {
     }
 
     @Override
-    public void modificarCliente(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion {
-        clienteDao.modificarCliente(cliente, dom);
+    public boolean modificarCliente(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion {
+        return clienteDao.modificarCliente(cliente, dom);
     }
 
     @Override

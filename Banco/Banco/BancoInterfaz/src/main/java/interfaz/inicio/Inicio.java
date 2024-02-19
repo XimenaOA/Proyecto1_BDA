@@ -206,7 +206,9 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRegistroActionPerformed
 
     private void retiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retiroActionPerformed
-        // TODO add your handling code here:
+        Retiro retiro= new Retiro(control);
+        retiro.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_retiroActionPerformed
 
     private void botonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContinuarActionPerformed

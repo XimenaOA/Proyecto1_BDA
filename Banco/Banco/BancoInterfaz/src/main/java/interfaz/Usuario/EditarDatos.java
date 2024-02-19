@@ -4,10 +4,20 @@
  */
 package interfaz.Usuario;
 
+import ClienteDto.ClienteDto;
+import ClienteDto.DomicilioDto;
 import Control.ControlCliente;
 import Dominio.Clientes;
 import Dominio.Domicilio;
 import Excepciones.PersistenciaExcepcion;
+import interfaz.inicio.Inicio;
+import interfaz.inicio.Registro;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,13 +27,14 @@ public class EditarDatos extends javax.swing.JFrame {
 
     private final ControlCliente control;
     private final Clientes cli;
+
     /**
      * Creates new form EditarDatos
      */
     public EditarDatos(ControlCliente control, Clientes cli) throws PersistenciaExcepcion {
-        
+
         initComponents();
-        
+
         this.cli = cli;
         this.control = control;
         this.llenar(cli.getId());
@@ -351,23 +362,122 @@ public class EditarDatos extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void AceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarActionPerformed
+        if (this.verificar()) {
+            ClienteDto cliente = null;
+            DomicilioDto domi = null;
+            try {
+                
+                String contra; 
+                if (this.txtContra.getText().isEmpty()) {
+                    contra =null;
+                }else{
+                contra= control.encriptar(this.txtContra.getText());
+                }
+                cliente = new ClienteDto(cli.getId(),this.txtNombre.getText(), this.txtAP.getText(), this.txtAM.getText(), contra);
 
-        
-        
+                domi = new DomicilioDto(this.txtCol.getText(), this.txtCalle.getText(), Integer.parseInt(this.txtNum.getText()));
+
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                if (control.modificarCliente(cliente, domi) == true) {
+                    JOptionPane.showMessageDialog(this, "Se ha modificado su cuenta de cliente exitosamente");
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se ha modificado su cuenta de cliente");
+
+                }
+
+            } catch (PersistenciaExcepcion ex) {
+                Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Inicio ini = new Inicio();
+            setVisible(false);
+            ini.setVisible(true);
+        }
+
+
     }//GEN-LAST:event_AceptarActionPerformed
 
-    public void llenar(int id) throws PersistenciaExcepcion{
+    private boolean verificar() {
+        if (!this.txtNombre.getText().isEmpty() || !this.txtAP.getText().isEmpty()
+                || !this.txtAM.getText().isEmpty()
+                || !this.txtContra.getText().isEmpty()
+                || !this.txtCol.getText().isEmpty() || !this.txtCalle.getText().isEmpty()
+                || !this.txtNum.getText().isEmpty()) {
+
+            Pattern pattern = Pattern.compile("[A-Za-zÁÉÍÓÚÜÑ ]+");
+            Matcher matcher = pattern.matcher(txtNombre.getText());
+
+            if (matcher.matches()) {
+                Matcher matcher2 = pattern.matcher(txtAP.getText());
+                Matcher matcher3 = pattern.matcher(txtAP.getText());
+
+                if (matcher3.matches() && matcher3.matches()) {
+
+                    if (!txtContra.getText().isEmpty()) {
+                        Pattern pattern4 = Pattern.compile("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-zA-Z0-9]).{8,}$");
+                        Matcher matcher6 = pattern4.matcher(txtContra.getText());
+
+                        if (!matcher6.matches()) {
+                            JOptionPane.showMessageDialog(this, "La contraseña debe de contener numeros, letras y si lo desea caracteres especiales\nLa contraseña de debe tener minimo 8 caracteres");
+                            return false;
+                        }
+                    }
+
+                    Matcher matcher7 = pattern.matcher(txtCol.getText());
+
+                    if (matcher7.matches()) {
+                        Matcher matcher8 = pattern.matcher(txtCalle.getText());
+
+                        if (matcher8.matches()) {
+                            Pattern pattern5 = Pattern.compile("^[0-9]{1,8}$");
+                            Matcher matcher9 = pattern5.matcher(txtNum.getText());
+
+                            if (matcher9.matches()) {
+                                return true;
+                            } else {
+                                JOptionPane.showMessageDialog(this, "El numero solo debe de contener numeros");
+                                return false;
+                            }
+
+                        } else {
+                            JOptionPane.showMessageDialog(this, "La calle solo debe de contener letras");
+                            return false;
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "La colonia solo debe de contener letras");
+                        return false;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Los Apellido solo acepta letras");
+                    return false;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El nombre solo acepta letras");
+                return false;
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Porfavor rellene todos los campos");
+            return false;
+        }
+    }
+
+    public void llenar(int id) throws PersistenciaExcepcion {
         Clientes cliente = control.consultarCliente(id);
         Domicilio dom = control.consultarDomicilio(id);
-        
+
         this.txtNombre.setText(cliente.getNombre());
         this.txtAM.setText(cliente.getApellidoMaterno());
         this.txtAP.setText(cliente.getApellidoPaterno());
-//        this.txtCalle.setText(dom.getCalle());
-//        this.txtCol.setText(dom.getColonia());
-//        this.txtNum.setText(String.valueOf(dom.getNumero()));
+        this.txtCalle.setText(dom.getCalle());
+        this.txtCol.setText(dom.getColonia());
+        this.txtNum.setText(String.valueOf(dom.getNumero()));
     }
-    
+
     private void txtCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCalleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCalleActionPerformed

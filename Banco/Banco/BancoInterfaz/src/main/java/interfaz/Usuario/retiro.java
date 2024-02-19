@@ -270,7 +270,7 @@ public class retiro extends javax.swing.JFrame {
             
             Cuentas cuenta =control.ConsultarCuenta(Long.parseLong(String.valueOf(this.jCB.getSelectedItem())));
             
-            RetiroDTO retiro = new RetiroDTO("Retiro", folio, "Espera", contra, Integer.parseInt(this.txtMontoARetirar.getText()), fecha, cuenta.getIdCliente());
+            RetiroDTO retiro = new RetiroDTO("Retiro",cuenta.getNumeroDeCuenta(), folio, "Espera", contra, Integer.parseInt(this.txtMontoARetirar.getText()), fecha, cuenta.getIdCliente());
             
             control.retiroSinCuenta(retiro);
             

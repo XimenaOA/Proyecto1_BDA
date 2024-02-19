@@ -57,7 +57,7 @@ public interface iControl {
     
     public int generarContra() throws PersistenciaExcepcion;
     
-    public void modificarCliente(ClienteDto cliente,DomicilioDto dom) throws PersistenciaExcepcion;
+    public boolean modificarCliente(ClienteDto cliente,DomicilioDto dom) throws PersistenciaExcepcion;
     
     public Clientes consultarCliente(int id) throws PersistenciaExcepcion;
     

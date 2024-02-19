@@ -27,6 +27,7 @@ BEGIN
     UPDATE Cuentas SET monto = monto - p_monto_transferencia WHERE numeroDeCuenta = p_numero_origen;
     UPDATE Cuentas SET monto = monto + p_monto_transferencia WHERE numeroDeCuenta = p_numero_destino;
     
+    
 
     INSERT INTO transferencias (monto, destinatario, fechaDeTrasferencia, idCuenta) 
     VALUES (p_monto_transferencia, p_numero_destino, CURDATE(), (SELECT idCuenta FROM Cuentas WHERE numeroDeCuenta = p_numero_origen));

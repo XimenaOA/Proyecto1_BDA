@@ -43,6 +43,15 @@ public class ClienteDto {
         this.contrasena = contrasena;
     }
 
+    public ClienteDto(int id, String nombre, String apellidoPaterno, String apellidoMaterno, String contrasena) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.contrasena = contrasena;
+    }
+
+    
     public int getId() {
         return id;
     }

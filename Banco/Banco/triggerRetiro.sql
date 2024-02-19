@@ -6,7 +6,7 @@ for each row
 begin
 	declare fechat datetime;
 	declare ahora datetime; 
-	declare periodo datetime;
+	declare periodo int;
     
 	set fechat = NEW.fecha;
 	set ahora = now();
@@ -19,5 +19,6 @@ begin
 	end if;
 end //
 DELIMITER ;
+
 
 

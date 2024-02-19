@@ -431,51 +431,38 @@ public class ClienteDao implements iCliente {
     }
 
     @Override
-    public void modificarCliente(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion {
+    public boolean modificarCliente(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion {
+        String sentenciaCliente;
+        String sentenciaDomicilio;
+        Connection conexion = null;
+        PreparedStatement comandoSQL = null;
 
-        String sentencia;
+        try {
+            conexion = con.crearConexion();
 
-        if (!cliente.getContrasena().equals("")) {
-            sentencia = "UPDATE Clientes SET nombre=?, apellidopaterno=?, apellidomaterno=?, contrasena=? WHERE idCliente=?";
-
-            try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
-
-                comandoSQL.setString(1, cliente.getNombre());
-                comandoSQL.setString(2, cliente.getApellidoPaterno());
-                comandoSQL.setString(3, cliente.getApellidoMaterno());
-                comandoSQL.setString(4, cliente.getContrasena());
-                comandoSQL.setInt(5, cliente.getId());
-
-                comandoSQL.executeUpdate();
-
-                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, "Se actualizo el clinte");
-
-            } catch (SQLException ex) {
-                throw new PersistenciaExcepcion("Error al modificar el cliente: " + ex.getMessage());
+            sentenciaCliente = "UPDATE Clientes SET nombre=?, apellidopaterno=?, apellidomaterno=?";
+            if (cliente.getContrasena() != null) {
+                sentenciaCliente += ", contrasena=?";
             }
-        } else {
-            sentencia = "UPDATE Clientes SET nombre=?, apellidopaterno=?, apellidomaterno=? WHERE idCliente=?";
+            sentenciaCliente += " WHERE idCliente=?";
 
-            try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+            comandoSQL = conexion.prepareStatement(sentenciaCliente);
+            comandoSQL.setString(1, cliente.getNombre());
+            comandoSQL.setString(2, cliente.getApellidoPaterno());
+            comandoSQL.setString(3, cliente.getApellidoMaterno());
 
-                comandoSQL.setString(1, cliente.getNombre());
-                comandoSQL.setString(2, cliente.getApellidoPaterno());
-                comandoSQL.setString(3, cliente.getApellidoMaterno());
-                comandoSQL.setInt(4, cliente.getId());
-
-                comandoSQL.executeUpdate();
-
-                Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, "Se actualizo el clinte");
-
-            } catch (SQLException ex) {
-                throw new PersistenciaExcepcion("Error al modificar el cliente: " + ex.getMessage());
+            int parametro = 4;
+            if (cliente.getContrasena() != null) {
+                comandoSQL.setString(parametro++, cliente.getContrasena());
             }
-        }
+            comandoSQL.setInt(parametro, cliente.getId());
 
-        sentencia = "UPDATE Domicilios SET colonia=?, calle=?, numero=? WHERE idcliente=?";
+            comandoSQL.executeUpdate();
 
-        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, "Se actualizó el cliente");
 
+            sentenciaDomicilio = "UPDATE Domicilios SET colonia=?, calle=?, numero=? WHERE idcliente=?";
+            comandoSQL = conexion.prepareStatement(sentenciaDomicilio);
             comandoSQL.setString(1, dom.getColonia());
             comandoSQL.setString(2, dom.getCalle());
             comandoSQL.setInt(3, dom.getNumero());
@@ -485,12 +472,13 @@ public class ClienteDao implements iCliente {
 
             if (filasAfectadas == 0) {
                 throw new PersistenciaExcepcion("No se pudo modificar el domicilio, ID no encontrado.");
+            } else {
+                return true;
             }
 
         } catch (SQLException ex) {
-            throw new PersistenciaExcepcion("Error al modificar el domicilio: " + ex.getMessage());
+            throw new PersistenciaExcepcion("Error al modificar el cliente o el domicilio: " + ex.getMessage());
         }
-
     }
 
     @Override
@@ -530,8 +518,8 @@ public class ClienteDao implements iCliente {
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
 
             ResultSet res = comandoSQL.executeQuery(sentencia);
-            
-            if (res.next()) { 
+
+            if (res.next()) {
                 dom = new Domicilio();
                 dom.setIdDomicilio(res.getInt("idDomicilio"));
                 dom.setColonia(res.getString("colonia"));
