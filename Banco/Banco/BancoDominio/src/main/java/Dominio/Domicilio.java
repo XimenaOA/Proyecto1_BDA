@@ -3,16 +3,27 @@ package Dominio;
 import java.util.Objects;
 
 public class Domicilio {
-
+    //Atributos de la clase
     private int idDomicilio;
     private String colonia;
     private String calle;
     private int numero;
     private int idCliente;
 
+    /**
+     * Constructor vacio por defecto
+     */
     public Domicilio() {
     }
 
+     /**
+     * Constructor con todos los atributos.
+     * @param idDomicilio El ID del domicilio.
+     * @param colonia La colonia del domicilio.
+     * @param calle La calle del domicilio.
+     * @param numero El número del domicilio.
+     * @param idCliente El ID del cliente asociado al domicilio.
+     */
     public Domicilio(int idDomicilio, String colonia, String calle, int numero, int idCliente) {
         this.idDomicilio = idDomicilio;
         this.colonia = colonia;
@@ -21,10 +32,18 @@ public class Domicilio {
         this.idCliente = idCliente;
     }
 
+    /**
+     * Obtiene el ID del domicilio.
+     * @return El ID del domicilio.
+     */
     public int getIdDomicilio() {
         return idDomicilio;
     }
 
+    /**
+     * Establece el ID del domicilio.
+     * @param idDomicilio El ID del domicilio.
+     */
     public void setIdDomicilio(int idDomicilio) {
         this.idDomicilio = idDomicilio;
     }
