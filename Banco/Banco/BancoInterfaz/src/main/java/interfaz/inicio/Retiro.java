@@ -15,13 +15,17 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author jesus
+ * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  */
 public class Retiro extends javax.swing.JFrame {
 
+    //Atributos de la clase
     private final ControlCliente control;
+
     /**
-     * Creates new form Retiro
+     * Constructor que inicializa las variables
+     *
+     * @param control Control
      */
     public Retiro(ControlCliente control) {
         initComponents();
@@ -203,11 +207,26 @@ public class Retiro extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método invocado cuando se realiza una acción en el botón de cancelar.
+     * Crea una nueva instancia de la ventana de inicio, la hace visible y
+     * oculta la ventana actual.
+     *
+     * @param evt Evento de acción generado en el botón de cancelar.
+     */
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         Inicio ini = new Inicio();
         setVisible(false);
         ini.setVisible(true);    }//GEN-LAST:event_botonCancelarActionPerformed
 
+    /**
+     * Método invocado cuando se realiza una acción en el botón de aceptar.
+     * Realiza la validación del retiro. Si el retiro es válido, muestra un
+     * mensaje de éxito y regresa a la ventana de inicio. Si el retiro no está
+     * disponible, muestra un mensaje de error.
+     *
+     * @param evt Evento de acción generado en el botón de aceptar.
+     */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         long folio = Long.parseLong(txtFolio.getText());
         int contra = Integer.parseInt(txtContra.getText());
@@ -217,20 +236,20 @@ public class Retiro extends javax.swing.JFrame {
         try {
             Retiros reti = control.validarRetiros(retiro);
 
-            if (reti.getContrasena()==null) {
+            if (reti.getContrasena() == null) {
                 JOptionPane.showMessageDialog(this, "El retiro ya no esta disponible");
             } else {
 
-                    JOptionPane.showMessageDialog(this, "Retiro realizado con exito");
-                    Inicio ini = new Inicio();
-                    ini.setVisible(true);
-                    this.dispose();
-                
+                JOptionPane.showMessageDialog(this, "Retiro realizado con exito");
+                Inicio ini = new Inicio();
+                ini.setVisible(true);
+                this.dispose();
+
             }
         } catch (PersistenciaExcepcion ex) {
             Logger.getLogger(Retiro.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void txtContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraActionPerformed

@@ -21,16 +21,20 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author jesus
+ * @author Ximena Oliva Andrade - 247563, Jesús Alberto Morales Rojas - 245335
  */
 public class retiro extends javax.swing.JFrame {
 
+    //Atributos 
     private long numero;
     private ControlCliente control;
     private Clientes cli;
 
     /**
-     * Creates new form retiro
+     * Constructor de la clase que inicializa las variables
+     *
+     * @param control Control
+     * @param cli Cliente
      */
     public retiro(ControlCliente control, Clientes cli) {
         this.control = control;
@@ -262,23 +266,38 @@ public class retiro extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que maneja el evento de clic en el botón "botonAceptar". Realiza
+     * un retiro de la cuenta seleccionada y muestra el folio y la contraseña
+     * generados.
+     *
+     * @param evt Evento de acción generado al hacer clic en el botón
+     * "botonAceptar".
+     */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         try {
             LocalDateTime fecha = LocalDateTime.now();
             long folio = control.generarFolio();
             int contra = control.generarContra();
-            
-            Cuentas cuenta =control.ConsultarCuenta(Long.parseLong(String.valueOf(this.jCB.getSelectedItem())));
-            
-            RetiroDTO retiro = new RetiroDTO("Retiro",cuenta.getNumeroDeCuenta(), folio, "Espera", contra, Integer.parseInt(this.txtMontoARetirar.getText()), fecha, cuenta.getIdCliente());
-            
+
+            Cuentas cuenta = control.ConsultarCuenta(Long.parseLong(String.valueOf(this.jCB.getSelectedItem())));
+
+            RetiroDTO retiro = new RetiroDTO("Retiro", cuenta.getNumeroDeCuenta(), folio, "Espera", contra, Integer.parseInt(this.txtMontoARetirar.getText()), fecha, cuenta.getIdCliente());
+
             control.retiroSinCuenta(retiro);
-            
-            JOptionPane.showConfirmDialog(this, "Folio: "+ folio +"\nContra:"+contra);
+
+            JOptionPane.showConfirmDialog(this, "Folio: " + folio + "\nContra:" + contra);
         } catch (Exception e) {
         }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
+    /**
+     * Método que maneja el evento de clic en el botón "botonVolver". Regresa a
+     * la ventana de inicio de usuario.
+     *
+     * @param evt Evento de acción generado al hacer clic en el botón
+     * "botonVolver".
+     */
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
         InicioUsuario ini = new InicioUsuario(control, cli);
         setVisible(false);
@@ -286,24 +305,39 @@ public class retiro extends javax.swing.JFrame {
     }//GEN-LAST:event_botonVolverActionPerformed
 
     private void txtMontoARetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoARetirarActionPerformed
-        
+
     }//GEN-LAST:event_txtMontoARetirarActionPerformed
 
     private void txtMontoDisponibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoDisponibleActionPerformed
-        
+
     }//GEN-LAST:event_txtMontoDisponibleActionPerformed
 
+    /**
+     * Método que maneja el evento de selección de un elemento en el JComboBox
+     * "jCB". Actualiza el campo de texto "txtMontoDisponible" con el saldo
+     * disponible de la cuenta seleccionada.
+     *
+     * @param evt Evento de acción generado al seleccionar un elemento en el
+     * JComboBox "jCB".
+     */
     private void jCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBActionPerformed
         try {
             this.numero = Long.parseLong((String) this.jCB.getSelectedItem());
 
             this.txtMontoDisponible.setText(String.valueOf(control.consultarSaldo(this.numero)));
-            
+
         } catch (PersistenciaExcepcion ex) {
             Logger.getLogger(Deposito.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jCBActionPerformed
-private void llenarCuentas(int id) {
+
+    /**
+     * Método que llena el JComboBox "jCB" con las cuentas asociadas al cliente
+     * identificado por el ID especificado.
+     *
+     * @param id ID del cliente para el cual se van a consultar las cuentas.
+     */
+    private void llenarCuentas(int id) {
         try {
             List<String> cuentas = control.ConsultarNumeroCuentas(id);
 

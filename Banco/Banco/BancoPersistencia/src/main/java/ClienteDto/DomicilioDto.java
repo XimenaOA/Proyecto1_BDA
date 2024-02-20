@@ -25,14 +25,6 @@ public class DomicilioDto {
      */
     public DomicilioDto() {
     }
-
-    /**
-     * Constructor de la clase DomicilioDto que inicializa todos los atributos.
-     *
-     * @param colonia La colonia del domicilio.
-     * @param calle La calle del domicilio.
-     * @param numero El número del domicilio.
-     */
     
     /**
      * Constructor de la clase DomicilioDto que inicializa todos los atributos.
@@ -69,16 +61,14 @@ public class DomicilioDto {
      *
      * @return La calle del domicilio.
      */
-    
     public String getCalle() {
         return calle;
     }
 
-    /**
-     * Método setter para establecer la colonia del domicilio.
-     *
-     * @param colonia La colonia a establecer.
-     */
+   /**
+    * Método que setea la calle del domicilio
+    * @param calle Calle del domicilio
+    */
     public void setCalle(String calle) {
         this.calle = calle;
     }
@@ -93,11 +83,10 @@ public class DomicilioDto {
         return numero;
     }
 
-    /**
-     * Método setter para establecer la calle del domicilio.
-     *
-     * @param calle La calle a establecer.
-     */
+   /**
+    * Método que setea el número del domicilio
+    * @param numero Número del domicilio
+    */
     public void setNumero(int numero) {
         this.numero = numero;
     }

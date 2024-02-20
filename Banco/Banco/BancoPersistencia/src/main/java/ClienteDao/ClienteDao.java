@@ -630,7 +630,13 @@ public class ClienteDao implements iCliente {
         }
     }
 
-  
+  /**
+   * Método que consulta los domicilios registrados mediante una lista en donde
+   * se obtienen todos los datos para buscar el domicilio en la lista
+   * @param id ID del domicilio
+   * @return Regresa un nulo
+   * @throws PersistenciaExcepcion Excepcion de consulta
+   */
     @Override
     public Domicilio consultarDomicilio(int id) throws PersistenciaExcepcion {
         Domicilio dom;
@@ -658,12 +664,11 @@ public class ClienteDao implements iCliente {
     }
 
     /**
-     * Valida y procesa un retiro.
-     *
-     * @param retiro El DTO del retiro a validar.
-     * @return El resultado del retiro validado.
-     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
-     * datos.
+     * Método que valida los retiros, con ayuda de actualizaciones
+     * dentro de la base de datos
+     * @param retiro Retiro
+     * @return El retiro validado
+     * @throws PersistenciaExcepcion Excepcion
      */
     @Override
     public Retiros validarRetiros(RetiroDTO retiro) throws PersistenciaExcepcion {
