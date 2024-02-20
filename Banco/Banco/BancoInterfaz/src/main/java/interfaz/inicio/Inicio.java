@@ -234,6 +234,7 @@ public class Inicio extends javax.swing.JFrame {
                 Clientes cli = control.login(txtUsr.getText(), txtContrasena.getText());
                 if (cli == null) {
                     LOG.log(Level.SEVERE, "No se inicio sesión");
+                    JOptionPane.showMessageDialog(rootPane, "Usuario o contraseña incorrectos");
                 } else {
                     LOG.log(Level.INFO, "se inicio sesión");
                     InicioUsuario inicioUsuario = new InicioUsuario(control, cli);

@@ -131,6 +131,7 @@ public class retiro extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Monto a retirar");
 
+        txtMontoDisponible.setEditable(false);
         txtMontoDisponible.setBackground(new java.awt.Color(255, 255, 255));
         txtMontoDisponible.setForeground(new java.awt.Color(0, 0, 0));
         txtMontoDisponible.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(10, 80, 186)));
