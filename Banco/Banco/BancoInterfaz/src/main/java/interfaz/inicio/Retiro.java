@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 
 /**
  *
+ * Interfaz grafica sacar el retiro sin cuenta
+ * 
  * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  */
 public class Retiro extends javax.swing.JFrame {

@@ -4,10 +4,11 @@ import java.util.Objects;
 
 /**
  * La clase Cuentas representa una cuenta bancaria asociada a un cliente.
+ *
  * @author Ximena Oliva Andrade - 247563, Jesús Alberto Morales Rojas - 245335
  */
-
 public class Cuentas {
+
     // Atributos de la clase
     long numeroDeCuenta;
     String fechaApertura;
@@ -35,7 +36,7 @@ public class Cuentas {
         this.saldo = saldo;
         this.idCliente = idCliente;
     }
-    
+
     /**
      * Método getter para obtener el número de cuenta.
      *
@@ -45,7 +46,7 @@ public class Cuentas {
         return numeroDeCuenta;
     }
 
-     /**
+    /**
      * Método setter para establecer el número de cuenta.
      *
      * @param numeroDeCuenta Número de cuenta.
@@ -54,7 +55,7 @@ public class Cuentas {
         this.numeroDeCuenta = numeroDeCuenta;
     }
 
-     /**
+    /**
      * Método getter para obtener la fecha de apertura de la cuenta.
      *
      * @return Fecha de apertura de la cuenta.
@@ -63,7 +64,7 @@ public class Cuentas {
         return fechaApertura;
     }
 
-     /**
+    /**
      * Método setter para establecer la fecha de apertura de la cuenta.
      *
      * @param fechaApertura Fecha de apertura de la cuenta.
@@ -81,7 +82,7 @@ public class Cuentas {
         return saldo;
     }
 
-     /**
+    /**
      * Método setter para establecer el saldo de la cuenta.
      *
      * @param saldo Saldo de la cuenta.
@@ -90,7 +91,7 @@ public class Cuentas {
         this.saldo = saldo;
     }
 
-     /**
+    /**
      * Método getter para obtener el ID del cliente asociado a la cuenta.
      *
      * @return ID del cliente asociado a la cuenta.
@@ -108,7 +109,7 @@ public class Cuentas {
         this.idCliente = idCliente;
     }
 
-     /**
+    /**
      * Método hashCode que genera un código hash para la cuenta.
      *
      * @return Código hash de la cuenta.
@@ -122,7 +123,7 @@ public class Cuentas {
         hash = 97 * hash + this.idCliente;
         return hash;
     }
-   
+
     /**
      * Método equals que compara dos cuentas para verificar si son iguales.
      *

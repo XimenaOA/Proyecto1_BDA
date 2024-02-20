@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  * Clase representativa de la entidad Clientes
- * 
+ *
  * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  */
 public class Clientes {
@@ -36,6 +36,7 @@ public class Clientes {
 
     /**
      * Constructor con nombre, apellidos, fecha de nacimiento, usuario y contraseña.
+     *
      * @param nombre El nombre del cliente.
      * @param apellidoPaterno El apellido paterno del cliente.
      * @param apellidoMaterno El apellido materno del cliente.
@@ -54,6 +55,7 @@ public class Clientes {
 
     /**
      * Constructor con ID, nombre, apellidos, fecha de nacimiento, usuario y contraseña.
+     *
      * @param id El ID del cliente.
      * @param nombre El nombre del cliente.
      * @param apellidoPaterno El apellido paterno del cliente.
@@ -74,6 +76,7 @@ public class Clientes {
 
     /**
      * Obtiene el ID del cliente.
+     *
      * @return El ID del cliente.
      */
     public int getId() {
@@ -82,6 +85,7 @@ public class Clientes {
 
     /**
      * Establece el ID del cliente.
+     *
      * @param id El ID del cliente.
      */
     public void setId(int id) {
@@ -90,14 +94,16 @@ public class Clientes {
 
     /**
      * Obtiene el nombre del cliente.
+     *
      * @return El nombre del cliente.
      */
     public String getNombre() {
         return nombre;
     }
 
-     /**
+    /**
      * Establece el nombre del cliente.
+     *
      * @param nombre El nombre del cliente.
      */
     public void setNombre(String nombre) {
@@ -106,6 +112,7 @@ public class Clientes {
 
     /**
      * Obtiene el apellido paterno del cliente.
+     *
      * @return El apellido paterno del cliente.
      */
     public String getApellidoPaterno() {
@@ -114,6 +121,7 @@ public class Clientes {
 
     /**
      * Establece el apellido paterno del cliente.
+     *
      * @param apellidoPaterno El apellido paterno del cliente.
      */
     public void setApellidoPaterno(String apellidoPaterno) {
@@ -122,31 +130,34 @@ public class Clientes {
 
     /**
      * Obtiene el apellido materno del cliente.
+     *
      * @return El apellido materno del cliente.
      */
     public String getApellidoMaterno() {
         return apellidoMaterno;
     }
 
-     /**
+    /**
      * Establece el apellido materno del cliente.
+     *
      * @param apellidoMaterno El apellido materno del cliente.
      */
     public void setApellidoMaterno(String apellidoMaterno) {
         this.apellidoMaterno = apellidoMaterno;
     }
-    
+
     /**
      * Obtiene la fecha de nacimiento del cliente.
+     *
      * @return La fecha de nacimiento del cliente.
      */
-
     public String getFehcadenacimiento() {
         return fehcadenacimiento;
     }
 
     /**
      * Establece la fecha de nacimiento del cliente.
+     *
      * @param fehcadenacimiento La fecha de nacimiento del cliente.
      */
     public void setFehcadenacimiento(String fehcadenacimiento) {
@@ -155,6 +166,7 @@ public class Clientes {
 
     /**
      * Obtiene el nombre de usuario del cliente.
+     *
      * @return El nombre de usuario del cliente.
      */
     public String getUsr() {
@@ -163,6 +175,7 @@ public class Clientes {
 
     /**
      * Establece el nombre de usuario del cliente.
+     *
      * @param usr El nombre de usuario del cliente.
      */
     public void setUsr(String usr) {
@@ -171,14 +184,16 @@ public class Clientes {
 
     /**
      * Obtiene la contraseña del cliente.
+     *
      * @return La contraseña del cliente.
      */
     public String getContrasena() {
         return contrasena;
     }
 
-     /**
+    /**
      * Establece la contraseña del cliente.
+     *
      * @param contrasena La contraseña del cliente.
      */
     public void setContrasena(String contrasena) {
@@ -187,6 +202,7 @@ public class Clientes {
 
     /**
      * Calcula el código hash para el objeto.
+     *
      * @return El código hash del objeto.
      */
     @Override
@@ -204,6 +220,7 @@ public class Clientes {
 
     /**
      * Compara este objeto con otro objeto para determinar su igualdad.
+     *
      * @param obj El objeto a comparar.
      * @return true si los objetos son iguales, false de lo contrario.
      */

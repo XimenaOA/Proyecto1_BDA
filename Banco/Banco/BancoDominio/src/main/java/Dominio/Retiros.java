@@ -9,6 +9,7 @@ import java.util.Date;
 
 /**
  * Clase representativa de la entidad retiros
+ * 
  * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  */
 public class Retiros {

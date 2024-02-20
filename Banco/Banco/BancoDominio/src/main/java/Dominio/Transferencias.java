@@ -8,9 +8,11 @@ import java.util.Objects;
 
 /**
  * Clase representativa de la entidad transferencias
+ *
  * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  */
 public class Transferencias {
+
     //Atributos de la clase
     private String tipo;
     private Double concepto;
@@ -25,8 +27,9 @@ public class Transferencias {
     public Transferencias() {
     }
 
-      /**
+    /**
      * Constructor con concepto, remitente, destinatario y fecha de transferencia.
+     *
      * @param concepto El monto de la transferencia.
      * @param remitente El ID de la cuenta remitente.
      * @param destinatario El ID de la cuenta destinataria.
@@ -41,6 +44,7 @@ public class Transferencias {
 
     /**
      * Constructor con tipo, concepto, remitente, destinatario, fecha de transferencia y ID de cuenta.
+     *
      * @param tipo El tipo de la transferencia (por ejemplo, "Transferencia" o "Pago").
      * @param concepto El monto de la transferencia.
      * @param remitente El ID de la cuenta remitente.
@@ -59,6 +63,7 @@ public class Transferencias {
 
     /**
      * Obtiene el tipo de la transferencia.
+     *
      * @return El tipo de la transferencia.
      */
     public String getTipo() {
@@ -67,6 +72,7 @@ public class Transferencias {
 
     /**
      * Establece el tipo de la transferencia.
+     *
      * @param tipo El tipo de la transferencia.
      */
     public void setTipo(String tipo) {
@@ -75,15 +81,16 @@ public class Transferencias {
 
     /**
      * Obtiene el monto de la transferencia.
+     *
      * @return El monto de la transferencia.
      */
     public Double getConcepto() {
         return concepto;
     }
 
-    
     /**
      * Establece el monto de la transferencia.
+     *
      * @param concepto El monto de la transferencia.
      */
     public void setConcepto(Double concepto) {
@@ -92,6 +99,7 @@ public class Transferencias {
 
     /**
      * Obtiene el ID de la cuenta remitente.
+     *
      * @return El ID de la cuenta remitente.
      */
     public long getRemitente() {
@@ -100,6 +108,7 @@ public class Transferencias {
 
     /**
      * Establece el ID de la cuenta remitente.
+     *
      * @param remitente El ID de la cuenta remitente.
      */
     public void setRemitente(long remitente) {
@@ -108,6 +117,7 @@ public class Transferencias {
 
     /**
      * Obtiene el ID de la cuenta destinataria.
+     *
      * @return El ID de la cuenta destinataria.
      */
     public long getDestinatario() {
@@ -116,6 +126,7 @@ public class Transferencias {
 
     /**
      * Establece el ID de la cuenta destinataria.
+     *
      * @param destinatario El ID de la cuenta destinataria.
      */
     public void setDestinatario(long destinatario) {
@@ -124,14 +135,16 @@ public class Transferencias {
 
     /**
      * Obtiene la fecha de la transferencia.
+     *
      * @return La fecha de la transferencia.
      */
     public String getFechaDeTransferencia() {
         return fechaDeTransferencia;
     }
 
-     /**
+    /**
      * Establece la fecha de la transferencia.
+     *
      * @param fechaDeTransferencia La fecha de la transferencia.
      */
     public void setFechaDeTransferencia(String fechaDeTransferencia) {
@@ -140,6 +153,7 @@ public class Transferencias {
 
     /**
      * Obtiene el ID de la cuenta asociada a la transferencia.
+     *
      * @return El ID de la cuenta asociada a la transferencia.
      */
     public int getIdCuenta() {
@@ -148,6 +162,7 @@ public class Transferencias {
 
     /**
      * Establece el ID de la cuenta asociada a la transferencia.
+     *
      * @param idCuenta El ID de la cuenta asociada a la transferencia.
      */
     public void setIdCuenta(int idCuenta) {
@@ -156,6 +171,7 @@ public class Transferencias {
 
     /**
      * Calcula el código hash para el objeto.
+     *
      * @return El código hash del objeto.
      */
     @Override
@@ -170,8 +186,9 @@ public class Transferencias {
         return hash;
     }
 
-     /**
+    /**
      * Compara este objeto con otro objeto para determinar su igualdad.
+     *
      * @param obj El objeto a comparar.
      * @return true si los objetos son iguales, false de lo contrario.
      */
@@ -205,5 +222,4 @@ public class Transferencias {
         return Objects.equals(this.concepto, other.concepto);
     }
 
-    
 }
