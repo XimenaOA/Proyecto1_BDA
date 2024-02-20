@@ -20,14 +20,14 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
- *
- * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
- *
  * Interfaz que define las operaciones que deben ser implementadas por una clase
  * de acceso a datos (DAO) para la entidad Cliente. Define métodos para
  * registrar usuarios, realizar el login, realizar transferencias, encriptar
  * contraseñas, consultar información de cuentas y realizar operaciones
  * relacionadas con las cuentas como depósitos y retiros, entre otros.
+ * 
+ * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
+ *
  */
 public interface iCliente {
 
