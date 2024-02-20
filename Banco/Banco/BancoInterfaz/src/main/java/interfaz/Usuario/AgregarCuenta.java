@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
+ * Interfaz grafica para agregar una cuenta a un cliente
  *
  * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  */

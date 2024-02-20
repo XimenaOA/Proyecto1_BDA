@@ -15,7 +15,9 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Ximena Oliva Andrade - 247563, Jesús Alberto Morales Rojas - 245335
+ * Interfaz grafica para depositar a una cuenta de un cliente
+ * 
+ * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  */
 public class Deposito extends javax.swing.JFrame {
 

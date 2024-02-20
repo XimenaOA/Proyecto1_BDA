@@ -2,7 +2,13 @@ package Dominio;
 
 import java.util.Objects;
 
+/**
+ * Clase representativa de la entidad Domicilios
+ *
+ * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
+ */
 public class Domicilio {
+
     //Atributos de la clase
     private int idDomicilio;
     private String colonia;
@@ -16,8 +22,9 @@ public class Domicilio {
     public Domicilio() {
     }
 
-     /**
+    /**
      * Constructor con todos los atributos.
+     *
      * @param idDomicilio El ID del domicilio.
      * @param colonia La colonia del domicilio.
      * @param calle La calle del domicilio.
@@ -34,6 +41,7 @@ public class Domicilio {
 
     /**
      * Obtiene el ID del domicilio.
+     *
      * @return El ID del domicilio.
      */
     public int getIdDomicilio() {
@@ -42,6 +50,7 @@ public class Domicilio {
 
     /**
      * Establece el ID del domicilio.
+     *
      * @param idDomicilio El ID del domicilio.
      */
     public void setIdDomicilio(int idDomicilio) {
@@ -50,6 +59,7 @@ public class Domicilio {
 
     /**
      * Obtiene la colonia del domicilio.
+     *
      * @return La colonia del domicilio.
      */
     public String getColonia() {
@@ -58,6 +68,7 @@ public class Domicilio {
 
     /**
      * Establece la colonia del domicilio.
+     *
      * @param colonia La colonia del domicilio.
      */
     public void setColonia(String colonia) {
@@ -66,23 +77,25 @@ public class Domicilio {
 
     /**
      * Obtiene la calle del domicilio.
+     *
      * @return La calle del domicilio.
      */
     public String getCalle() {
         return calle;
     }
 
-     /**
+    /**
      * Establece la calle del domicilio.
+     *
      * @param calle La calle del domicilio.
      */
     public void setCalle(String calle) {
         this.calle = calle;
     }
 
-    
     /**
      * Obtiene el número del domicilio.
+     *
      * @return El número del domicilio.
      */
     public int getNumero() {
@@ -91,6 +104,7 @@ public class Domicilio {
 
     /**
      * Establece el número del domicilio.
+     *
      * @param numero El número del domicilio.
      */
     public void setNumero(int numero) {
@@ -99,22 +113,25 @@ public class Domicilio {
 
     /**
      * Obtiene el ID del cliente asociado al domicilio.
+     *
      * @return El ID del cliente asociado al domicilio.
      */
     public int getIdCliente() {
         return idCliente;
     }
 
-     /**
+    /**
      * Establece el ID del cliente asociado al domicilio.
+     *
      * @param idCliente El ID del cliente asociado al domicilio.
      */
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
-     /**
+    /**
      * Calcula el código hash para el objeto.
+     *
      * @return El código hash del objeto.
      */
     @Override
@@ -130,6 +147,7 @@ public class Domicilio {
 
     /**
      * Compara este objeto con otro objeto para determinar su igualdad.
+     *
      * @param obj El objeto a comparar.
      * @return true si los objetos son iguales, false de lo contrario.
      */
@@ -160,5 +178,4 @@ public class Domicilio {
         return Objects.equals(this.calle, other.calle);
     }
 
-    
 }
