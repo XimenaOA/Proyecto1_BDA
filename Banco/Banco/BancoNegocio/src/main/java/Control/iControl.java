@@ -33,8 +33,6 @@ public interface iControl {
      *
      * @param cliente Objeto ClienteDto que contiene los detalles del nuevo
      * cliente.
-     * @param domicilio Objeto DomicilioDto que contiene los detalles del
-     * domicilio del nuevo cliente.
      * @return Un objeto Clientes que representa al nuevo cliente registrado.
      * @throws PersistenciaExcepcion Si ocurre un error durante la operación de
      * persistencia.
@@ -78,7 +76,6 @@ public interface iControl {
     /**
      * Consulta los números de cuenta asociados a un cliente específico.
      *
-     * @param idCliente ID del cliente del cual se desean consultar las cuentas.
      * @return Una lista de Strings que representan los números de cuenta
      * asociados al cliente.
      * @throws PersistenciaExcepcion Si ocurre un error durante la operación de
