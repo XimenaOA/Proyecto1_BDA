@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author jesus
+ * @author Jesús Alberto Morales - 245335, Ximena Oliva Andrade - 247563
  */
 public class Inicio extends javax.swing.JFrame {
 //Atributos de la clase
