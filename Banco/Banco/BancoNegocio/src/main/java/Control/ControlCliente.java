@@ -23,16 +23,21 @@ import java.util.List;
 
 /**
  *
- * @author jesus
+ * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  */
 public class ControlCliente implements iControl {
-
+    //Atributos de la clase
     private final ClienteDao clienteDao;
 
     public ControlCliente(ClienteDao clienteDao) {
         this.clienteDao = clienteDao;
     }
 
+     /**
+     * Constructor de ControlCliente.
+     *
+     * @param clienteDao Objeto ClienteDao que se utilizará para interactuar con la capa de persistencia.
+     */
     @Override
     public Transferencias transeferencia(TransferenciasDto trans) throws PersistenciaExcepcion {
         return clienteDao.transeferencia(trans);

@@ -41,7 +41,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author jesus
+ * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  */
 public class ClienteDao implements iCliente {
 
@@ -49,10 +49,23 @@ public class ClienteDao implements iCliente {
 
     private static final Logger LOG = Logger.getLogger(Connection.class.getName());
 
+    /**
+     * Constructor de la clase ClienteDao.
+     *
+     * @param con La interfaz de conexión a utilizar.
+     */
     public ClienteDao(IConexion con) {
         this.con = con;
     }
 
+    /**
+     * Método para encriptar una contraseña utilizando el algoritmo SHA-256.
+     *
+     * @param contra La contraseña a encriptar.
+     * @return La contraseña encriptada.
+     * @throws NoSuchAlgorithmException Si no se encuentra el algoritmo de
+     * encriptación.
+     */
     public String encriptar(String contra) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         byte[] hashBytes = md.digest(contra.getBytes());
@@ -69,6 +82,13 @@ public class ClienteDao implements iCliente {
         return hexString.toString().substring(0, Math.min(hexString.length(), 10));
     }
 
+    /**
+     * Registra un nuevo usuario en el sistema junto con su domicilio.
+     *
+     * @param cliente El DTO del cliente a registrar.
+     * @param dom El DTO del domicilio del cliente.
+     * @return El cliente registrado.
+     */
     @Override
     public Clientes registrarUsuario(ClienteDto cliente, DomicilioDto dom) {
         DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -107,6 +127,15 @@ public class ClienteDao implements iCliente {
         return null;
     }
 
+    /**
+     * Permite a un usuario iniciar sesión en el sistema.
+     *
+     * @param usr El nombre de usuario.
+     * @param contrasenia La contraseña del usuario.
+     * @return El cliente que ha iniciado sesión.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public Clientes login(String usr, String contrasenia) throws PersistenciaExcepcion {
         String sentenciaSQL = "SELECT * FROM Clientes WHERE usr = ? AND contrasena = ?";
@@ -133,9 +162,16 @@ public class ClienteDao implements iCliente {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-
     }
 
+    /**
+     * Realiza una transferencia de fondos entre dos cuentas.
+     *
+     * @param trans El DTO de la transferencia a realizar.
+     * @return La transferencia realizada.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public Transferencias transeferencia(TransferenciasDto trans) throws PersistenciaExcepcion {
         String sentencia = ("call transferencia(?, ?, ?);");
@@ -157,6 +193,14 @@ public class ClienteDao implements iCliente {
         return null;
     }
 
+    /**
+     * Consulta el número de cuentas asociadas a un cliente.
+     *
+     * @param id El ID del cliente.
+     * @return Una lista de números de cuentas asociadas al cliente.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public List<String> ConsultarNumeroCuentas(int id) throws PersistenciaExcepcion {
         List<String> listC = new ArrayList<>();
@@ -179,6 +223,14 @@ public class ClienteDao implements iCliente {
         return listC;
     }
 
+    /**
+     * Consulta las cuentas asociadas a un cliente.
+     *
+     * @param id El ID del cliente.
+     * @return Una lista de cuentas asociadas al cliente.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public List<Cuentas> ConsultarCuentas(int id) throws PersistenciaExcepcion {
         List<Cuentas> listC = new ArrayList<>();
@@ -204,32 +256,43 @@ public class ClienteDao implements iCliente {
         return listC;
     }
 
+    /**
+     * Realiza un depósito en una cuenta específica.
+     *
+     * @param numCuenta El número de cuenta en la que se realizará el depósito.
+     * @param monto El monto a depositar.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
-    public List<Transferencias> ConsultarTransferencias(int id) throws PersistenciaExcepcion {
-        List<Transferencias> listT = new ArrayList<>();
-        String sentencia = String.format("select * from transferencias t join Cuentas cl on t.idCuenta = cl.idCuenta where cl.idCliente='%d'", id);
-
+    public void deposito(long numCuenta, double monto) throws PersistenciaExcepcion {
+        double saldo = this.consultarSaldo(numCuenta);
+        double saldoTotal = saldo + monto;
+        String sentencia = "update Cuentas set monto=? where numeroDeCuenta=?;";
         try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
 
-            ResultSet res = comandoSQL.executeQuery(sentencia);
+            comandoSQL.setDouble(01, saldoTotal);
+            comandoSQL.setLong(02, numCuenta);
 
-            while (res.next()) {
-                double monto = res.getDouble("monto");
-                long destinatario = res.getLong("destinatario");
-                String fecha = res.getString("fechaDeTrasferencia");
-                long cuen = res.getLong("numeroDeCuenta");
-                Transferencias trans = new Transferencias("Transferencia", monto, cuen, destinatario, fecha, id);
-                listT.add(trans);
+            int res = comandoSQL.executeUpdate();
+
+            if (res > 0) {
+                LOG.log(Level.SEVERE, "Se pudo depositar");
+
             }
-
-            return listT;
-        } catch (SQLException ex) {
-            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        } catch (SQLException e) {
+            LOG.log(Level.SEVERE, "No se pudo depositar", e);
         }
-
-        return listT;
     }
 
+    /**
+     * Consulta los retiros asociados a un cliente específico.
+     *
+     * @param id El ID del cliente.
+     * @return Una lista de retiros realizados por el cliente.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public List<Retiros> ConsultarRetiros(int id) throws PersistenciaExcepcion {
         List<Retiros> listR = new ArrayList<>();
@@ -257,27 +320,14 @@ public class ClienteDao implements iCliente {
         return listR;
     }
 
-    @Override
-    public void deposito(long numCuenta, double monto) throws PersistenciaExcepcion {
-        double saldo = this.consultarSaldo(numCuenta);
-        double saldoTotal = saldo + monto;
-        String sentencia = "update Cuentas set monto=? where numeroDeCuenta=?;";
-        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
-
-            comandoSQL.setDouble(01, saldoTotal);
-            comandoSQL.setLong(02, numCuenta);
-
-            int res = comandoSQL.executeUpdate();
-
-            if (res > 0) {
-                LOG.log(Level.SEVERE, "Se pudo depositar");
-
-            }
-        } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "No se pudo depositar", e);
-        }
-    }
-
+    /**
+     * Consulta el saldo de una cuenta específica.
+     *
+     * @param numCuenta El número de cuenta.
+     * @return El saldo de la cuenta.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public double consultarSaldo(long numCuenta) throws PersistenciaExcepcion {
         String sentencia = "SELECT monto FROM Cuentas WHERE numeroDeCuenta = ?";
@@ -299,6 +349,14 @@ public class ClienteDao implements iCliente {
         return 0;
     }
 
+    /**
+     * Agrega una nueva cuenta a la base de datos.
+     *
+     * @param cuenta El DTO de la cuenta a agregar.
+     * @return La cuenta agregada.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public Cuentas agregarCuenta(CuentaDto cuenta) throws PersistenciaExcepcion {
         String sentencia = "INSERT INTO Cuentas (fechaApertura, monto, numeroDeCuenta, estado, idcliente) VALUES (?, ?, ?, ?, ?)";
@@ -322,6 +380,15 @@ public class ClienteDao implements iCliente {
         return null;
     }
 
+    /**
+     * Elimina una cuenta de la base de datos.
+     *
+     * @param numCuenta El número de cuenta a eliminar.
+     * @return true si la cuenta fue eliminada con éxito, false en caso
+     * contrario.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public boolean eliminarCuenta(long numCuenta) throws PersistenciaExcepcion {
         String sentenciaSQL = "DELETE FROM Cuentas WHERE numeroDeCuenta = ?";
@@ -342,6 +409,15 @@ public class ClienteDao implements iCliente {
         return false;
     }
 
+    /**
+     * Registra un retiro sin asociarlo a una cuenta.
+     *
+     * @param retiro El DTO del retiro.
+     * @return true si el retiro sin cuenta se registró con éxito, false en caso
+     * contrario.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public boolean retiroSinCuenta(RetiroDTO retiro) throws PersistenciaExcepcion {
         String sentenciaSQL = "INSERT INTO retiroSinCuentea (Folio, estado, contrasena, monto, fecha, idCuenta,cuenta)\n" + "VALUES (?, ?, ?, ?, ?, ?,?)";
@@ -369,6 +445,11 @@ public class ClienteDao implements iCliente {
 
     }
 
+    /**
+     * Genera un folio aleatorio para identificar una transacción.
+     *
+     * @return El folio generado.
+     */
     @Override
     public long generarFolio() {
         long min = 1000000000L;
@@ -376,6 +457,11 @@ public class ClienteDao implements iCliente {
         return min + (long) (Math.random() * (max - min + 1));
     }
 
+    /**
+     * Genera una contraseña aleatoria para una transacción.
+     *
+     * @return La contraseña generada.
+     */
     @Override
     public int generarContra() {
 
@@ -384,6 +470,14 @@ public class ClienteDao implements iCliente {
         return min + (int) (Math.random() * (max - min + 1));
     }
 
+    /**
+     * Consulta una cuenta en la base de datos por su ID.
+     *
+     * @param id El ID de la cuenta.
+     * @return La cuenta consultada.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public Cuentas ConsultarCuenta(int id) throws PersistenciaExcepcion {
         Cuentas cuenta;
@@ -405,6 +499,14 @@ public class ClienteDao implements iCliente {
 
     }
 
+    /**
+     * Consulta una cuenta en la base de datos por su número de cuenta.
+     *
+     * @param numCue El número de cuenta a consultar.
+     * @return La cuenta consultada.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public Cuentas ConsultarCuenta(long numCue) throws PersistenciaExcepcion {
         Cuentas cuenta = null;
@@ -430,6 +532,16 @@ public class ClienteDao implements iCliente {
 
     }
 
+    /**
+     * Modifica los datos de un cliente y su domicilio en la base de datos.
+     *
+     * @param cliente El DTO del cliente con los datos modificados.
+     * @param dom El DTO del domicilio con los datos modificados.
+     * @return true si se modificaron los datos con éxito, false en caso
+     * contrario.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public boolean modificarCliente(ClienteDto cliente, DomicilioDto dom) throws PersistenciaExcepcion {
         String sentenciaCliente;
@@ -481,6 +593,14 @@ public class ClienteDao implements iCliente {
         }
     }
 
+    /**
+     * Consulta un cliente en la base de datos por su ID.
+     *
+     * @param id El ID del cliente a consultar.
+     * @return El cliente consultado.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public Clientes consultarCliente(int id) throws PersistenciaExcepcion {
 
@@ -510,6 +630,8 @@ public class ClienteDao implements iCliente {
         }
     }
 
+  
+    @Override
     public Domicilio consultarDomicilio(int id) throws PersistenciaExcepcion {
         Domicilio dom;
 
@@ -535,6 +657,14 @@ public class ClienteDao implements iCliente {
         }
     }
 
+    /**
+     * Valida y procesa un retiro.
+     *
+     * @param retiro El DTO del retiro a validar.
+     * @return El resultado del retiro validado.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public Retiros validarRetiros(RetiroDTO retiro) throws PersistenciaExcepcion {
         Retiros ret = new Retiros("121");
@@ -591,6 +721,14 @@ public class ClienteDao implements iCliente {
         return null;
     }
 
+    /**
+     * Consulta un retiro en la base de datos por su ID.
+     *
+     * @param id El ID del retiro a consultar.
+     * @return El retiro consultado.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
     @Override
     public Retiros ConsultarUnRetiro(int id) throws PersistenciaExcepcion {
         Retiros retiro = new Retiros();
@@ -612,6 +750,41 @@ public class ClienteDao implements iCliente {
         }
 
         return retiro;
+    }
+
+    /**
+     * Consulta las transferencias realizadas por un cliente.
+     *
+     * @param id El ID del cliente cuyas transferencias se desean consultar.
+     * @return Una lista de transferencias realizadas por el cliente
+     * especificado.
+     * @throws PersistenciaExcepcion Si ocurre un error en la persistencia de
+     * datos.
+     */
+    @Override
+    public List<Transferencias> ConsultarTransferencias(int id) throws PersistenciaExcepcion {
+        List<Transferencias> listT = new ArrayList<>();
+        String sentencia = String.format("select * from transferencias t join Cuentas cl on t.idCuenta = cl.idCuenta where cl.idCliente='%d'", id);
+
+        try (Connection conexion = con.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(sentencia);) {
+
+            ResultSet res = comandoSQL.executeQuery(sentencia);
+
+            while (res.next()) {
+                double monto = res.getDouble("monto");
+                long destinatario = res.getLong("destinatario");
+                String fecha = res.getString("fechaDeTrasferencia");
+                long cuen = res.getLong("numeroDeCuenta");
+                Transferencias trans = new Transferencias("Transferencia", monto, cuen, destinatario, fecha, id);
+                listT.add(trans);
+            }
+
+            return listT;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+
+        return listT;
     }
 
 }

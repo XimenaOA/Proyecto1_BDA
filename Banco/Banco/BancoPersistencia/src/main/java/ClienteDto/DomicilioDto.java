@@ -9,47 +9,104 @@ import java.util.Objects;
 
 /**
  *
- * @author jesus
+ * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
+ *
+ * Clase que representa los datos de un domicilio.
  */
 public class DomicilioDto {
-    
+
+    //Atributos de la clase
     private String colonia;
     private String calle;
     private int numero;
 
+    /**
+     * Constructor vacío de la clase DomicilioDto.
+     */
     public DomicilioDto() {
     }
 
+    /**
+     * Constructor de la clase DomicilioDto que inicializa todos los atributos.
+     *
+     * @param colonia La colonia del domicilio.
+     * @param calle La calle del domicilio.
+     * @param numero El número del domicilio.
+     */
+    
+    /**
+     * Constructor de la clase DomicilioDto que inicializa todos los atributos.
+     *
+     * @param colonia La colonia del domicilio.
+     * @param calle La calle del domicilio.
+     * @param numero El número del domicilio.
+     */
     public DomicilioDto(String colonia, String calle, int numero) {
         this.colonia = colonia;
         this.calle = calle;
         this.numero = numero;
     }
 
+    /**
+     * Método getter para obtener la colonia del domicilio.
+     *
+     * @return La colonia del domicilio.
+     */
     public String getColonia() {
         return colonia;
     }
 
+    /**
+     * Metodo para setear la colonia
+     * @param colonia Colonia
+     */
     public void setColonia(String colonia) {
         this.colonia = colonia;
     }
 
+    /**
+     * Método getter para obtener la calle del domicilio.
+     *
+     * @return La calle del domicilio.
+     */
+    
     public String getCalle() {
         return calle;
     }
 
+    /**
+     * Método setter para establecer la colonia del domicilio.
+     *
+     * @param colonia La colonia a establecer.
+     */
     public void setCalle(String calle) {
         this.calle = calle;
     }
 
+     /**
+     * Método getter para obtener el número del domicilio.
+     *
+     * @return El número del domicilio.
+     */
+    
     public int getNumero() {
         return numero;
     }
 
+    /**
+     * Método setter para establecer la calle del domicilio.
+     *
+     * @param calle La calle a establecer.
+     */
     public void setNumero(int numero) {
         this.numero = numero;
     }
 
+    /**
+     * Método hashCode que genera un código hash para el objeto.
+     *
+     * @return El código hash generado.
+     */
     @Override
     public int hashCode() {
         int hash = 5;
@@ -59,6 +116,12 @@ public class DomicilioDto {
         return hash;
     }
 
+    /**
+     * Método equals para comparar dos instancias de DomicilioDto.
+     *
+     * @param obj El objeto a comparar.
+     * @return true si las instancias son iguales, false en caso contrario.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -80,5 +143,4 @@ public class DomicilioDto {
         return Objects.equals(this.calle, other.calle);
     }
 
-    
 }
