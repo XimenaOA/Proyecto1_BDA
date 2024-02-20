@@ -23,11 +23,11 @@ import java.util.List;
 
 /**
  *
- * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
- *
- * ControlCliente es una clase que implementa la interfaz iControl y actúa como
+ *  ControlCliente es una clase que implementa la interfaz iControl y actúa como
  * intermediario entre la capa de presentación y la capa de persistencia para
  * operaciones relacionadas con clientes, cuentas y transacciones.
+ * 
+ * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  *
  */
 public class ControlCliente implements iControl {

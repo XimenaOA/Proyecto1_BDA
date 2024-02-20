@@ -8,8 +8,10 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
- *
- * @author Ximena
+ * Clase que representa un retiro desde el dominio y 
+ * que contiene todos sus valores
+ * 
+ * @author Ximena Oliva Andade - 247563, Jesús Alberto Morales Rojas - 245335 
  */
 public class RetiroDTO {
     

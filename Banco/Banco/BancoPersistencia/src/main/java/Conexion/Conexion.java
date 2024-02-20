@@ -11,11 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * La clase Conexion implementa la interfaz IConexion y proporciona métodos
+ * para establecer una conexión a una base de datos utilizando JDBC.
  *
  * @author Jesus Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
- *
- * La clase Conexion implementa la interfaz IConexion y proporciona métodos para
- * establecer una conexión a una base de datos utilizando JDBC.
  *
  */
 public class Conexion implements IConexion {
@@ -39,18 +38,18 @@ public class Conexion implements IConexion {
         this.contraseña = contraseña;
     }
 
-    
     /**
      * Constructor vacío de la clase Conexion.
      */
     public Conexion() {
     }
 
-     /**
+    /**
      * Crea y devuelve una conexión a la base de datos.
-     * 
+     *
      * @return Una conexión a la base de datos.
-     * @throws SQLException Si ocurre un error al intentar establecer la conexión.
+     * @throws SQLException Si ocurre un error al intentar establecer la
+     * conexión.
      */
     @Override
     public Connection crearConexion() throws SQLException {

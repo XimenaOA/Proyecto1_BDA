@@ -7,7 +7,9 @@ package ClienteDto;
 import java.util.Objects;
 
 /**
- *
+ * Clase que representa una transferencia de dominio 
+ * y que contiene todos sus datos
+ * 
  * @author Ximena Oliva Andrade - 247563, Jesús Alberto Morales Rojas - 245335
  */
 public class TransferenciasDto {

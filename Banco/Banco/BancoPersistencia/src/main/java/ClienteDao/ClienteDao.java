@@ -40,7 +40,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Interfaz que contiene los métodos para controlar la información de un cliente y 
+ * sus distintos movimientos para realizar un caso de uso
+ * 
  * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  */
 public class ClienteDao implements iCliente {

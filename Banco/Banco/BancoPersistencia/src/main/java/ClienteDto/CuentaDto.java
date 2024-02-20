@@ -8,10 +8,10 @@ import Dominio.Cuentas;
 import java.util.Objects;
 
 /**
- *
+ * * Clase que representa los datos de una cuenta y tiene todos sus datos
+ * 
  * @author Ximena Oliva Andrade - 247563, Jesús Alberto Morales Rojas - 245335
  * 
- * Clase que representa los datos de una cuenta.
  */
 public class CuentaDto {
     //Atributos de la clase

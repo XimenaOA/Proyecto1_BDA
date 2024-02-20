@@ -9,11 +9,12 @@ import java.util.Objects;
 
 /**
  *
- * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
- * 
  * Representa un objeto de transferencia de datos (DTO) para la clase Cliente.
  * Contiene los atributos correspondientes a un cliente, incluyendo su nombre,
  * apellidos, fecha de nacimiento, nombre de usuario y contraseña.
+ * 
+ * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
+ * 
  */
 public class ClienteDto {
     //Atributos de la clase

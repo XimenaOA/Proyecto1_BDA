@@ -8,10 +8,11 @@ import Dominio.Domicilio;
 import java.util.Objects;
 
 /**
- *
+ * Clase que representa los datos de un domicilio y que contiene
+ * todos sus datos
+ * 
  * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  *
- * Clase que representa los datos de un domicilio.
  */
 public class DomicilioDto {
 
