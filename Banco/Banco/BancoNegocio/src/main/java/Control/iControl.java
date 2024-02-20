@@ -22,7 +22,6 @@ import java.util.List;
 /**
  *Interfaz que construye todos los métodos de la clase ControlCliente
  *
- * 
  * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  *
  */
