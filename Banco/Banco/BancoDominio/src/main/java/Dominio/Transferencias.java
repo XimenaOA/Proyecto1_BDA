@@ -7,8 +7,8 @@ package Dominio;
 import java.util.Objects;
 
 /**
- *
- * @author Ximena
+ * Clase representativa de la entidad transferencias
+ * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  */
 public class Transferencias {
     //Atributos de la clase

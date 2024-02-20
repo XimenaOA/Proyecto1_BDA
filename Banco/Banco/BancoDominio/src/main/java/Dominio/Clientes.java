@@ -2,6 +2,11 @@ package Dominio;
 
 import java.util.Objects;
 
+/**
+ * Clase representativa de la entidad Clientes
+ * 
+ * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
+ */
 public class Clientes {
 
     //Atributos de la clase

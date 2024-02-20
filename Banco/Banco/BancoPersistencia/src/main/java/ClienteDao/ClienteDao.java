@@ -40,7 +40,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Clase que contien los metodo que puede hacer el cliente
  * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  */
 public class ClienteDao implements iCliente {

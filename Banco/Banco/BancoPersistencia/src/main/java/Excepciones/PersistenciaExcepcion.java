@@ -5,10 +5,10 @@
 package Excepciones;
 
 /**
- *
- * @author Jesús Alberti Morales Rojas - 245335, Ximena Oliva Andrade - 247563
- * La clase PersistenciaExcepcion representa una excepción relacionada con operaciones de persistencia.
+ *La clase PersistenciaExcepcion representa una excepción relacionada con operaciones de persistencia.
  * Esta excepción puede ser lanzada en casos donde ocurran errores durante la persistencia de datos.
+ * 
+ * @author Jesús Alberti Morales Rojas - 245335, Ximena Oliva Andrade - 247563
  * 
  */
 public class PersistenciaExcepcion extends Exception{

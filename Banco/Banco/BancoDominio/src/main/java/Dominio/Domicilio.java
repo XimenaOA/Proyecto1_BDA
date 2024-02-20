@@ -2,6 +2,10 @@ package Dominio;
 
 import java.util.Objects;
 
+/**
+ * Clase representativa de la entidad Domicilios
+ * @author Jesús Alberto Morales Rojas - 245335, Ximena Oliva Andrade - 247563
+ */
 public class Domicilio {
     //Atributos de la clase
     private int idDomicilio;
